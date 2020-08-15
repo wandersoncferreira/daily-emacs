@@ -1,0 +1,14 @@
+*~
+*\#*\#
+*.\#*
+*.elc
+elpa*
+TAGS
+.dir-locals?.el
+recentf
+transient/
+projectile.cache
+projectile-bookmarks.eld
+ido.last
+custom.el
+eshell/

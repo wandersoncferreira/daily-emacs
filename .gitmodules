@@ -1,0 +1,42 @@
+[submodule "external/projectile"]
+	path = external/projectile
+	url = https://github.com/bbatsov/projectile
+[submodule "external/paredit"]
+	path = external/paredit
+	url = https://github.com/emacsmirror/paredit
+[submodule "external/a.el"]
+	path = external/a.el
+	url = https://github.com/plexus/a.el
+[submodule "external/parseedn"]
+	path = external/parseedn
+	url = https://github.com/clojure-emacs/parseedn
+[submodule "external/sesman"]
+	path = external/sesman
+	url = https://github.com/vspinu/sesman
+[submodule "external/queue"]
+	path = external/queue
+	url = https://github.com/emacsmirror/queue
+[submodule "external/parseclj"]
+	path = external/parseclj
+	url = https://github.com/clojure-emacs/parseclj
+[submodule "external/cider"]
+	path = external/cider
+	url = https://github.com/clojure-emacs/cider
+[submodule "external/spinner.el"]
+	path = external/spinner.el
+	url = http://github.com/Malabarba/spinner.el
+[submodule "external/change-inner.el"]
+	path = external/change-inner.el
+	url = https://github.com/magnars/change-inner.el
+[submodule "external/magit"]
+	path = external/magit
+	url = https://github.com/magit/magit
+[submodule "external/dash.el"]
+	path = external/dash.el
+	url = https://github.com/magnars/dash.el
+[submodule "external/with-editor"]
+	path = external/with-editor
+	url = https://github.com/magit/with-editor
+[submodule "external/transient"]
+	path = external/transient
+	url = https://github.com/magit/transient
