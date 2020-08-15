@@ -40,3 +40,15 @@
 [submodule "external/transient"]
 	path = external/transient
 	url = https://github.com/magit/transient
+[submodule "external/ledger-mode"]
+	path = external/ledger-mode
+	url = https://github.com/ledger/ledger-mode
+[submodule "external/smex"]
+	path = external/smex
+	url = https://github.com/nonsequitur/smex
+[submodule "external/diminish"]
+	path = external/diminish
+	url = https://github.com/emacsmirror/diminish
+[submodule "external/flycheck"]
+	path = external/flycheck
+	url = https://github.com/flycheck/flycheck

@@ -45,7 +45,8 @@
 
 ;;; customizations
 ;; basics
-(setq tab-always-indent 'complete)
+(setq tab-always-indent 'complete
+      vc-follow-symlinks t)
 
 ;;; change font
 (defun bk/set-monaco-font ()
@@ -78,18 +79,29 @@
 
 ;;; redefine key
 (defun bk/eval-buffer ()
+  "Provide some feedback."
   (interactive)
   (eval-buffer)
   (message "Buffer evaluated!"))
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
 
+;; * diminish
+;; - https://github.com/emacsmirror/diminish
+;; - History
+;;   -  2020-08-15 Create
+(when (bk-load-path-add "diminish")
+  (bk-auto-loads "diminish" #'diminish))
+
 ;; * Paredit
 ;; - History
 ;;   - 2020-08-14 Create
 (when (bk-load-path-add "paredit")
   (bk-auto-loads "paredit" #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+  (add-hook 'emacs-lisp-mode-hook
+	    (lambda ()
+	      (paredit-mode)
+	      (diminish 'paredit-mode))))
 
 ;; * Ido
 ;; - History
@@ -120,6 +132,7 @@
     (setq projectile-completion-system 'ido
 	  projectile-enable-caching t
 	  projectile-indexing-method 'hybrid
+	  projectile-mode-line-prefix " Prj"
 	  projectile-sort-order 'access-time)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
@@ -134,12 +147,12 @@
 
 ;;; improve scroll functions
 (defun bk/scroll-up ()
-  "Scroll only specific amount of lines. I don't like the defaults of whole screen."
+  "Scroll only specific amount of lines."
   (interactive)
   (scroll-up-command 8))
 
 (defun bk/scroll-down ()
-  "Scroll only specific amount of lines. I don't like the defaults of whole screen."
+  "Scroll only specific amount of lines."
   (interactive)
   (scroll-down-command 8))
 
@@ -152,6 +165,30 @@
 ;;; open eshell more easily
 (global-set-key (kbd "C-c e") 'eshell)
 
+;;; eshell clear buffer key binding
+(defun eshell-clear-buffer ()
+  "Clear the terminal buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
+(add-hook 'eshell-mode-hook
+      (lambda ()
+        (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
+
+;;; eshell aliases
+(add-hook 'eshell-mode-hook
+      (lambda ()
+        (eshell/alias "e" "find-file $1")
+        (eshell/alias "ee" "find-file-other-window $1")))
+
+;;; define default shell
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+
 ;;; open dired in the current file
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
@@ -163,7 +200,84 @@
   (bk-auto-loads "magit" #'magit-status)
   (global-set-key (kbd "C-c g s") #'magit-status))
 
+;; * Ledger mode
+;; - https://github.com/ledger/ledger-mode
+;; - History
+;;   -  2020-08-15 Create
+(defun bk/clean-ledger ()
+  "Bring back timeline structure to the whole file."
+  (interactive)
+  (if (eq major-mode 'ledger-mode)
+      (let ((curr-line (line-number-at-pos)))
+        (ledger-mode-clean-buffer)
+        (line-move (- curr-line 1)))))
+
+(defun bk-setup-feature-ledger ()
+  "Customizations for ledger."
+  (setq ledger-reports
+	'(("netcash" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^assets:bank liabilities:card")
+          ("networth" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank liabilities equity:apartment")
+          ("spent-vs-earned" "ledger [[ledger-mode-flags]] -f /home/wand/.ledger bal -X BRL --period=\"last 4 weeks\" ^Expenses ^Income --invert -S amount")
+          ("budget" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank:checking:budget liabilities:card")
+          ("bal" "%(binary) -f %(ledger-file) bal")
+          ("reg" "%(binary) -f %(ledger-file) reg")
+          ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+          ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+
+(when (bk-load-path-add "ledger-mode")
+  (bk-auto-loads "ledger-mode"
+		 '("\\ledger$" . ledger-mode)
+		 '("\\.ledger$" . ledger-mode))
+  (set-register ?l '(file . "~/.ledger"))
+  (with-eval-after-load 'ledger
+    (bk-setup-feature-ledger)))
+
+;; * smex
+;; - https://github.com/nonsequitur/smex
+;; - History
+;;   -  2020-08-15 Create
+(when (bk-load-path-add "smex")
+  (bk-auto-loads "smex" #'smex)
+  (global-set-key (kbd "M-x") #'smex)
+  (global-set-key (kbd "C-x C-m") 'smex)
+
+  (with-eval-after-load 'smex
+    (smex-initialize)))
+
+;;; when two buffers have the same name, we need a way to distinguish them
+(setq uniquify-buffer-name-style 'post-forward)
+
+
+;;; delete selected text with a key..
+(add-hook 'after-init-hook 'delete-selection-mode)
+
+;;; auto revert buffers if the file underneath it gets modified
+(add-hook 'after-init-hook 'global-auto-revert-mode)
+
+;; * flycheck
+;; - https://github.com/flycheck/flycheck
+;; - History
+;;   -  2020-08-15 Create
+(defun bk-setup-feature-flycheck ()
+  "Customizations for flycheck."
+  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-buffer-switch)
+	flycheck-display-errors-delay 0.25))
+
+(when (bk-load-path-add "flycheck")
+  (bk-auto-loads "flycheck" #'flycheck-mode)
+  (add-hook 'prog-mode-hook #'flycheck-mode)
+  (with-eval-after-load 'flycheck
+    (bk-setup-feature-flycheck)))
+
+
 
 
 ;;; End of file
 (f-msg "Loaded init.el!")
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+
+(provide init.el)
+;;; init.el ends here
