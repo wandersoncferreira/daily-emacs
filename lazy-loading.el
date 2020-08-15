@@ -1,5 +1,5 @@
 (defun bk-load-path-add (subdirectory)
-  "If DIRECTORY with SUBDIRECTORY exist add it to `load-path'.
+  "If SUBDIRECTORY exist add it to `load-path'.
 Return non-nil if successful. Used for external packages."
   (let* ((path (concat (file-name-as-directory
 				   (expand-file-name bk-external-packages-dir))
