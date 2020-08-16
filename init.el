@@ -7,10 +7,10 @@
 ;;; Code:
 
 ;;; timing
-;; (let ((t0 (float-time)))
-;;   (defun f-msg (msg)
-;;     "MSG with time since start."
-;;     (message "%s. Time elapsed: %.3fs" msg (- (float-time) t0))))
+(let ((t0 (float-time)))
+  (defun f-msg (msg)
+    "MSG with time since start."
+    (message "%s. Time elapsed: %.3fs" msg (- (float-time) t0))))
 
 ;;; quick startup
 (setq gc-cons-threshold most-positive-fixnum
@@ -431,8 +431,14 @@
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 
 
-;;; End of file
-;; (f-msg "Loaded init.el!")
+;;; allow ad-handle-redefinition
+;;; got from here https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
+;;; I dont like that warning telling me that ad-handle-definition was changed.. that's ok.
+(setq ad-redefinition-action 'accept)
+
+
+;; End of file
+(f-msg "Loaded init.el!")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
