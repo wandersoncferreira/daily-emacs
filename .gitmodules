@@ -76,3 +76,6 @@
 [submodule "external/emacs-web-server"]
 	path = external/emacs-web-server
 	url = https://github.com/skeeto/emacs-web-server
+[submodule "external/company-mode"]
+	path = external/company-mode
+	url = https://github.com/company-mode/company-mode

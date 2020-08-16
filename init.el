@@ -340,6 +340,30 @@
       org-roam-server-webserver-supported-extensions '("pdf" "mp4" "ogv" "mkv"))
     (org-roam-server-mode +1)))
 
+;; * company-mode
+;; - https://github.com/company-mode/company-mode
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "company-mode")
+  (bk-auto-loads "company" #'global-company-mode)
+  (add-hook 'after-init-hook #'global-company-mode)
+  (with-eval-after-load 'company
+    (setq company-show-numbers t
+	  company-idle-delay 0.25
+	  company-minimum-prefix-length 2
+	  company-tooltip-limit 14
+	  company-tooltip-align-annotations t
+	  company-require-match 'never
+	  company-frontends '(company-pseudo-tooltip-frontend
+                              company-echo-metadata-frontend)
+	  company-backends '(company-capf)
+	  company-auto-complete-chars nil
+	  company-dabbrev-other-buffers nil
+	  company-dabbrev-ignore-case nil
+	  company-dabbrev-downcase nil)
+    (diminish 'company-mode)))
+
+
 ;;; End of file
 (f-msg "Loaded init.el!")
 
