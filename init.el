@@ -48,6 +48,15 @@
 (setq tab-always-indent 'complete
       vc-follow-symlinks t)
 
+;;; change column automatic wrap
+(setq-local fill-column 70)
+
+;;; activate highlight parenthesis
+(add-hook 'after-init-hook 'show-paren-mode)
+
+;;; open this file easily
+(set-register ?e '(file . "~/.emacs.d/init.el"))
+
 ;;; change font
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
@@ -96,11 +105,18 @@
 ;; * Paredit
 ;; - History
 ;;   - 2020-08-14 Create
+(defun bk-setup-feature-paredit ()
+  "Customizations for paredit."
+  (define-key paredit-mode-map (kbd "M-s") nil)
+  (define-key paredit-mode-map (kbd "M-r") nil)
+  (define-key paredit-mode-map (kbd "M-?") nil))
+
 (when (bk-load-path-add "paredit")
   (bk-auto-loads "paredit" #'paredit-mode)
   (add-hook 'emacs-lisp-mode-hook
 	    (lambda ()
 	      (paredit-mode)
+	      (bk-setup-feature-paredit)
 	      (diminish 'paredit-mode))))
 
 ;; * Ido
@@ -269,8 +285,60 @@
   (with-eval-after-load 'flycheck
     (bk-setup-feature-flycheck)))
 
+;; * org
+;; - History
+;;   -  2020-08-16 Create
+(defun bk-setup-feature-org ()
+  "Customizations for org mode."
+  (setq org-return-follows-link t)
+  (require 'ob-plantuml))
+(with-eval-after-load 'org
+  (bk-setup-feature-org))
 
+;; * plantuml
+;; - https://github.com/skuro/plantuml-mode
+;; - History
+;;   -  2020-08-16 Create
+(defvar bk-plantuml-path "~/plantuml.jar")
+(when (bk-load-path-add "plantuml-mode")
+  (bk-auto-loads "plantuml-mode" '("\\.plantuml$" . plantuml-mode))
+  (with-eval-after-load 'plantuml
+    (setq org-plantuml-jar-path bk-plantuml-path)))
 
+;; * org-roam
+;; - https://github.com/org-roam/org-roam
+;; - History
+;;   -  2020-08-16 Create
+(defvar bk-org-roam-directory "~/all/permanent")
+(when (bk-load-path-add "org-roam")
+  (bk-auto-loads "org-roam"
+		 #'org-roam-capture
+		 #'org-roam-dailies-today
+		 #'org-roam-find-file
+		 #'org-roam-insert
+		 #'org-roam)
+  (global-set-key (kbd "C-c n c") #'org-roam-capture)
+  (global-set-key (kbd "C-c n t") #'org-roam-dailies-today)
+  (global-set-key (kbd "C-c n f")  #'org-roam-find-file)
+  (global-set-key (kbd "C-c n i") #'org-roam-insert)
+  (global-set-key (kbd "C-c n r") #'org-roam)
+  (with-eval-after-load 'org-roam
+    (setq org-roam-directory bk-org-roam-directory)
+    (setq org-roam-completion-system 'ido)
+    (org-roam-mode +1)))
+
+;; * org-roam-server
+;; - https://github.com/org-roam/org-roam-server
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "org-roam-server")
+  (bk-auto-loads "org-roam-server" #'org-roam-server-mode)
+  (with-eval-after-load 'org-roam
+    (setq org-roam-server-enable-access-to-local-files t
+      org-roam-server-webserver-prefix "/home/wand"
+      org-roam-server-webserver-address "127.0.0.1:8887/"
+      org-roam-server-webserver-supported-extensions '("pdf" "mp4" "ogv" "mkv"))
+    (org-roam-server-mode +1)))
 
 ;;; End of file
 (f-msg "Loaded init.el!")
@@ -279,5 +347,5 @@
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 
-(provide init.el)
+(provide 'init.el)
 ;;; init.el ends here

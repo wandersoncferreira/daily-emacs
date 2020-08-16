@@ -52,3 +52,27 @@
 [submodule "external/flycheck"]
 	path = external/flycheck
 	url = https://github.com/flycheck/flycheck
+[submodule "external/plantuml-mode"]
+	path = external/plantuml-mode
+	url = https://github.com/skuro/plantuml-mode
+[submodule "external/org-roam"]
+	path = external/org-roam
+	url = https://github.com/org-roam/org-roam
+[submodule "external/f.el"]
+	path = external/f.el
+	url = https://github.com/rejeep/f.el
+[submodule "external/s.el"]
+	path = external/s.el
+	url = https://github.com/magnars/s.el
+[submodule "external/emacsql"]
+	path = external/emacsql
+	url = https://github.com/skeeto/emacsql
+[submodule "external/emacsql-sqlite3"]
+	path = external/emacsql-sqlite3
+	url = https://github.com/cireu/emacsql-sqlite3
+[submodule "external/org-roam-server"]
+	path = external/org-roam-server
+	url = https://github.com/org-roam/org-roam-server
+[submodule "external/emacs-web-server"]
+	path = external/emacs-web-server
+	url = https://github.com/skeeto/emacs-web-server
