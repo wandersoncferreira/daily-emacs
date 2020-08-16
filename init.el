@@ -124,19 +124,21 @@
 ;; * Paredit
 ;; - History
 ;;   - 2020-08-14 Create
+;;   - 2020-08-16 Add clojure(script) modes
 (defun bk-setup-feature-paredit ()
   "Customizations for paredit."
+  (paredit-mode)
   (define-key paredit-mode-map (kbd "M-s") nil)
   (define-key paredit-mode-map (kbd "M-r") nil)
-  (define-key paredit-mode-map (kbd "M-?") nil))
+  (define-key paredit-mode-map (kbd "M-?") nil)
+  (diminish 'paredit-mode))
 
 (when (bk-load-path-add "paredit")
   (bk-auto-loads "paredit" #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook
-	    (lambda ()
-	      (paredit-mode)
-	      (bk-setup-feature-paredit)
-	      (diminish 'paredit-mode))))
+  (add-hook 'emacs-lisp-mode-hook #'bk-setup-feature-paredit)
+  (add-hook 'clojure-mode-hook #'bk-setup-feature-paredit)
+  (add-hook 'clojurescript-mode-hook #'bk-setup-feature-paredit)
+  (add-hook 'cider-repl-mode-hook #'bk-setup-feature-paredit))
 
 ;; * Ido
 ;; - History
@@ -436,6 +438,16 @@
 ;;; I dont like that warning telling me that ad-handle-definition was changed.. that's ok.
 (setq ad-redefinition-action 'accept)
 
+;;; supress the warning about cl package
+;;; right now, the following files are not updated with the new cl-lib:
+;;; - sesman-test.el
+;;; - change-inner.el
+;;; - ert.el
+;;; - dash.el
+;;; - flycheck-test.el
+;;; - queue.el
+;;; - multiple-cursors-steps.el
+(setq byte-compile-warnings '(cl-functions))
 
 ;; End of file
 (f-msg "Loaded init.el!")
