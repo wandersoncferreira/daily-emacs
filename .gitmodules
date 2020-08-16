@@ -79,3 +79,12 @@
 [submodule "external/company-mode"]
 	path = external/company-mode
 	url = https://github.com/company-mode/company-mode
+[submodule "external/company-org-roam"]
+	path = external/company-org-roam
+	url = https://github.com/org-roam/company-org-roam
+[submodule "external/switch-window"]
+	path = external/switch-window
+	url = https://github.com/dimitri/switch-window
+[submodule "external/multiple-cursors.el"]
+	path = external/multiple-cursors.el
+	url = https://github.com/magnars/multiple-cursors.el

@@ -63,7 +63,7 @@
   (when (member "Monaco" (font-family-list))
     (set-face-attribute 'default nil :font "Monaco" :height 110)))
 
-(bk/set-monaco-font)
+(add-hook 'after-init-hook #'bk/set-monaco-font)
 
 ;;; change themes
 (defun bk/light-theme ()
@@ -74,7 +74,7 @@
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
 
-(bk/light-theme)
+(add-hook 'after-init-hook #'bk/light-theme)
 
 ;;; supress unecessary things
 (put 'inhibit-startup-echo-area-message 'saved-value t)
@@ -82,9 +82,12 @@
       inhibit-startup-screen t
       inhibit-startup-echo-area-message (user-login-name))
 
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(add-hook
+ 'after-init-hook
+ (lambda ()
+   (menu-bar-mode -1)
+   (tool-bar-mode -1)
+   (scroll-bar-mode -1)))
 
 ;;; redefine key
 (defun bk/eval-buffer ()
@@ -122,9 +125,10 @@
 ;; * Ido
 ;; - History
 ;;   -  2020-08-14 Create
-(setq ido-use-virtual-buffers t
-      ido-enable-flex-matching t)
-(ido-mode +1)
+(add-hook 'after-init-hook #'ido-mode)
+(with-eval-after-load 'ido
+  (setq ido-use-virtual-buffers t
+      ido-enable-flex-matching t))
 
 ;; * Clojure mode
 ;; - History
@@ -212,9 +216,19 @@
 ;; - https://github.com/magit/magit
 ;; - History
 ;;   -  2020-08-15 Create
+(defun bk/magit-cursor-fix ()
+  "Fix the cursor position inside magit buffers."
+  (goto-char (point-min))
+  (when (looking-at "#")
+    (forward-line 2)))
+
 (when (bk-load-path-add "magit/lisp")
   (bk-auto-loads "magit" #'magit-status)
-  (global-set-key (kbd "C-c g s") #'magit-status))
+  (global-set-key (kbd "C-c g s") #'magit-status)
+  (with-eval-after-load 'magit
+    (set-default 'magit-revert-buffers 'silent)
+    (set-default 'magit-no-confirm '(stage-all-changes
+				     unstage-all-changes))))
 
 ;; * Ledger mode
 ;; - https://github.com/ledger/ledger-mode
@@ -256,7 +270,6 @@
   (bk-auto-loads "smex" #'smex)
   (global-set-key (kbd "M-x") #'smex)
   (global-set-key (kbd "C-x C-m") 'smex)
-
   (with-eval-after-load 'smex
     (smex-initialize)))
 
@@ -292,6 +305,7 @@
   "Customizations for org mode."
   (setq org-return-follows-link t)
   (require 'ob-plantuml))
+
 (with-eval-after-load 'org
   (bk-setup-feature-org))
 
@@ -362,6 +376,35 @@
 	  company-dabbrev-ignore-case nil
 	  company-dabbrev-downcase nil)
     (diminish 'company-mode)))
+
+;; * company-org-roam
+;; - https://github.com/org-roam/company-org-roam
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "company-org-roam")
+  (bk-auto-loads "company-org-roam" #'company-org-roam)
+  (with-eval-after-load 'org-roam
+    (push 'company-org-roam company-backends)))
+
+;; * switch-window
+;; - https://github.com/dimitri/switch-window
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "switch-window")
+  (bk-auto-loads "switch-window" #'switch-window)
+  (global-set-key (kbd "C-x o") 'switch-window)
+  (with-eval-after-load 'switch-window
+    (setq-default switch-window-shortcut-style 'alphabet
+                  switch-window-timeout nil)))
+
+;; * multiple-cursors.el
+;; - https://github.com/magnars/multiple-cursors.el
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "multiple-cursors.el")
+  (bk-auto-loads "multiple-cursors" #'mc/mark-next-like-this #'mc/mark-previous-like-this)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 
 
 ;;; End of file
