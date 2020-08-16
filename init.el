@@ -7,10 +7,10 @@
 ;;; Code:
 
 ;;; timing
-(let ((t0 (float-time)))
-  (defun f-msg (msg)
-    "MSG with time since start."
-    (message "%s. Time elapsed: %.3fs" msg (- (float-time) t0))))
+;; (let ((t0 (float-time)))
+;;   (defun f-msg (msg)
+;;     "MSG with time since start."
+;;     (message "%s. Time elapsed: %.3fs" msg (- (float-time) t0))))
 
 ;;; quick startup
 (setq gc-cons-threshold most-positive-fixnum
@@ -98,6 +98,22 @@
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
 
+;; * exec-path-from-shell
+;; - https://github.com/purcell/exec-path-from-shell
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "exec-path-from-shell")
+  (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
+  (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
+
+;; * expand-region.el
+;; - https://github.com/magnars/expand-region.el
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "expand-region.el")
+  (bk-auto-loads "expand-region" #'er/expand-region)
+  (global-set-key (kbd "C-'") #'er/expand-region))
+
 ;; * diminish
 ;; - https://github.com/emacsmirror/diminish
 ;; - History
@@ -134,13 +150,21 @@
 ;; - History
 ;;   -  2020-08-14 Create
 (when (bk-load-path-add "clojure-mode")
-  (bk-auto-loads "clojure-mode" '("\\.clj$" . clojure-mode)))
+  (bk-auto-loads "clojure-mode"
+		 '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
+                 '("\\.cljc\\'" . clojurec-mode)
+                 '("\\.cljx\\'" . clojurex-mode)
+                 '("\\.cljs\\'" . clojurescript-mode)
+                 '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
 
 ;; * CIDER mode
 ;; - History
 ;;   -  2020-08-14 Create
 (when (bk-load-path-add "cider")
-  (bk-auto-loads "cider" #'cider-jack-in #'cider-connect))
+  (bk-auto-loads "cider"
+		 #'cider-jack-in
+		 #'cider-connect
+		 #'cider-jack-in-clj&cljs))
 
 ;; * PROJECTILE mode
 ;; - History
@@ -408,7 +432,7 @@
 
 
 ;;; End of file
-(f-msg "Loaded init.el!")
+;; (f-msg "Loaded init.el!")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
