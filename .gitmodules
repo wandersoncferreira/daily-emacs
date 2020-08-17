@@ -100,3 +100,6 @@
 [submodule "external/jump-char"]
 	path = external/jump-char
 	url = https://github.com/lewang/jump-char
+[submodule "external/fix-word"]
+	path = external/fix-word
+	url = https://github.com/mrkkrp/fix-word

@@ -305,7 +305,6 @@
 ;;; when two buffers have the same name, we need a way to distinguish them
 (setq uniquify-buffer-name-style 'post-forward)
 
-
 ;;; delete selected text with a key..
 (add-hook 'after-init-hook 'delete-selection-mode)
 
@@ -333,6 +332,7 @@
 (defun bk-setup-feature-org ()
   "Customizations for org mode."
   (setq org-return-follows-link t)
+  (setq org-use-speed-commands t)
   (require 'ob-plantuml))
 
 (with-eval-after-load 'org
@@ -502,6 +502,16 @@
   (kill-buffer (current-buffer)))
 
 (global-set-key (kbd "C-x k") 'bk/kill-buffer)
+
+;; * fix-word
+;; - https://github.com/mrkkrp/fix-word
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "fix-word")
+  (bk-auto-loads "fix-word" #'fix-word-upcase #'fix-word-downcase #'fix-word-capitalize)
+  (global-set-key (kbd "M-u") #'fix-word-upcase)
+  (global-set-key (kbd "M-l") #'fix-word-downcase)
+  (global-set-key (kbd "M-c") #'fix-word-capitalize))
 
 ;; End of file
 (f-msg "Loaded init.el!")
