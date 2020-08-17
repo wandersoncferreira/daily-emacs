@@ -97,3 +97,6 @@
 [submodule "external/expand-region.el"]
 	path = external/expand-region.el
 	url = https://github.com/magnars/expand-region.el
+[submodule "external/jump-char"]
+	path = external/jump-char
+	url = https://github.com/lewang/jump-char

@@ -48,6 +48,9 @@
 (setq tab-always-indent 'complete
       vc-follow-symlinks t)
 
+;;; abbreviate yes-or-no questions
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ;;; change column automatic wrap
 (setq-local fill-column 70)
 
@@ -384,6 +387,7 @@
 ;; - https://github.com/company-mode/company-mode
 ;; - History
 ;;   -  2020-08-16 Create
+;;   -  2020-08-17 Remap C-M-S and C-s to filter list of results
 (when (bk-load-path-add "company-mode")
   (bk-auto-loads "company" #'global-company-mode)
   (add-hook 'after-init-hook #'global-company-mode)
@@ -401,6 +405,8 @@
 	  company-dabbrev-other-buffers nil
 	  company-dabbrev-ignore-case nil
 	  company-dabbrev-downcase nil)
+    (define-key company-active-map [(control) (meta) ?s] 'company-search-candidates)
+    (define-key company-active-map "\C-s" 'company-filter-candidates)
     (diminish 'company-mode)))
 
 ;; * company-org-roam
@@ -411,6 +417,16 @@
   (bk-auto-loads "company-org-roam" #'company-org-roam)
   (with-eval-after-load 'org-roam
     (push 'company-org-roam company-backends)))
+
+;; * jump-char
+;; - https://github.com/lewang/jump-char
+;; - History
+;;   -  2020-08-16 Create
+(when (bk-load-path-add "jump-char")
+  (bk-auto-loads "jump-char" #'jump-char-forward #'jump-char-backward)
+  (global-set-key (kbd "M-n") 'jump-char-forward)
+  (global-set-key (kbd "M-p") 'jump-char-backward))
+
 
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
@@ -448,6 +464,44 @@
 ;;; - queue.el
 ;;; - multiple-cursors-steps.el
 (setq byte-compile-warnings '(cl-functions))
+
+;;; edit using sudo
+(defun bk/sudo-edit (&optional arg)
+  "Function to edit file with super-user with optional ARG."
+  (interactive "P")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:" (read-file-name "File: ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+;;; cheatsheet
+(set-register ?k '(file . "~/private/cheatsheet.org"))
+
+;;; set a register at a specific point
+(defun bk/point-to-register ()
+  "Store cursor position in a register."
+  (interactive)
+  (point-to-register 8)
+  (message "Point set"))
+
+(global-set-key (kbd "C-c r p") 'bk/point-to-register)
+
+;;; jump to register
+(defun bk/jump-to-register ()
+  "Switch between current position and pos stored."
+  (interactive)
+  (let ((tmp (point-marker)))
+    (jump-to-register 8)
+    (set-register 8 tmp)))
+
+(global-set-key (kbd "C-c r j") 'bk/jump-to-register)
+
+;;; kill current buffer
+(defun bk/kill-buffer ()
+  "Kill current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(global-set-key (kbd "C-x k") 'bk/kill-buffer)
 
 ;; End of file
 (f-msg "Loaded init.el!")
