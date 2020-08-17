@@ -12,7 +12,7 @@ git clone --recurse-submodules https://github.com/wandersoncferreira/daily-emacs
 ```
 
 
-# LICENSE
+## LICENSE
 ```txt
 
             DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
