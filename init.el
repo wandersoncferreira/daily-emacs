@@ -427,7 +427,10 @@
 ;;   -  2020-08-17 Create
 (when (bk-load-path-add "company-box")
   (bk-auto-loads "company-box" #'company-box-mode)
-  (add-hook 'company-mode-hook 'company-box-mode))
+  (add-hook 'company-mode-hook
+	    (lambda ()
+	      (company-box-mode +1)
+	      (diminish 'company-box-mode))))
 
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
