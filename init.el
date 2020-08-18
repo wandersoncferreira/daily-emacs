@@ -145,10 +145,21 @@
 ;; * Ido
 ;; - History
 ;;   -  2020-08-14 Create
+;;   -  2020-08-18 Enable ido-everywhere
 (add-hook 'after-init-hook #'ido-mode)
 (with-eval-after-load 'ido
   (setq ido-use-virtual-buffers t
-      ido-enable-flex-matching t))
+	ido-enable-flex-matching t)
+  (ido-everywhere +1))
+
+;; * Ido completing-read-plus
+;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "ido-completing-read-plus")
+  (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
+  (with-eval-after-load 'ido
+    (ido-ubiquitous-mode +1)))
 
 ;; * Clojure mode
 ;; - History
@@ -274,6 +285,7 @@
 ;; - https://github.com/ledger/ledger-mode
 ;; - History
 ;;   -  2020-08-15 Create
+;;   -  2020-08-18 Fix eval-after-load to ledger-modex
 (defun bk/clean-ledger ()
   "Bring back timeline structure to the whole file."
   (interactive)
@@ -289,6 +301,7 @@
           ("networth" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank liabilities equity:apartment")
           ("spent-vs-earned" "ledger [[ledger-mode-flags]] -f /home/wand/.ledger bal -X BRL --period=\"last 4 weeks\" ^Expenses ^Income --invert -S amount")
           ("budget" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank:checking:budget liabilities:card")
+	  ("taxes" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^expenses:taxes")
           ("bal" "%(binary) -f %(ledger-file) bal")
           ("reg" "%(binary) -f %(ledger-file) reg")
           ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
@@ -299,7 +312,7 @@
 		 '("\\ledger$" . ledger-mode)
 		 '("\\.ledger$" . ledger-mode))
   (set-register ?l '(file . "~/.ledger"))
-  (with-eval-after-load 'ledger
+  (with-eval-after-load 'ledger-mode
     (bk-setup-feature-ledger)))
 
 ;; * smex

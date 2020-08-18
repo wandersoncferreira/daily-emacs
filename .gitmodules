@@ -118,3 +118,6 @@
 [submodule "external/company-box"]
 	path = external/company-box
 	url = https://github.com/sebastiencs/company-box
+[submodule "external/ido-completing-read-plus"]
+	path = external/ido-completing-read-plus
+	url = https://github.com/DarwinAwardWinner/ido-completing-read-plus
