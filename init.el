@@ -421,6 +421,14 @@
     (define-key company-active-map "\C-s" 'company-filter-candidates)
     (diminish 'company-mode)))
 
+;; * company-box
+;; - https://github.com/sebastiencs/company-box
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "company-box")
+  (bk-auto-loads "company-box" #'company-box-mode)
+  (add-hook 'company-mode-hook 'company-box-mode))
+
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
 ;; - History
@@ -570,6 +578,9 @@
 
 (global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
+
+;;; adding line numbers to programming buffers
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; End of file
 (f-msg "Loaded init.el!")

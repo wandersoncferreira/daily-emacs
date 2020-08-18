@@ -115,3 +115,6 @@
 [submodule "external/toggle-test"]
 	path = external/toggle-test
 	url = https://github.com/rags/toggle-test
+[submodule "external/company-box"]
+	path = external/company-box
+	url = https://github.com/sebastiencs/company-box
