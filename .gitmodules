@@ -103,3 +103,15 @@
 [submodule "external/fix-word"]
 	path = external/fix-word
 	url = https://github.com/mrkkrp/fix-word
+[submodule "external/markdown-mode"]
+	path = external/markdown-mode
+	url = https://github.com/jrblevin/markdown-mode
+[submodule "external/windresize"]
+	path = external/windresize
+	url = https://github.com/emacsmirror/windresize
+[submodule "external/emacs-sql-indent"]
+	path = external/emacs-sql-indent
+	url = https://github.com/alex-hhh/emacs-sql-indent
+[submodule "external/toggle-test"]
+	path = external/toggle-test
+	url = https://github.com/rags/toggle-test

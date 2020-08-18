@@ -39,9 +39,8 @@
 (load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
 ;;; write customizations in the custom.el file
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
 
 ;;; customizations
 ;; basics
@@ -161,6 +160,18 @@
                  '("\\.cljx\\'" . clojurex-mode)
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
+
+;; * Markdown mode
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "markdown-mode")
+  (bk-auto-loads "markdown-mode"
+		 '("\\.md\\'" . markdown-mode)
+		 '("\\.markdown\\'" . markdown-mode)
+                 '("README\\.md" . gfm-mode))
+  (with-eval-after-load 'markdown-mode
+    (setq markdown-command "pandoc")))
+
 
 ;; * CIDER mode
 ;; - History
@@ -342,10 +353,11 @@
 ;; - https://github.com/skuro/plantuml-mode
 ;; - History
 ;;   -  2020-08-16 Create
+;;   -  2020-08-17 Change after-load to enable usage in org-mode
 (defvar bk-plantuml-path "~/plantuml.jar")
 (when (bk-load-path-add "plantuml-mode")
   (bk-auto-loads "plantuml-mode" '("\\.plantuml$" . plantuml-mode))
-  (with-eval-after-load 'plantuml
+  (with-eval-after-load 'org
     (setq org-plantuml-jar-path bk-plantuml-path)))
 
 ;; * org-roam
@@ -512,6 +524,52 @@
   (global-set-key (kbd "M-u") #'fix-word-upcase)
   (global-set-key (kbd "M-l") #'fix-word-downcase)
   (global-set-key (kbd "M-c") #'fix-word-capitalize))
+
+;;; winner mode is a global minor mode that records
+;;; the changes in the window configuration
+(add-hook 'after-init-hook #'winner-mode)
+(global-set-key (kbd "C-x 4 u") 'winner-undo)
+(global-set-key (kbd "C-x 4 U") 'winner-redo)
+
+;; * windresize
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "windresize")
+  (bk-auto-loads "windresize" #'windresize))
+
+;; * SQL indent mode
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "emacs-sql-indent")
+  (bk-auto-loads "sql-indent" #'sqlind-minor-mode)
+  (add-hook 'sql-mode-hook 'sqlind-minor-mode))
+
+;; * toggle-test
+;; - History
+;;   -  2020-08-17 Create
+(when (bk-load-path-add "toggle-test")
+  (bk-auto-loads "toggle-test" #'tgt-toggle)
+  (with-eval-after-load 'prog-mode
+    (setq tgt-open-in-new-window nil)
+    (put 'tgt-projects 'safe-local-variable #'listp)))
+
+;;; improve split windows
+(defun bk/vsplit-last-buffer ()
+  "Split the window vertically and display the previous buffer."
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil)
+  (switch-to-next-buffer))
+
+(defun bk/hsplit-last-buffer ()
+  "Split the window horizontally and display the previous buffer."
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1 nil)
+  (switch-to-next-buffer))
+
+(global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
+(global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
 
 ;; End of file
 (f-msg "Loaded init.el!")
