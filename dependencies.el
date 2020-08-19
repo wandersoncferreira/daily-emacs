@@ -92,6 +92,24 @@
 ;;     - 2020-08-18 Create
 (bk-load-path-add "posframe")
 
+;; * jump.el (library)
+;;   - https://github.com/eschulte/jump.el
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "jump.el")
+
+;; * pkg-info (library)
+;;   - https://github.com/emacsorphanage/pkg-info
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "pkg-info")
+
+;; * epl (library)
+;;   - https://github.com/cask/epl
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "epl")
+
 (provide 'dependencies)
 ;;; dependencies.el ends here
 

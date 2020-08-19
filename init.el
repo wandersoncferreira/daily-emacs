@@ -176,7 +176,6 @@
   (with-eval-after-load 'clojure-mode
     (require 'flycheck-clj-kondo)))
 
-
 ;; * Markdown mode
 ;; - History
 ;;   -  2020-08-17 Create
@@ -187,7 +186,6 @@
                  '("README\\.md" . gfm-mode))
   (with-eval-after-load 'markdown-mode
     (setq markdown-command "pandoc")))
-
 
 ;; * CIDER mode
 ;; - History
@@ -211,10 +209,17 @@
 ;; - History
 ;;   -  2020-08-18 Create
 (when (bk-load-path-add "clj-refactor.el")
-  (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode #'cljr-add-keybindings-with-prefix)
+  (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode)
   (with-eval-after-load 'clojure-mode
     (clj-refactor-mode t)
     (cljr-add-keybindings-with-prefix "C-c C-m")))
+
+;; * hydra
+;; - https://github.com/abo-abo/hydra
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "hydra")
+  (bk-auto-loads "hydra" #'hydra))
 
 ;; * PROJECTILE mode
 ;; - History
@@ -236,7 +241,9 @@
 ;;   -  2020-08-18 Create
 (when (bk-load-path-add "yasnippet")
   (bk-auto-loads "yasnippet" #'yas-global-mode)
-  (add-hook 'prog-mode-hook #'yas-global-mode))
+  (add-hook 'prog-mode-hook (lambda ()
+			      (yas-global-mode +1)
+			      (diminish 'yas-minor-mode))))
 
 ;; * change-inner
 ;; - https://github.com/magnars/change-inner.el
@@ -493,7 +500,6 @@
   (global-set-key (kbd "M-n") 'jump-char-forward)
   (global-set-key (kbd "M-p") 'jump-char-backward))
 
-
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
 ;; - History
@@ -634,8 +640,7 @@
 ;; End of file
 (f-msg "Loaded init.el!")
 
-
- ;; Local Variables:
+;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 

@@ -133,3 +133,15 @@
 [submodule "external/posframe"]
 	path = external/posframe
 	url = https://github.com/tumashu/posframe
+[submodule "external/jump.el"]
+	path = external/jump.el
+	url = https://github.com/eschulte/jump.el
+[submodule "external/hydra"]
+	path = external/hydra
+	url = https://github.com/abo-abo/hydra
+[submodule "external/pkg-info"]
+	path = external/pkg-info
+	url = https://github.com/emacsorphanage/pkg-info
+[submodule "external/epl"]
+	path = external/epl
+	url = https://github.com/cask/epl
