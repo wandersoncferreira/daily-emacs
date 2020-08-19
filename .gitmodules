@@ -115,9 +115,21 @@
 [submodule "external/toggle-test"]
 	path = external/toggle-test
 	url = https://github.com/rags/toggle-test
-[submodule "external/company-box"]
-	path = external/company-box
-	url = https://github.com/sebastiencs/company-box
 [submodule "external/ido-completing-read-plus"]
 	path = external/ido-completing-read-plus
 	url = https://github.com/DarwinAwardWinner/ido-completing-read-plus
+[submodule "external/flycheck-clj-kondo"]
+	path = external/flycheck-clj-kondo
+	url = https://github.com/borkdude/flycheck-clj-kondo
+[submodule "external/clj-refactor.el"]
+	path = external/clj-refactor.el
+	url = https://github.com/clojure-emacs/clj-refactor.el
+[submodule "external/yasnippet"]
+	path = external/yasnippet
+	url = https://github.com/joaotavora/yasnippet
+[submodule "external/company-posframe"]
+	path = external/company-posframe
+	url = https://github.com/tumashu/company-posframe
+[submodule "external/posframe"]
+	path = external/posframe
+	url = https://github.com/tumashu/posframe

@@ -86,6 +86,12 @@
 ;;     - 2020-08-16 Create
 (bk-load-path-add "emacs-web-server")
 
+;; * posframe (library)
+;;   - https://github.com/tumashu/posframe
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "posframe")
+
 (provide 'dependencies)
 ;;; dependencies.el ends here
 

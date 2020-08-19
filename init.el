@@ -29,7 +29,6 @@
 	    (setq file-name-handler-alist bk--file-name-handler-alist)))
 
 ;;; helper functions to perform lazy loading of packages
-
 (defvar bk-external-packages-dir "~/.emacs.d/external/")
 
 ;;; load lazy-loading helper functions
@@ -37,10 +36,6 @@
 
 ;;; load dependencies
 (load-file (expand-file-name "dependencies.el" user-emacs-directory))
-
-;;; write customizations in the custom.el file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
 
 ;;; customizations
 ;; basics
@@ -79,7 +74,7 @@
 (add-hook 'after-init-hook #'bk/light-theme)
 
 ;;; supress unecessary things
-(put 'inhibit-startup-echo-area-message 'saved-value t)
+;; (put 'inhibit-startup-echo-area-message 'saved-value t)
 (setq inhibit-startup-message t
       inhibit-startup-screen t
       inhibit-startup-echo-area-message (user-login-name))
@@ -172,6 +167,16 @@
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
 
+;; * flycheck-clj-kondo
+;; - https://github.com/borkdude/flycheck-clj-kondo
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "flycheck-clj-kondo")
+  (bk-auto-loads "flycheck-clj-kondo" #'flycheck-clj-kondo)
+  (with-eval-after-load 'clojure-mode
+    (require 'flycheck-clj-kondo)))
+
+
 ;; * Markdown mode
 ;; - History
 ;;   -  2020-08-17 Create
@@ -187,11 +192,29 @@
 ;; * CIDER mode
 ;; - History
 ;;   -  2020-08-14 Create
+;;   -  2020-08-18 Adding key binding to cider-jack-in
 (when (bk-load-path-add "cider")
   (bk-auto-loads "cider"
 		 #'cider-jack-in
 		 #'cider-connect
-		 #'cider-jack-in-clj&cljs))
+		 #'cider-jack-in-clj&cljs)
+  (with-eval-after-load 'clojure-mode
+    (setq cider-save-file-on-load t
+	  cider-auto-select-error-buffer t
+	  cider-auto-select-test-report-buffer nil
+	  cider-repl-pop-to-buffer-on-connect nil)
+    (defalias 'cquit 'cider-quit)
+    (define-key clojure-mode-map (kbd "C-c M-j") #'cider-jack-in)))
+
+;; * clj-refactor.el
+;; - https://github.com/clojure-emacs/clj-refactor.el
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "clj-refactor.el")
+  (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode #'cljr-add-keybindings-with-prefix)
+  (with-eval-after-load 'clojure-mode
+    (clj-refactor-mode t)
+    (cljr-add-keybindings-with-prefix "C-c C-m")))
 
 ;; * PROJECTILE mode
 ;; - History
@@ -206,6 +229,14 @@
 	  projectile-mode-line-prefix " Prj"
 	  projectile-sort-order 'access-time)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
+
+;; * yasnippet
+;; - https://github.com/joaotavora/yasnippet
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "yasnippet")
+  (bk-auto-loads "yasnippet" #'yas-global-mode)
+  (add-hook 'prog-mode-hook #'yas-global-mode))
 
 ;; * change-inner
 ;; - https://github.com/magnars/change-inner.el
@@ -434,16 +465,15 @@
     (define-key company-active-map "\C-s" 'company-filter-candidates)
     (diminish 'company-mode)))
 
-;; * company-box
-;; - https://github.com/sebastiencs/company-box
+;; * company-postframe
+;; - https://github.com/tumashu/company-posframe
 ;; - History
-;;   -  2020-08-17 Create
-(when (bk-load-path-add "company-box")
-  (bk-auto-loads "company-box" #'company-box-mode)
-  (add-hook 'company-mode-hook
-	    (lambda ()
-	      (company-box-mode +1)
-	      (diminish 'company-box-mode))))
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "company-posframe")
+  (bk-auto-loads "company-posframe" #'company-posframe-mode)
+  (with-eval-after-load 'company
+    (company-posframe-mode 1)
+    (diminish 'company-posframe-mode)))
 
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
@@ -573,9 +603,9 @@
 ;;   -  2020-08-17 Create
 (when (bk-load-path-add "toggle-test")
   (bk-auto-loads "toggle-test" #'tgt-toggle)
-  (with-eval-after-load 'prog-mode
-    (setq tgt-open-in-new-window nil)
-    (put 'tgt-projects 'safe-local-variable #'listp)))
+  (global-set-key (kbd "s-t") #'tgt-toggle)
+  (setq tgt-open-in-new-window nil)
+  (put 'tgt-projects 'safe-local-variable #'listp))
 
 ;;; improve split windows
 (defun bk/vsplit-last-buffer ()
@@ -598,10 +628,14 @@
 ;;; adding line numbers to programming buffers
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file)
+
 ;; End of file
 (f-msg "Loaded init.el!")
 
-;; Local Variables:
+
+ ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 
