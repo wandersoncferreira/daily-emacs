@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-;; * Startup tricks
+;; * startup tricks
 ;; - History
 ;; - 2020-09-13 Organized into outlines
 (let ((t0 (float-time)))
@@ -30,9 +30,9 @@
 	    (setq file-name-handler-alist bk--file-name-handler-alist)))
 
 
-(defvar bk-disabled? nil)
+(defvar not-disabled? nil)
 
-;; * lazy loading of libraries
+;; * lazy loading
 ;; - History
 ;; - 2020-09-13 Organized into outlines
 
@@ -45,8 +45,7 @@
 ;;; load dependencies
 (load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
-
-;; * Custom functions
+;; * custom functions
 ;;; smart beg/end of line
 (defun bk/beginning-of-line ()
   "Go back at the first non-whitespace character."
@@ -85,7 +84,7 @@
     (kill-new myip)
     (message "IP: %s" myip)))
 
-;; * Basic customizations
+;; * basic customizations
 ;; basics
 (setq tab-always-indent 'complete
       vc-follow-symlinks t
@@ -105,7 +104,7 @@
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 
-;; * Theming and Fonts
+;; * theming and Fonts
 ;;; change font
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
@@ -143,6 +142,7 @@
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (outline-minor-mode +1)
+	    (diminish 'outline-mode)
 	    (setq outline-blank-line t)
 	    (setq-local outline-regexp ";; \\*")
 	    (outline-hide-body)))
@@ -177,7 +177,7 @@
   (global-eldoc-mode +1)
   (diminish 'eldoc-mode))
 
-;; * Paredit
+;; * paredit
 ;; - History
 ;;   - 2020-08-14 Create
 ;;   - 2020-08-16 Add clojure(script) modes
@@ -196,29 +196,29 @@
   (add-hook 'clojurescript-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'cider-repl-mode-hook #'bk-setup-feature-paredit))
 
-;; * Ido
+;; * ido (disabled)
 ;; - History
 ;;   -  2020-08-14 Create
 ;;   -  2020-08-18 Enable ido-everywhere
 ;;   -  2020-08-28 Disabled
-(when bk-disabled?
+(when not-disabled?
   (add-hook 'after-init-hook #'ido-mode)
   (with-eval-after-load 'ido
     (setq ido-use-virtual-buffers t
 	  ido-enable-flex-matching t)
     (ido-everywhere +1)))
 
-;; * Ido completing-read-plus
+;; * ido completing-read-plus (disabled)
 ;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
 ;; - History
 ;;   -  2020-08-18 Create
 ;;   -  2020-08-28 Disabled
-(when (and (bk-load-path-add "ido-completing-read-plus") bk-disabled?)
+(when (and (bk-load-path-add "ido-completing-read-plus") not-disabled?)
   (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
   (with-eval-after-load 'ido
     (ido-ubiquitous-mode +1)))
 
-;; * Ivy
+;; * ivy
 ;; - https://github.com/abo-abo/swiper
 ;; - History
 ;;   -  2020-08-28 Create
@@ -230,7 +230,7 @@
     (setq ivy-initial-inputs-alist nil)
     (diminish 'ivy-mode)))
 
-;; * Counsel
+;; * counsel
 ;; - https://github.com/abo-abo/swiper
 ;; - History
 ;;   -  2020-08-28 Create
@@ -239,7 +239,7 @@
   (global-set-key (kbd "M-x") #'counsel-M-x)
   (global-set-key (kbd "C-x C-m") 'counsel-M-x))
 
-;; * Counsel-projectile
+;; * counsel-projectile
 ;; - https://github.com/ericdanan/counsel-projectile
 ;; - History
 ;;   -  2020-08-28 Create
@@ -247,7 +247,7 @@
   (bk-auto-loads "counsel-projectile" #'counsel-projectile-mode)
   (add-hook 'after-init-hook #'counsel-projectile-mode))
 
-;; * Clojure mode
+;; * clojure mode
 ;; - History
 ;;   -  2020-08-14 Create
 (when (bk-load-path-add "clojure-mode")
@@ -258,7 +258,7 @@
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
 
-;; * Scala
+;; * scala
 ;; - https://github.com/hvesalai/emacs-scala-mode
 ;; - History
 ;;  - 2020/08/27 Create
@@ -266,7 +266,7 @@
   (bk-auto-loads "scala-mode"
 		 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
 
-;; * SBT
+;; * sbt
 ;; - https://github.com/hvesalai/emacs-sbt-mode
 ;; - History
 ;;  - 2020/08/27 Created
@@ -275,7 +275,7 @@
   (with-eval-after-load 'scala-mode
     (setq sbt:program-options '("-Dsbt.supershell=false"))))
 
-;; * Lsp-mode
+;; * lsp-mode
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "lsp-mode")
@@ -286,7 +286,7 @@
   (with-eval-after-load 'lsp-mode
     (setq lsp-prefer-flymake nil)))
 
-;; * Dap-mode
+;; * dap-mode
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "dap-mode")
@@ -297,20 +297,20 @@
     (dap-mode +1)
     (dap-ui-mode +1)))
 
-;; * Treemacs
+;; * treemacs
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "treemacs/src/elisp")
   (bk-auto-loads "treemacs" #'treemacs))
 
-;; * Lsp-metals
+;; * lsp-metals
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "lsp-metals")
   (bk-auto-loads "lsp-metals" #'lsp-metals)
   (bk-auto-loads "lsp-metals-treeview" #'lsp-metals-treeview-mode))
 
-;; * Lsp-Treemacs
+;; * lsp-Treemacs
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "lsp-treemacs")
@@ -319,13 +319,13 @@
     (lsp-metals-treeview-mode +1)
     (setq lsp-metals-treeview-show-when-views-received t)))
 
-;; * Ace-window
+;; * ace-window
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "ace-window")
   (bk-auto-loads "ace-window" #'ace-window))
 
-;; * Avy
+;; * avy
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "avy")
@@ -342,7 +342,7 @@
   (with-eval-after-load 'clojure-mode
     (require 'flycheck-clj-kondo)))
 
-;; * Markdown mode
+;; * markdown mode
 ;; - History
 ;;   -  2020-08-17 Create
 (when (bk-load-path-add "markdown-mode")
@@ -353,7 +353,7 @@
   (with-eval-after-load 'markdown-mode
     (setq markdown-command "pandoc")))
 
-;; * CIDER mode
+;; * cider mode
 ;; - History
 ;;   -  2020-08-14 Create
 ;;   -  2020-08-18 Adding key binding to cider-jack-in
@@ -429,7 +429,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (bk-auto-loads "which-key" #'which-key-mode)
   (add-hook 'after-init-hook #'bk-setup-feature-which-key))
 
-;; * PROJECTILE mode
+;; * projectile mode
 ;; - History
 ;;   -  2020-08-14 Create
 ;;   -  2020-08-28 Changing completion system to `ivy'
@@ -528,7 +528,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (set-default 'magit-no-confirm '(stage-all-changes
 				     unstage-all-changes))))
 
-;; * Ledger mode
+;; * ledger mode
 ;; - https://github.com/ledger/ledger-mode
 ;; - History
 ;;   -  2020-08-15 Create
@@ -567,7 +567,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - https://github.com/nonsequitur/smex
 ;; - History
 ;;   -  2020-08-15 Create
-(when (and (bk-load-path-add "smex") bk-disabled?)
+(when (and (bk-load-path-add "smex") not-disabled?)
   (bk-auto-loads "smex" #'smex)
   (global-set-key (kbd "M-x") #'smex)
   (global-set-key (kbd "C-x C-m") 'smex)
@@ -851,7 +851,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (when (bk-load-path-add "windresize")
   (bk-auto-loads "windresize" #'windresize))
 
-;; * SQL indent mode
+;; * sql indent mode
 ;; - History
 ;;   -  2020-08-17 Create
 (when (bk-load-path-add "emacs-sql-indent")
@@ -924,13 +924,19 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (global-set-key (kbd "C-c d") #'docker))
 
 
-;;; adding line numbers to programming buffers
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+;; * line numbers (disabled)
+;; - History
+;; - 2020-09-13 - Disabling it
+(when not-disabled?
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
+;; * custom
+;; - History
+;; - 2020-09-13 Organized into outlines
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
-;;; * Emacs server
+;; * server
 (require 'server)
 (when (not (server-running-p))
   (server-start))
