@@ -6,13 +6,14 @@
 
 ;;; Code:
 
-;;; timing
+;; * Startup tricks
+;; - History
+;; - 2020-09-13 Organized into outlines
 (let ((t0 (float-time)))
   (defun f-msg (msg)
     "MSG with time since start."
     (message "%s. Time elapsed: %.3fs" msg (- (float-time) t0))))
 
-;;; quick startup
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6)
 
@@ -28,7 +29,12 @@
 	  (lambda ()
 	    (setq file-name-handler-alist bk--file-name-handler-alist)))
 
+
 (defvar bk-disabled? nil)
+
+;; * lazy loading of libraries
+;; - History
+;; - 2020-09-13 Organized into outlines
 
 ;;; helper functions to perform lazy loading of packages
 (defvar bk-external-packages-dir "~/.emacs.d/external/")
@@ -39,6 +45,8 @@
 ;;; load dependencies
 (load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
+
+;; * Custom functions
 ;;; smart beg/end of line
 (defun bk/beginning-of-line ()
   "Go back at the first non-whitespace character."
@@ -58,7 +66,26 @@
 (global-set-key (kbd "C-a") 'bk/beginning-of-line)
 (global-set-key (kbd "C-e") 'bk/end-of-line)
 
-;;; customizations
+(defun bk/eval-buffer ()
+  "Provide some feedback after evaluating the buffer."
+  (interactive)
+  (eval-buffer)
+  (message "Buffer evaluated!"))
+
+(define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
+
+;;; get my current ip address
+(defvar url-http-end-of-headers)
+(defun bk/ip ()
+  "Find my current public IP address."
+  (interactive)
+  (let* ((endpoint "https://api.ipify.org")
+         (myip (with-current-buffer (url-retrieve-synchronously endpoint)
+                 (buffer-substring (+ 1 url-http-end-of-headers) (point-max)))))
+    (kill-new myip)
+    (message "IP: %s" myip)))
+
+;; * Basic customizations
 ;; basics
 (setq tab-always-indent 'complete
       vc-follow-symlinks t
@@ -78,6 +105,7 @@
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 
+;; * Theming and Fonts
 ;;; change font
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
@@ -94,17 +122,6 @@
 
 (add-hook 'after-init-hook #'bk/light-theme)
 
-;;; get my current ip address
-(defvar url-http-end-of-headers)
-(defun bk/ip ()
-  "Find my current public IP address."
-  (interactive)
-  (let* ((endpoint "https://api.ipify.org")
-         (myip (with-current-buffer (url-retrieve-synchronously endpoint)
-                 (buffer-substring (+ 1 url-http-end-of-headers) (point-max)))))
-    (kill-new myip)
-    (message "IP: %s" myip)))
-
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)
 (setq inhibit-startup-message t
@@ -120,14 +137,15 @@
    (column-number-mode)
    (size-indication-mode)))
 
-;;; redefine key
-(defun bk/eval-buffer ()
-  "Provide some feedback."
-  (interactive)
-  (eval-buffer)
-  (message "Buffer evaluated!"))
-
-(define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
+;; * outline
+;; - History
+;; - 2020-09-13 Created
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (outline-minor-mode +1)
+	    (setq outline-blank-line t)
+	    (setq-local outline-regexp ";; \\*")
+	    (outline-hide-body)))
 
 ;; * exec-path-from-shell
 ;; - https://github.com/purcell/exec-path-from-shell
@@ -137,6 +155,9 @@
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
   (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
 
+
+
+
 ;; * expand-region.el
 ;; - https://github.com/magnars/expand-region.el
 ;; - History
@@ -144,6 +165,8 @@
 (when (bk-load-path-add "expand-region.el")
   (bk-auto-loads "expand-region" #'er/expand-region)
   (global-set-key (kbd "C-'") #'er/expand-region))
+
+
 
 ;; * diminish
 ;; - https://github.com/emacsmirror/diminish
@@ -235,15 +258,18 @@
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
 
-;; * Scala mode
+;; * Scala
+;; - https://github.com/hvesalai/emacs-scala-mode
 ;; - History
 ;;  - 2020/08/27 Create
 (when (bk-load-path-add "emacs-scala-mode")
   (bk-auto-loads "scala-mode"
 		 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
-;; * Sbt mode
+
+;; * SBT
+;; - https://github.com/hvesalai/emacs-sbt-mode
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "emacs-sbt-mode")
   (bk-auto-loads "sbt-mode" #'sbt-start #'sbt-command)
   (with-eval-after-load 'scala-mode
