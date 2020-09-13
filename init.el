@@ -28,6 +28,8 @@
 	  (lambda ()
 	    (setq file-name-handler-alist bk--file-name-handler-alist)))
 
+(defvar bk-disabled? nil)
+
 ;;; helper functions to perform lazy loading of packages
 (defvar bk-external-packages-dir "~/.emacs.d/external/")
 
@@ -37,10 +39,32 @@
 ;;; load dependencies
 (load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
+;;; smart beg/end of line
+(defun bk/beginning-of-line ()
+  "Go back at the first non-whitespace character."
+  (interactive)
+  (let ((oldpos (point)))
+    (back-to-indentation)
+    (and (= oldpos (point))
+         (beginning-of-line))))
+
+(defun bk/end-of-line ()
+  "Go to the end of the last non-whitespace character."
+  (interactive)
+  (move-end-of-line nil)
+  (re-search-backward "^\\|[^[:space:]]")
+  (forward-char))
+
+(global-set-key (kbd "C-a") 'bk/beginning-of-line)
+(global-set-key (kbd "C-e") 'bk/end-of-line)
+
 ;;; customizations
 ;; basics
 (setq tab-always-indent 'complete
-      vc-follow-symlinks t)
+      vc-follow-symlinks t
+      create-lockfiles nil
+      backup-directory-alist `(("." . ,(expand-file-name
+					(concat user-emacs-directory "backups")))))
 
 ;;; abbreviate yes-or-no questions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -58,20 +82,28 @@
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
   (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 110)))
-
-(add-hook 'after-init-hook #'bk/set-monaco-font)
+    (set-face-attribute 'default nil :font "Monaco" :height 100)))
 
 ;;; change themes
 (defun bk/light-theme ()
   "Define custom light theme."
   (interactive)
-  (bk/set-monaco-font)
   (set-face-attribute 'lazy-highlight nil :background "light green")
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
 
 (add-hook 'after-init-hook #'bk/light-theme)
+
+;;; get my current ip address
+(defvar url-http-end-of-headers)
+(defun bk/ip ()
+  "Find my current public IP address."
+  (interactive)
+  (let* ((endpoint "https://api.ipify.org")
+         (myip (with-current-buffer (url-retrieve-synchronously endpoint)
+                 (buffer-substring (+ 1 url-http-end-of-headers) (point-max)))))
+    (kill-new myip)
+    (message "IP: %s" myip)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)
@@ -84,7 +116,9 @@
  (lambda ()
    (menu-bar-mode -1)
    (tool-bar-mode -1)
-   (scroll-bar-mode -1)))
+   (scroll-bar-mode -1)
+   (column-number-mode)
+   (size-indication-mode)))
 
 ;;; redefine key
 (defun bk/eval-buffer ()
@@ -116,7 +150,9 @@
 ;; - History
 ;;   -  2020-08-15 Create
 (when (bk-load-path-add "diminish")
-  (bk-auto-loads "diminish" #'diminish))
+  (bk-auto-loads "diminish" #'diminish)
+  (global-eldoc-mode +1)
+  (diminish 'eldoc-mode))
 
 ;; * Paredit
 ;; - History
@@ -141,20 +177,52 @@
 ;; - History
 ;;   -  2020-08-14 Create
 ;;   -  2020-08-18 Enable ido-everywhere
-(add-hook 'after-init-hook #'ido-mode)
-(with-eval-after-load 'ido
-  (setq ido-use-virtual-buffers t
-	ido-enable-flex-matching t)
-  (ido-everywhere +1))
+;;   -  2020-08-28 Disabled
+(when bk-disabled?
+  (add-hook 'after-init-hook #'ido-mode)
+  (with-eval-after-load 'ido
+    (setq ido-use-virtual-buffers t
+	  ido-enable-flex-matching t)
+    (ido-everywhere +1)))
 
 ;; * Ido completing-read-plus
 ;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
 ;; - History
 ;;   -  2020-08-18 Create
-(when (bk-load-path-add "ido-completing-read-plus")
+;;   -  2020-08-28 Disabled
+(when (and (bk-load-path-add "ido-completing-read-plus") bk-disabled?)
   (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
   (with-eval-after-load 'ido
     (ido-ubiquitous-mode +1)))
+
+;; * Ivy
+;; - https://github.com/abo-abo/swiper
+;; - History
+;;   -  2020-08-28 Create
+(when (bk-load-path-add "swiper")
+  (bk-auto-loads "ivy" #'ivy-mode)
+  (add-hook 'after-init-hook #'ivy-mode)
+  (with-eval-after-load 'ivy
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-initial-inputs-alist nil)
+    (diminish 'ivy-mode)))
+
+;; * Counsel
+;; - https://github.com/abo-abo/swiper
+;; - History
+;;   -  2020-08-28 Create
+(when (bk-load-path-add "swiper")
+  (bk-auto-loads "counsel" #'counsel-M-x)
+  (global-set-key (kbd "M-x") #'counsel-M-x)
+  (global-set-key (kbd "C-x C-m") 'counsel-M-x))
+
+;; * Counsel-projectile
+;; - https://github.com/ericdanan/counsel-projectile
+;; - History
+;;   -  2020-08-28 Create
+(when (bk-load-path-add "counsel-projectile")
+  (bk-auto-loads "counsel-projectile" #'counsel-projectile-mode)
+  (add-hook 'after-init-hook #'counsel-projectile-mode))
 
 ;; * Clojure mode
 ;; - History
@@ -166,6 +234,78 @@
                  '("\\.cljx\\'" . clojurex-mode)
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
+
+;; * Scala mode
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "emacs-scala-mode")
+  (bk-auto-loads "scala-mode"
+		 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
+;; * Sbt mode
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "emacs-sbt-mode")
+  (bk-auto-loads "sbt-mode" #'sbt-start #'sbt-command)
+  (with-eval-after-load 'scala-mode
+    (setq sbt:program-options '("-Dsbt.supershell=false"))))
+
+;; * Lsp-mode
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "lsp-mode")
+  (bk-auto-loads "lsp-mode" #'lsp #'lsp-lens-mode)
+  (bk-auto-loads "lsp-modeline" #'lsp-modeline-diagnostics-mode)
+  (add-hook 'scala-mode-hook #'lsp)
+  (add-hook 'lsp-mode-hook #'lsp-lens-mode)
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-prefer-flymake nil)))
+
+;; * Dap-mode
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "dap-mode")
+  (bk-auto-loads "dap-mode" #'dap-mode)
+  (bk-auto-loads "dap-ui" #'dap-ui-mode)
+  (bk-auto-loads "dap-mouse" #'dap-tooltip-mode)
+  (with-eval-after-load 'lsp-mode
+    (dap-mode +1)
+    (dap-ui-mode +1)))
+
+;; * Treemacs
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "treemacs/src/elisp")
+  (bk-auto-loads "treemacs" #'treemacs))
+
+;; * Lsp-metals
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "lsp-metals")
+  (bk-auto-loads "lsp-metals" #'lsp-metals)
+  (bk-auto-loads "lsp-metals-treeview" #'lsp-metals-treeview-mode))
+
+;; * Lsp-Treemacs
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "lsp-treemacs")
+  (bk-auto-loads "lsp-treemacs")
+  (with-eval-after-load 'lsp-mode
+    (lsp-metals-treeview-mode +1)
+    (setq lsp-metals-treeview-show-when-views-received t)))
+
+;; * Ace-window
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "ace-window")
+  (bk-auto-loads "ace-window" #'ace-window))
+
+;; * Avy
+;; - History
+;;  - 2020/08/27 Create
+(when (bk-load-path-add "avy")
+  (bk-auto-loads "avy" #'avy-goto-char)
+  (global-set-key (kbd "C-;") #'avy-goto-char))
+
 
 ;; * flycheck-clj-kondo
 ;; - https://github.com/borkdude/flycheck-clj-kondo
@@ -191,28 +331,54 @@
 ;; - History
 ;;   -  2020-08-14 Create
 ;;   -  2020-08-18 Adding key binding to cider-jack-in
+(defun bk/nrepl-warn-when-not-connected ()
+  "Function to warn me to start the REPL."
+  (interactive)
+  (message "Oops! You're not connected to an nREPL server.
+Please run M-x cider or M-x cider-jack-in to connect"))
+
 (when (bk-load-path-add "cider")
   (bk-auto-loads "cider"
 		 #'cider-jack-in
 		 #'cider-connect
 		 #'cider-jack-in-clj&cljs)
+  (bk-auto-loads "cider-macroexpansion" #'cider-macroexpand-1)
+  (bk-auto-loads "cider-find" #'cider-find-var)
   (with-eval-after-load 'clojure-mode
     (setq cider-save-file-on-load t
 	  cider-auto-select-error-buffer t
 	  cider-auto-select-test-report-buffer nil
 	  cider-repl-pop-to-buffer-on-connect nil)
     (defalias 'cquit 'cider-quit)
-    (define-key clojure-mode-map (kbd "C-c M-j") #'cider-jack-in)))
+    (define-key clojure-mode-map (kbd "C-c M-j") #'cider-jack-in)
+    (define-key clojure-mode-map (kbd "C-x C-e") 'bk/nrepl-warn-when-not-connected)
+    (define-key clojure-mode-map (kbd "C-c C-k") 'bk/nrepl-warn-when-not-connected)
+    (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
+    (diminish 'cider-mode)))
 
 ;; * clj-refactor.el
 ;; - https://github.com/clojure-emacs/clj-refactor.el
 ;; - History
 ;;   -  2020-08-18 Create
+;;   -  2020-09-02 Create function to setup and hook in clojure mode
+(defun bk-setup-feature-clj-refactor ()
+  "Customizations for Clj refactor."
+  (clj-refactor-mode +1)
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (diminish 'clj-refactor-mode))
+
 (when (bk-load-path-add "clj-refactor.el")
-  (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode)
+  (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode #'cljr-add-keybindings-with-prefix)
+  (add-hook 'clojure-mode-hook #'bk-setup-feature-clj-refactor))
+
+;; * cljr-ivy
+;; - https://github.com/wandersoncferreira/cljr-ivy
+;; - History
+;;   -  2020-09-03 Create
+(when (bk-load-path-add "cljr-ivy")
+  (bk-auto-loads "cljr-ivy" #'cljr-ivy)
   (with-eval-after-load 'clojure-mode
-    (clj-refactor-mode t)
-    (cljr-add-keybindings-with-prefix "C-c C-m")))
+    (define-key clojure-mode-map (kbd "C-c C-r") #'cljr-ivy)))
 
 ;; * hydra
 ;; - https://github.com/abo-abo/hydra
@@ -221,14 +387,31 @@
 (when (bk-load-path-add "hydra")
   (bk-auto-loads "hydra" #'hydra))
 
+;; * which-key
+;; - https://github.com/justbur/emacs-which-key
+;; - History
+;;   -  2020-08-28 Create
+(defun bk-setup-feature-which-key ()
+  "Customizations to which-key mode."
+  (setq which-key-show-early-on-C-h t)
+  (setq which-key-idle-delay 10000)
+  (setq which-key-idle-secondary-delay 0.05)
+  (which-key-mode)
+  (diminish 'which-key-mode))
+
+(when (bk-load-path-add "emacs-which-key")
+  (bk-auto-loads "which-key" #'which-key-mode)
+  (add-hook 'after-init-hook #'bk-setup-feature-which-key))
+
 ;; * PROJECTILE mode
 ;; - History
 ;;   -  2020-08-14 Create
+;;   -  2020-08-28 Changing completion system to `ivy'
 (when (bk-load-path-add "projectile")
   (bk-auto-loads "projectile" #'projectile-mode)
   (add-hook 'after-init-hook #'projectile-mode)
   (with-eval-after-load 'projectile
-    (setq projectile-completion-system 'ido
+    (setq projectile-completion-system 'ivy
 	  projectile-enable-caching t
 	  projectile-indexing-method 'hybrid
 	  projectile-mode-line-prefix " Prj"
@@ -283,14 +466,14 @@
     (eshell-send-input)))
 
 (add-hook 'eshell-mode-hook
-      (lambda ()
-        (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
+	  (lambda ()
+            (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
 
 ;;; eshell aliases
 (add-hook 'eshell-mode-hook
-      (lambda ()
-        (eshell/alias "e" "find-file $1")
-        (eshell/alias "ee" "find-file-other-window $1")))
+	  (lambda ()
+            (eshell/alias "e" "find-file $1")
+            (eshell/alias "ee" "find-file-other-window $1")))
 
 ;;; define default shell
 (defvar my-term-shell "/bin/bash")
@@ -339,6 +522,7 @@
           ("networth" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank liabilities equity:apartment")
           ("spent-vs-earned" "ledger [[ledger-mode-flags]] -f /home/wand/.ledger bal -X BRL --period=\"last 4 weeks\" ^Expenses ^Income --invert -S amount")
           ("budget" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank:checking:budget liabilities:card")
+	  ("creta" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^expenses:car: ^equity:car")
 	  ("taxes" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^expenses:taxes")
           ("bal" "%(binary) -f %(ledger-file) bal")
           ("reg" "%(binary) -f %(ledger-file) reg")
@@ -357,7 +541,7 @@
 ;; - https://github.com/nonsequitur/smex
 ;; - History
 ;;   -  2020-08-15 Create
-(when (bk-load-path-add "smex")
+(when (and (bk-load-path-add "smex") bk-disabled?)
   (bk-auto-loads "smex" #'smex)
   (global-set-key (kbd "M-x") #'smex)
   (global-set-key (kbd "C-x C-m") 'smex)
@@ -412,39 +596,87 @@
     (setq org-plantuml-jar-path bk-plantuml-path)))
 
 ;; * org-roam
-;; - https://github.com/org-roam/org-roam
+;; - https://github.com/org-roam
 ;; - History
 ;;   -  2020-08-16 Create
+;;   -  2020-09-12 Improve find notes by adding a prefix `f` in the Org roam chords
 (defvar bk-org-roam-directory "~/all/permanent")
 (when (bk-load-path-add "org-roam")
   (bk-auto-loads "org-roam"
 		 #'org-roam-capture
 		 #'org-roam-dailies-today
+		 #'org-roam-random-note
 		 #'org-roam-find-file
+		 #'org-roam-dailies-find-today
+		 #'org-roam-dailies-find-next-note
+		 #'org-roam-dailies-find-previous-note
 		 #'org-roam-insert
 		 #'org-roam)
   (global-set-key (kbd "C-c n c") #'org-roam-capture)
   (global-set-key (kbd "C-c n t") #'org-roam-dailies-today)
-  (global-set-key (kbd "C-c n f")  #'org-roam-find-file)
   (global-set-key (kbd "C-c n i") #'org-roam-insert)
-  (global-set-key (kbd "C-c n r") #'org-roam)
+  (global-set-key (kbd "C-c n r") #'org-roam-random-note)
+  (global-set-key (kbd "C-c n R") #'org-roam)
+
+  (global-set-key (kbd "C-c n f f")  #'org-roam-find-file)
+  (global-set-key (kbd "C-c n f t") #'org-roam-dailies-find-today)
+  (global-set-key (kbd "C-c n f n") #'org-roam-dailies-find-next-note)
+  (global-set-key (kbd "C-c n f p") #'org-roam-dailies-find-previous-note)
+  
   (with-eval-after-load 'org-roam
     (setq org-roam-directory bk-org-roam-directory)
-    (setq org-roam-completion-system 'ido)
+    (setq org-roam-completion-system 'ivy)
+    (setq org-roam-dailies-capture-templates
+	  '(("d" "daily" plain (function org-roam-capture--get-point) ""
+             :file-name "dailies/%<%Y-%m-%d>"
+             :unnarrowed t
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting")))
+
+    (setq org-roam-capture-templates
+	  '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
+             :file-name "%<%Y%m%d%H%M%S>-${slug}"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+roam_tags: permanent"
+             :unnarrowed t)))
     (org-roam-mode +1)))
+
+(define-derived-mode orgr-mode org-mode "orgr"
+  "Major mode to segregate configs of Org-roam from Org-mode."
+  
+  (make-local-variable 'company-backends)
+  (make-local-variable 'company-idle-delay)
+  (make-local-variable 'company-minimum-prefix-length)
+  (setq company-backends '(company-org-roam))
+  (setq company-idle-delay 0
+	company-minimum-prefix-length 0))
+
+(setq org-roam-file-extensions '("orgr"))
+(add-to-list 'auto-mode-alist '("\\.orgr\\'" . orgr-mode))
+
+;;; * org-roam-protocol
+(with-eval-after-load 'org-roam
+  (require 'org-roam-protocol))
 
 ;; * org-roam-server
 ;; - https://github.com/org-roam/org-roam-server
 ;; - History
 ;;   -  2020-08-16 Create
+;;   -  2020-08-31 Setup feature org-roam-server function created
+;;   -  2020-09-12 Remove automatic startup and provide manual alternative
+(defun bk-setup-feature-org-roam-server ()
+  "Customizations for `org-roam-server'."
+  (setq org-roam-server-enable-access-to-local-files t
+	org-roam-server-webserver-prefix "/home/wand"
+	org-roam-server-webserver-address "127.0.0.1:8887/"
+	org-roam-server-webserver-supported-extensions '("pdf" "mp4" "ogv" "mkv"))
+  (org-roam-server-mode +1))
+
+(defun bk/second-brain-server ()
+  "Start my second brain server."
+  (interactive)
+  (bk-setup-feature-org-roam-server))
+
 (when (bk-load-path-add "org-roam-server")
-  (bk-auto-loads "org-roam-server" #'org-roam-server-mode)
-  (with-eval-after-load 'org-roam
-    (setq org-roam-server-enable-access-to-local-files t
-      org-roam-server-webserver-prefix "/home/wand"
-      org-roam-server-webserver-address "127.0.0.1:8887/"
-      org-roam-server-webserver-supported-extensions '("pdf" "mp4" "ogv" "mkv"))
-    (org-roam-server-mode +1)))
+  (bk-auto-loads "org-roam-server" #'org-roam-server-mode))
 
 ;; * company-mode
 ;; - https://github.com/company-mode/company-mode
@@ -460,16 +692,11 @@
 	  company-minimum-prefix-length 2
 	  company-tooltip-limit 14
 	  company-tooltip-align-annotations t
-	  company-require-match 'never
-	  company-frontends '(company-pseudo-tooltip-frontend
-                              company-echo-metadata-frontend)
-	  company-backends '(company-capf)
-	  company-auto-complete-chars nil
-	  company-dabbrev-other-buffers nil
-	  company-dabbrev-ignore-case nil
-	  company-dabbrev-downcase nil)
+	  company-require-match 'never)
+    (setq company-global-modes '(not org-mode))
     (define-key company-active-map [(control) (meta) ?s] 'company-search-candidates)
     (define-key company-active-map "\C-s" 'company-filter-candidates)
+    (define-key company-active-map (kbd "C-/") 'counsel-company)
     (diminish 'company-mode)))
 
 ;; * company-postframe
@@ -479,6 +706,9 @@
 (when (bk-load-path-add "company-posframe")
   (bk-auto-loads "company-posframe" #'company-posframe-mode)
   (with-eval-after-load 'company
+    (setq company-posframe-show-indicator nil
+	  company-posframe-show-metadata nil
+	  company-posframe-show-params nil)
     (company-posframe-mode 1)
     (diminish 'company-posframe-mode)))
 
@@ -487,9 +717,7 @@
 ;; - History
 ;;   -  2020-08-16 Create
 (when (bk-load-path-add "company-org-roam")
-  (bk-auto-loads "company-org-roam" #'company-org-roam)
-  (with-eval-after-load 'org-roam
-    (push 'company-org-roam company-backends)))
+  (bk-auto-loads "company-org-roam" #'company-org-roam))
 
 ;; * jump-char
 ;; - https://github.com/lewang/jump-char
@@ -631,11 +859,55 @@
 (global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
 
+;; * haskell-mode
+;; - https://github.com/haskell/haskell-mode
+;; - History
+;;   -  2020-09-02 Create
+(when (bk-load-path-add "haskell-mode")
+  (bk-auto-loads "haskell" '("\\.hs\\'" . haskell-mode))
+  (bk-auto-loads "haskell-interactive-mode" #'interactive-haskell-mode)
+  (bk-auto-loads "haskell-doc" #'haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  (add-hook 'haskell-mode-hook 'haskell-doc-mode))
+
+;;; docker
+(defun bk/docker-compose-custom-envs ()
+  "Add usual env variables to Emacs environment."
+  (interactive)
+  (let* ((idu (shell-command-to-string "id -u"))
+	 (idg (shell-command-to-string "id -g"))
+	 (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
+    (setenv "WEBSERVER_PORT" "3000")
+    (setenv "CURRENT_UID" uid)
+    (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
+    (docker)))
+
+;; * json-mode
+;; - https://github.com/joshwnj/json-mode
+;; - History
+;;   -  2020-09-04 Create
+(when (bk-load-path-add "json-mode")
+  (bk-auto-loads "json-mode" '("\\.json\\'" . json-mode)))
+
+;; * docker.el
+;; - https://github.com/Silex/docker.el
+;; - History
+;;   -  2020-09-04 Create
+(when (bk-load-path-add "docker.el")
+  (bk-auto-loads "docker" #'docker)
+  (global-set-key (kbd "C-c d") #'docker))
+
+
 ;;; adding line numbers to programming buffers
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+;;; * Emacs server
+(require 'server)
+(when (not (server-running-p))
+  (server-start))
 
 ;; End of file
 (f-msg "Loaded init.el!")

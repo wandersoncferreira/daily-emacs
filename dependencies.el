@@ -110,6 +110,54 @@
 ;;     - 2020-08-18 Create
 (bk-load-path-add "epl")
 
+;; * edit-indirect (library)
+;;   - https://github.com/Fanael/edit-indirect
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "edit-indirect")
+
+;; * ht.el (library)
+;;   - https://github.com/Wilfred/ht.el
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "ht.el")
+
+;; * pfuture (library)
+;;   - https://github.com/Alexander-Miller/pfuture
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "pfuture")
+
+;; * bui.el (library)
+;;   - https://github.com/alezost/bui.el
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "bui.el")
+
+;; * lsp-ui (library)
+;;   - https://github.com/emacs-lsp/lsp-ui
+;;   - History
+;;     - 2020-08-18 Create
+(bk-load-path-add "lsp-ui")
+
+;; * tablist (library)
+;;   - https://github.com/politza/tablist
+;;   - History
+;;     - 2020-09-04 Create
+(bk-load-path-add "tablist")
+
+;; * json-snatcher (library)
+;;   - https://github.com/Sterlingg/json-snatcher
+;;   - History
+;;     - 2020-09-04 Create
+(bk-load-path-add "json-snatcher")
+
+;; * json-reformat (library)
+;;   - https://github.com/gongo/json-reformat
+;;   - History
+;;     - 2020-09-04 Create
+(bk-load-path-add "json-reformat")
+
 (provide 'dependencies)
 ;;; dependencies.el ends here
 

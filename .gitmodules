@@ -145,3 +145,75 @@
 [submodule "external/epl"]
 	path = external/epl
 	url = https://github.com/cask/epl
+[submodule "external/edit-indirect"]
+	path = external/edit-indirect
+	url = https://github.com/Fanael/edit-indirect
+[submodule "external/emacs-scala-mode"]
+	path = external/emacs-scala-mode
+	url = https://github.com/hvesalai/emacs-scala-mode
+[submodule "external/emacs-sbt-mode"]
+	path = external/emacs-sbt-mode
+	url = https://github.com/hvesalai/emacs-sbt-mode
+[submodule "external/lsp-mode"]
+	path = external/lsp-mode
+	url = https://github.com/emacs-lsp/lsp-mode
+[submodule "external/lsp-metals"]
+	path = external/lsp-metals
+	url = https://github.com/emacs-lsp/lsp-metals
+[submodule "external/ht.el"]
+	path = external/ht.el
+	url = https://github.com/Wilfred/ht.el
+[submodule "external/dap-mode"]
+	path = external/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode
+[submodule "external/treemacs"]
+	path = external/treemacs
+	url = https://github.com/Alexander-Miller/treemacs
+[submodule "external/ace-window"]
+	path = external/ace-window
+	url = https://github.com/abo-abo/ace-window
+[submodule "external/avy"]
+	path = external/avy
+	url = https://github.com/abo-abo/avy
+[submodule "external/pfuture"]
+	path = external/pfuture
+	url = https://github.com/Alexander-Miller/pfuture
+[submodule "external/lsp-treemacs"]
+	path = external/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs
+[submodule "external/bui.el"]
+	path = external/bui.el
+	url = https://github.com/alezost/bui.el
+[submodule "external/lsp-ui"]
+	path = external/lsp-ui
+	url = https://github.com/emacs-lsp/lsp-ui
+[submodule "external/swiper"]
+	path = external/swiper
+	url = https://github.com/abo-abo/swiper
+[submodule "external/counsel-projectile"]
+	path = external/counsel-projectile
+	url = https://github.com/ericdanan/counsel-projectile
+[submodule "external/emacs-which-key"]
+	path = external/emacs-which-key
+	url = https://github.com/justbur/emacs-which-key
+[submodule "external/haskell-mode"]
+	path = external/haskell-mode
+	url = https://github.com/haskell/haskell-mode
+[submodule "external/cljr-ivy"]
+	path = external/cljr-ivy
+	url = https://github.com/wandersoncferreira/cljr-ivy
+[submodule "external/docker.el"]
+	path = external/docker.el
+	url = https://github.com/Silex/docker.el
+[submodule "external/tablist"]
+	path = external/tablist
+	url = https://github.com/politza/tablist
+[submodule "external/json-mode"]
+	path = external/json-mode
+	url = https://github.com/joshwnj/json-mode
+[submodule "external/json-snatcher"]
+	path = external/json-snatcher
+	url = https://github.com/Sterlingg/json-snatcher
+[submodule "external/json-reformat"]
+	path = external/json-reformat
+	url = https://github.com/gongo/json-reformat
