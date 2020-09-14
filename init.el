@@ -4,6 +4,8 @@
 
 ;; Here be dragons
 
+;; Time-stamp: <2020-09-13 22:38:45 (wand)>
+
 ;;; Code:
 
 ;; * startup tricks
@@ -91,6 +93,13 @@
       create-lockfiles nil
       backup-directory-alist `(("." . ,(expand-file-name
 					(concat user-emacs-directory "backups")))))
+
+;;; timestamps
+(setq time-stamp-active t
+      time-stamp-line-limit 10
+      time-stamp-format "%Y-%02m-%02d %02H:%02M:%02S (%u)")
+
+(add-hook 'write-file-hooks 'time-stamp)
 
 ;;; abbreviate yes-or-no questions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -656,12 +665,12 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 	  '(("d" "daily" plain (function org-roam-capture--get-point) ""
              :file-name "dailies/%<%Y-%m-%d>"
              :unnarrowed t
-             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting")))
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\nTime-stamp:<>")))
 
     (setq org-roam-capture-templates
 	  '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+roam_tags: permanent"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\nTime-stamp:<>"
              :unnarrowed t)))
     (org-roam-mode +1)))
 
@@ -672,8 +681,8 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (make-local-variable 'company-idle-delay)
   (make-local-variable 'company-minimum-prefix-length)
   (setq company-backends '(company-org-roam))
-  (setq company-idle-delay 0
-	company-minimum-prefix-length 0))
+  (setq company-idle-delay 0.15
+	company-minimum-prefix-length 2))
 
 (setq org-roam-file-extensions '("orgr"))
 (add-to-list 'auto-mode-alist '("\\.orgr\\'" . orgr-mode))
@@ -688,12 +697,15 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;;   -  2020-08-16 Create
 ;;   -  2020-08-31 Setup feature org-roam-server function created
 ;;   -  2020-09-12 Remove automatic startup and provide manual alternative
+;;   -  2020-09-13 Update with upstream
 (defun bk-setup-feature-org-roam-server ()
   "Customizations for `org-roam-server'."
-  (setq org-roam-server-enable-access-to-local-files t
-	org-roam-server-webserver-prefix "/home/wand"
-	org-roam-server-webserver-address "127.0.0.1:8887/"
-	org-roam-server-webserver-supported-extensions '("pdf" "mp4" "ogv" "mkv"))
+  (setq org-roam-server-host "127.0.0.1"
+	org-roam-server-port 8080
+	org-roam-server-export-inline-images t
+	org-roam-server-serve-files t
+	org-roam-server-default-exclude-filters (json-encode (list (list (cons 'id "fleeting") (cons 'parent "tags"))))
+	org-roam-server-served-file-extensions '("pdf" "mp4" "ogv" "mkv"))
   (org-roam-server-mode +1))
 
 (defun bk/second-brain-server ()
