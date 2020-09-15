@@ -158,6 +158,16 @@
 ;;     - 2020-09-04 Create
 (bk-load-path-add "json-reformat")
 
+;; * frame-cmds (library)
+;;   - History
+;;     - 2020-09-15 Create
+(bk-load-path-add "frame-cmds")
+
+;; * frame-fns (library)
+;;   - History
+;;     - 2020-09-15 Create
+(bk-load-path-add "frame-fns")
+
 ;; * memoize (library)
 ;;   - https://github.com/skeeto/emacs-memoize
 ;;   - History

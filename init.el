@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 08:30:36 (wand)>
+;; Time-stamp: <2020-09-15 13:37:59 (wand)>
 
 ;;; Code:
 
@@ -94,13 +94,29 @@
       backup-directory-alist `(("." . ,(expand-file-name
 					(concat user-emacs-directory "backups")))))
 
+;;; don't use tabs to indent
+(setq-default indent-tabs-mode nil)
+
+;;; newline at the end of file
+(setq require-final-newline t)
+
+(setq blink-matching-paren nil)
+
+;;; use shift+arrow keys to switch between visible buffers
+(add-hook 'after-init-hook
+          (lambda ()
+            (windmove-default-keybindings)))
+
+;;; reduce the frequency of garbage collection
+(setq gc-cons-threshold 50000000)
+
 ;;; timestamps
 (setq time-stamp-active t
       time-stamp-line-limit 10
       time-stamp-format "%Y-%02m-%02d %02H:%02M:%02S (%u)")
 
 (add-hook 'write-file-hooks 'time-stamp)
-
+n
 ;;; abbreviate yes-or-no questions
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -124,6 +140,7 @@
 (defun bk/light-theme ()
   "Define custom light theme."
   (interactive)
+  (bk/set-monaco-font)
   (set-face-attribute 'lazy-highlight nil :background "light green")
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
@@ -155,6 +172,18 @@
 	    (setq outline-blank-line t)
 	    (setq-local outline-regexp ";; \\*")
 	    (outline-hide-body)))
+
+;; * whitespace
+;; - History
+;; - 2020-09-15 Created
+;;; whitespace-mode config
+(defun bk-setup-feature-whitespace ()
+  "Customizations for `whitespace-mode'."
+  (setq whitespace-line-column 80
+        whitespace-style '(face tabs empty trailing lines-tail))
+  (whitespace-mode +1))
+
+(add-hook 'after-init-hook #'bk-setup-feature-whitespace)
 
 ;; * exec-path-from-shell
 ;; - https://github.com/purcell/exec-path-from-shell
@@ -428,6 +457,13 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (define-key clojure-mode-map (kbd "C-c C-k") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
     (diminish 'cider-mode)))
+
+;; * zoom-frm
+;; - https://github.com/emacsmirror/zoom-frm
+;; - History
+;; - 2020-09-15 Created
+(when (bk-load-path-add "zoom-frm")
+  (bk-auto-loads "zoom-frm" #'zoom-in #'zoom-out))
 
 ;; * clj-refactor.el
 ;; - https://github.com/clojure-emacs/clj-refactor.el
@@ -803,7 +839,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;;   -  2020-08-18 Created
 (when (bk-load-path-add "ivy-posframe")
   (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
   (setq ivy-posframe-height-alist '((t . 13)))
   (setq ivy-posframe-hide-minibuffer t
 	ivy-posframe-border-width 3)
@@ -920,6 +956,15 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (add-hook 'after-init-hook #'winner-mode)
 (global-set-key (kbd "C-x 4 u") 'winner-undo)
 (global-set-key (kbd "C-x 4 U") 'winner-redo)
+
+;; * easy-kill
+;; - https://github.com/leoliu/easy-kill
+;; - History
+;;   -  2020-09-15 Created
+(when (bk-load-path-add "easy-kill")
+  (bk-auto-loads "easy-kill" #'easy-kill #'easy-mark)
+  (global-set-key [remap kill-ring-save] 'easy-kill)
+  (global-set-key [remap mark-sexp] 'easy-mark))
 
 ;; * windresize
 ;; - History

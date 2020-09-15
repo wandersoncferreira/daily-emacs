@@ -235,3 +235,12 @@
 [submodule "external/flycheck-posframe"]
 	path = external/flycheck-posframe
 	url = https://github.com/alexmurray/flycheck-posframe
+[submodule "external/zoom-frm"]
+	path = external/zoom-frm
+	url = https://github.com/emacsmirror/zoom-frm
+[submodule "external/frame-fns"]
+	path = external/frame-fns
+	url = https://github.com/emacsmirror/frame-fns
+[submodule "external/easy-kill"]
+	path = external/easy-kill
+	url = https://github.com/leoliu/easy-kill
