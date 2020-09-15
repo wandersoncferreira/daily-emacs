@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-14 22:04:19 (wand)>
+;; Time-stamp: <2020-09-14 23:08:09 (wand)>
 
 ;;; Code:
 
@@ -230,14 +230,52 @@
 ;; * ivy
 ;; - https://github.com/abo-abo/swiper
 ;; - History
-;;   -  2020-08-28 Create
+;;   -  2020-08-28 Created
+;;   -  2020-09-14 Add swiper binding
 (when (bk-load-path-add "swiper")
   (bk-auto-loads "ivy" #'ivy-mode)
   (add-hook 'after-init-hook #'ivy-mode)
   (with-eval-after-load 'ivy
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-initial-inputs-alist nil)
+    (setq ivy-use-virtual-buffers t
+	  ivy-case-fold-search-default t
+	  ivy-count-format "(%d/%d) "
+	  ivy-re-builders-alist '((t . ivy--regex-plus))
+	  ivy-initial-inputs-alist nil)
+
+    (global-set-key (kbd "C-s") #'swiper)
+    (global-set-key (kbd "C-r") #'swiper)
+    (global-set-key (kbd "C-x B") #'ivy-switch-buffer-other-window)
+    
     (diminish 'ivy-mode)))
+
+;; * ivy-rich
+;; https://github.com/Yevgnen/ivy-rich
+;; - History
+;; - 2020-09-14 Created
+(when (bk-load-path-add "ivy-rich")
+  (bk-auto-loads "ivy-rich" #'ivy-rich-mode)
+  (with-eval-after-load 'ivy
+    (setq ivy-virtual-abbreviate 'full
+	  ivy-rich-switch-buffer-align-virtual-buffer t
+	  ivy-rich-path-style 'abbrev)
+    (ivy-rich-mode +1)))
+
+;; * all-the-icons-ivy-rich
+;; https://github.com/seagle0128/all-the-icons-ivy-rich
+;; - History
+;; - 2020-09-14 Created
+(when (bk-load-path-add "all-the-icons-ivy-rich")
+  (bk-auto-loads "all-the-icons-ivy-rich" #'all-the-icons-ivy-rich-mode)
+  (with-eval-after-load 'ivy
+    (all-the-icons-ivy-rich-mode +1)))
+
+;; * all-the-icons
+;; https://github.com/domtronn/all-the-icons.el
+;; - History
+;; - 2020-09-14 Created
+(when (bk-load-path-add "all-the-icons.el")
+  (bk-auto-loads "all-the-icons" #'all-the-icons-install-fonts)
+  (setq inhibit-compacting-font-caches t))
 
 ;; * counsel
 ;; - https://github.com/abo-abo/swiper
@@ -741,7 +779,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * company-postframe
 ;; - https://github.com/tumashu/company-posframe
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 (when (bk-load-path-add "company-posframe")
   (bk-auto-loads "company-posframe" #'company-posframe-mode)
   (with-eval-after-load 'company
@@ -750,6 +788,20 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 	  company-posframe-show-params nil)
     (company-posframe-mode 1)
     (diminish 'company-posframe-mode)))
+
+;; * ivy-postframe
+;; - https://github.com/tumashu/ivy-posframe
+;; - History
+;;   -  2020-08-18 Create
+(when (bk-load-path-add "ivy-posframe")
+  (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
+  (setq ivy-posframe-height-alist '((t . 13)))
+  (setq ivy-posframe-hide-minibuffer t
+	ivy-posframe-border-width 3)
+  (setq ivy-posframe-parameters	'((left-fringe . 8)
+				  (right-fringe . 8)))
+  (add-hook 'after-init-hook #'ivy-posframe-mode))
 
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam

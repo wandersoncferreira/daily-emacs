@@ -158,6 +158,12 @@
 ;;     - 2020-09-04 Create
 (bk-load-path-add "json-reformat")
 
+;; * memoize (library)
+;;   - https://github.com/skeeto/emacs-memoize
+;;   - History
+;;     - 2020-09-04 Create
+(bk-load-path-add "emacs-memoize")
+
 (provide 'dependencies)
 ;;; dependencies.el ends here
 
