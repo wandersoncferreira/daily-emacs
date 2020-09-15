@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 13:44:02 (wand)>
+;; Time-stamp: <2020-09-15 14:01:16 (wand)>
 
 ;;; Code:
 
@@ -20,16 +20,16 @@
       gc-cons-percentage 0.6)
 
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (setq gc-cons-threshold 800000
-		  gc-cons-percentage 0.1)))
+          (lambda ()
+            (setq gc-cons-threshold 800000
+                  gc-cons-percentage 0.1)))
 
 (defvar bk--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
 
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (setq file-name-handler-alist bk--file-name-handler-alist)))
+          (lambda ()
+            (setq file-name-handler-alist bk--file-name-handler-alist)))
 
 
 (defvar not-disabled? nil)
@@ -92,7 +92,7 @@
       vc-follow-symlinks t
       create-lockfiles nil
       backup-directory-alist `(("." . ,(expand-file-name
-					(concat user-emacs-directory "backups")))))
+                                        (concat user-emacs-directory "backups")))))
 
 ;;; don't use tabs to indent
 (setq-default indent-tabs-mode nil)
@@ -166,12 +166,12 @@ n
 ;; - History
 ;; - 2020-09-13 Created
 (add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (outline-minor-mode +1)
-	    (diminish 'outline-minor-mode)
-	    (setq outline-blank-line t)
-	    (setq-local outline-regexp ";; \\*")
-	    (outline-hide-body)))
+          (lambda ()
+            (outline-minor-mode +1)
+            (diminish 'outline-minor-mode)
+            (setq outline-blank-line t)
+            (setq-local outline-regexp ";; \\*")
+            (outline-hide-body)))
 
 ;; * whitespace
 ;; - History
@@ -244,7 +244,7 @@ n
   (add-hook 'after-init-hook #'ido-mode)
   (with-eval-after-load 'ido
     (setq ido-use-virtual-buffers t
-	  ido-enable-flex-matching t)
+          ido-enable-flex-matching t)
     (ido-everywhere +1)))
 
 ;; * ido completing-read-plus (disabled)
@@ -267,10 +267,10 @@ n
   (add-hook 'after-init-hook #'ivy-mode)
   (with-eval-after-load 'ivy
     (setq ivy-use-virtual-buffers t
-	  ivy-case-fold-search-default t
-	  ivy-count-format "(%d/%d) "
-	  ivy-re-builders-alist '((t . ivy--regex-plus))
-	  ivy-initial-inputs-alist nil)
+          ivy-case-fold-search-default t
+          ivy-count-format "(%d/%d) "
+          ivy-re-builders-alist '((t . ivy--regex-plus))
+          ivy-initial-inputs-alist nil)
 
     (global-set-key (kbd "C-s") #'swiper)
     (global-set-key (kbd "C-r") #'swiper)
@@ -286,8 +286,8 @@ n
   (bk-auto-loads "ivy-rich" #'ivy-rich-mode)
   (with-eval-after-load 'ivy
     (setq ivy-virtual-abbreviate 'full
-	  ivy-rich-switch-buffer-align-virtual-buffer t
-	  ivy-rich-path-style 'abbrev)
+          ivy-rich-switch-buffer-align-virtual-buffer t
+          ivy-rich-path-style 'abbrev)
     (ivy-rich-mode +1)))
 
 ;; * all-the-icons-ivy-rich
@@ -329,7 +329,7 @@ n
 ;;   -  2020-08-14 Created
 (when (bk-load-path-add "clojure-mode")
   (bk-auto-loads "clojure-mode"
-		 '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
+                 '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
                  '("\\.cljc\\'" . clojurec-mode)
                  '("\\.cljx\\'" . clojurex-mode)
                  '("\\.cljs\\'" . clojurescript-mode)
@@ -341,7 +341,7 @@ n
 ;;  - 2020/08/27 Created
 (when (bk-load-path-add "emacs-scala-mode")
   (bk-auto-loads "scala-mode"
-		 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
+                 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
 
 ;; * sbt
 ;; - https://github.com/hvesalai/emacs-sbt-mode
@@ -424,8 +424,8 @@ n
 ;;   -  2020-08-17 Created
 (when (bk-load-path-add "markdown-mode")
   (bk-auto-loads "markdown-mode"
-		 '("\\.md\\'" . markdown-mode)
-		 '("\\.markdown\\'" . markdown-mode)
+                 '("\\.md\\'" . markdown-mode)
+                 '("\\.markdown\\'" . markdown-mode)
                  '("README\\.md" . gfm-mode))
   (with-eval-after-load 'markdown-mode
     (setq markdown-command "pandoc")))
@@ -442,16 +442,16 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 (when (bk-load-path-add "cider")
   (bk-auto-loads "cider"
-		 #'cider-jack-in
-		 #'cider-connect
-		 #'cider-jack-in-clj&cljs)
+                 #'cider-jack-in
+                 #'cider-connect
+                 #'cider-jack-in-clj&cljs)
   (bk-auto-loads "cider-macroexpansion" #'cider-macroexpand-1)
   (bk-auto-loads "cider-find" #'cider-find-var)
   (with-eval-after-load 'clojure-mode
     (setq cider-save-file-on-load t
-	  cider-auto-select-error-buffer t
-	  cider-auto-select-test-report-buffer nil
-	  cider-repl-pop-to-buffer-on-connect nil)
+          cider-auto-select-error-buffer t
+          cider-auto-select-test-report-buffer nil
+          cider-repl-pop-to-buffer-on-connect nil)
     (defalias 'cquit 'cider-quit)
     (define-key clojure-mode-map (kbd "C-c M-j") #'cider-jack-in)
     (define-key clojure-mode-map (kbd "C-x C-e") 'bk/nrepl-warn-when-not-connected)
@@ -522,10 +522,10 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (add-hook 'after-init-hook #'projectile-mode)
   (with-eval-after-load 'projectile
     (setq projectile-completion-system 'ivy
-	  projectile-enable-caching t
-	  projectile-indexing-method 'hybrid
-	  projectile-mode-line-prefix " Prj"
-	  projectile-sort-order 'access-time)
+          projectile-enable-caching t
+          projectile-indexing-method 'hybrid
+          projectile-mode-line-prefix " Prj"
+          projectile-sort-order 'access-time)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 ;; * yasnippet
@@ -535,8 +535,8 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (when (bk-load-path-add "yasnippet")
   (bk-auto-loads "yasnippet" #'yas-global-mode)
   (add-hook 'prog-mode-hook (lambda ()
-			      (yas-global-mode +1)
-			      (diminish 'yas-minor-mode))))
+                              (yas-global-mode +1)
+                              (diminish 'yas-minor-mode))))
 
 ;; * change-inner
 ;; - https://github.com/magnars/change-inner.el
@@ -576,12 +576,12 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (eshell-send-input)))
 
 (add-hook 'eshell-mode-hook
-	  (lambda ()
+          (lambda ()
             (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
 
 ;;; eshell aliases
 (add-hook 'eshell-mode-hook
-	  (lambda ()
+          (lambda ()
             (eshell/alias "e" "find-file $1")
             (eshell/alias "ee" "find-file-other-window $1")))
 
@@ -611,7 +611,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (with-eval-after-load 'magit
     (set-default 'magit-revert-buffers 'silent)
     (set-default 'magit-no-confirm '(stage-all-changes
-				     unstage-all-changes))))
+                                     unstage-all-changes))))
 
 ;; * ledger mode
 ;; - https://github.com/ledger/ledger-mode
@@ -629,12 +629,12 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (defun bk-setup-feature-ledger ()
   "Customizations for ledger."
   (setq ledger-reports
-	'(("netcash" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^assets:bank liabilities:card")
+        '(("netcash" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^assets:bank liabilities:card")
           ("networth" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank liabilities equity:apartment")
           ("spent-vs-earned" "ledger [[ledger-mode-flags]] -f /home/wand/.ledger bal -X BRL --period=\"last 4 weeks\" ^Expenses ^Income --invert -S amount")
           ("budget" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank:checking:budget liabilities:card")
-	  ("creta" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^expenses:car: ^equity:car")
-	  ("taxes" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^expenses:taxes")
+          ("creta" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^expenses:car: ^equity:car")
+          ("taxes" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^expenses:taxes")
           ("bal" "%(binary) -f %(ledger-file) bal")
           ("reg" "%(binary) -f %(ledger-file) reg")
           ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
@@ -642,8 +642,8 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 (when (bk-load-path-add "ledger-mode")
   (bk-auto-loads "ledger-mode"
-		 '("\\ledger$" . ledger-mode)
-		 '("\\.ledger$" . ledger-mode))
+                 '("\\ledger$" . ledger-mode)
+                 '("\\.ledger$" . ledger-mode))
   (set-register ?l '(file . "~/.ledger"))
   (with-eval-after-load 'ledger-mode
     (bk-setup-feature-ledger)))
@@ -675,7 +675,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (defun bk-setup-feature-flycheck ()
   "Customizations for flycheck."
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-buffer-switch)
-	flycheck-display-errors-delay 0.25))
+        flycheck-display-errors-delay 0.25))
 
 (when (bk-load-path-add "flycheck")
   (bk-auto-loads "flycheck" #'flycheck-mode)
@@ -722,15 +722,15 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (setq bk-org-roam-directory "~/all/zettelkasten")
 (when (bk-load-path-add "org-roam")
   (bk-auto-loads "org-roam"
-		 #'org-roam-capture
-		 #'org-roam-dailies-today
-		 #'org-roam-random-note
-		 #'org-roam-find-file
-		 #'org-roam-dailies-find-today
-		 #'org-roam-dailies-find-next-note
-		 #'org-roam-dailies-find-previous-note
-		 #'org-roam-insert
-		 #'org-roam)
+                 #'org-roam-capture
+                 #'org-roam-dailies-today
+                 #'org-roam-random-note
+                 #'org-roam-find-file
+                 #'org-roam-dailies-find-today
+                 #'org-roam-dailies-find-next-note
+                 #'org-roam-dailies-find-previous-note
+                 #'org-roam-insert
+                 #'org-roam)
   (global-set-key (kbd "C-c n c") #'org-roam-capture)
   (global-set-key (kbd "C-c n t") #'org-roam-dailies-today)
   (global-set-key (kbd "C-c n i") #'org-roam-insert)
@@ -746,13 +746,13 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (setq org-roam-directory bk-org-roam-directory)
     (setq org-roam-completion-system 'ivy)
     (setq org-roam-dailies-capture-templates
-	  '(("d" "daily" plain (function org-roam-capture--get-point) ""
+          '(("d" "daily" plain (function org-roam-capture--get-point) ""
              :file-name "daily/%<%Y-%m-%d>"
              :unnarrowed t
              :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
 
     (setq org-roam-capture-templates
-	  '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
+          '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
              :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+Time-stamp: <>"
              :unnarrowed t)))
@@ -767,7 +767,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (make-local-variable 'company-minimum-prefix-length)
   (setq company-backends '(company-org-roam))
   (setq company-idle-delay 0.20
-	company-minimum-prefix-length 2))
+        company-minimum-prefix-length 2))
 
 (setq org-roam-file-extensions '("orgr"))
 (add-to-list 'auto-mode-alist '("\\.orgr\\'" . orgr-mode))
@@ -786,11 +786,11 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 (defun bk-setup-feature-org-roam-server ()
   "Customizations for `org-roam-server'."
   (setq org-roam-server-host "127.0.0.1"
-	org-roam-server-port 8080
-	org-roam-server-export-inline-images t
-	org-roam-server-serve-files t
-	org-roam-server-default-exclude-filters (json-encode (list (list (cons 'id "fleeting") (cons 'parent "tags"))))
-	org-roam-server-served-file-extensions '("pdf" "mp4" "ogv" "mkv"))
+        org-roam-server-port 8080
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files t
+        org-roam-server-default-exclude-filters (json-encode (list (list (cons 'id "fleeting") (cons 'parent "tags"))))
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv" "mkv"))
   (org-roam-server-mode +1))
 
 (defun bk/second-brain-server ()
@@ -811,11 +811,11 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (add-hook 'after-init-hook #'global-company-mode)
   (with-eval-after-load 'company
     (setq company-show-numbers t
-	  company-idle-delay 0.25
-	  company-minimum-prefix-length 2
-	  company-tooltip-limit 14
-	  company-tooltip-align-annotations t
-	  company-require-match 'never)
+          company-idle-delay 0.25
+          company-minimum-prefix-length 2
+          company-tooltip-limit 14
+          company-tooltip-align-annotations t
+          company-require-match 'never)
     (setq company-global-modes '(not org-mode))
     (define-key company-active-map [(control) (meta) ?s] 'company-search-candidates)
     (define-key company-active-map "\C-s" 'company-filter-candidates)
@@ -830,8 +830,8 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (bk-auto-loads "company-posframe" #'company-posframe-mode)
   (with-eval-after-load 'company
     (setq company-posframe-show-indicator nil
-	  company-posframe-show-metadata nil
-	  company-posframe-show-params nil)
+          company-posframe-show-metadata nil
+          company-posframe-show-params nil)
     (company-posframe-mode 1)
     (diminish 'company-posframe-mode)))
 
@@ -1027,8 +1027,8 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   "Add usual env variables to Emacs environment."
   (interactive)
   (let* ((idu (shell-command-to-string "id -u"))
-	 (idg (shell-command-to-string "id -g"))
-	 (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
+         (idg (shell-command-to-string "id -g"))
+         (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
     (setenv "WEBSERVER_PORT" "3000")
     (setenv "CURRENT_UID" uid)
     (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
