@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 13:37:59 (wand)>
+;; Time-stamp: <2020-09-15 13:44:02 (wand)>
 
 ;;; Code:
 
@@ -115,7 +115,7 @@
       time-stamp-line-limit 10
       time-stamp-format "%Y-%02m-%02d %02H:%02M:%02S (%u)")
 
-(add-hook 'write-file-hooks 'time-stamp)
+(add-hook 'write-file-functions 'time-stamp)
 n
 ;;; abbreviate yes-or-no questions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -181,7 +181,8 @@ n
   "Customizations for `whitespace-mode'."
   (setq whitespace-line-column 80
         whitespace-style '(face tabs empty trailing lines-tail))
-  (whitespace-mode +1))
+  (whitespace-mode +1)
+  (diminish 'whitespace-mode))
 
 (add-hook 'after-init-hook #'bk-setup-feature-whitespace)
 
@@ -587,6 +588,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;;; define default shell
 (defvar my-term-shell "/bin/bash")
 (defadvice ansi-term (before force-bash)
+  "BEFORE FORCE-BASH docs."
   (interactive (list my-term-shell)))
 (ad-activate 'ansi-term)
 
@@ -839,16 +841,17 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;;   -  2020-08-18 Created
 (when (bk-load-path-add "ivy-posframe")
   (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
+  (setq ivy-posframe-display-functions-alist
+        '((t . ivy-posframe-display-at-frame-bottom-left)))
   (setq ivy-posframe-height-alist '((t . 13)))
   (setq ivy-posframe-hide-minibuffer t
-	ivy-posframe-border-width 3)
-  (setq ivy-posframe-parameters	'((left-fringe . 8)
-				  (right-fringe . 8)))
+        ivy-posframe-border-width 3)
+  (setq ivy-posframe-parameters '((left-fringe . 8)
+                                  (right-fringe . 8)))
   (add-hook 'after-init-hook
-	    (lambda ()
-	      (ivy-posframe-mode)
-	      (diminish 'ivy-posframe-mode))))
+            (lambda ()
+              (ivy-posframe-mode)
+              (diminish 'ivy-posframe-mode))))
 
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
@@ -946,7 +949,9 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - History
 ;;   -  2020-08-17 Created
 (when (bk-load-path-add "fix-word")
-  (bk-auto-loads "fix-word" #'fix-word-upcase #'fix-word-downcase #'fix-word-capitalize)
+  (bk-auto-loads "fix-word"
+                 #'fix-word-upcase
+                 #'fix-word-downcase #'fix-word-capitalize)
   (global-set-key (kbd "M-u") #'fix-word-upcase)
   (global-set-key (kbd "M-l") #'fix-word-downcase)
   (global-set-key (kbd "M-c") #'fix-word-capitalize))
