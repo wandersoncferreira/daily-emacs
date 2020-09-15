@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 08:28:13 (wand)>
+;; Time-stamp: <2020-09-15 08:30:36 (wand)>
 
 ;;; Code:
 
@@ -159,7 +159,7 @@
 ;; * exec-path-from-shell
 ;; - https://github.com/purcell/exec-path-from-shell
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
   (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
@@ -170,7 +170,7 @@
 ;; * expand-region.el
 ;; - https://github.com/magnars/expand-region.el
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "expand-region.el")
   (bk-auto-loads "expand-region" #'er/expand-region)
   (global-set-key (kbd "C-'") #'er/expand-region))
@@ -180,7 +180,7 @@
 ;; * diminish
 ;; - https://github.com/emacsmirror/diminish
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 (when (bk-load-path-add "diminish")
   (bk-auto-loads "diminish" #'diminish)
   (global-eldoc-mode +1)
@@ -188,7 +188,7 @@
 
 ;; * paredit
 ;; - History
-;;   - 2020-08-14 Create
+;;   - 2020-08-14 Created
 ;;   - 2020-08-16 Add clojure(script) modes
 (defun bk-setup-feature-paredit ()
   "Customizations for paredit."
@@ -207,7 +207,7 @@
 
 ;; * ido (disabled)
 ;; - History
-;;   -  2020-08-14 Create
+;;   -  2020-08-14 Created
 ;;   -  2020-08-18 Enable ido-everywhere
 ;;   -  2020-08-28 Disabled
 (when not-disabled?
@@ -220,7 +220,7 @@
 ;; * ido completing-read-plus (disabled)
 ;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 ;;   -  2020-08-28 Disabled
 (when (and (bk-load-path-add "ido-completing-read-plus") not-disabled?)
   (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
@@ -280,7 +280,7 @@
 ;; * counsel
 ;; - https://github.com/abo-abo/swiper
 ;; - History
-;;   -  2020-08-28 Create
+;;   -  2020-08-28 Created
 (when (bk-load-path-add "swiper")
   (bk-auto-loads "counsel" #'counsel-M-x)
   (global-set-key (kbd "M-x") #'counsel-M-x)
@@ -289,14 +289,14 @@
 ;; * counsel-projectile
 ;; - https://github.com/ericdanan/counsel-projectile
 ;; - History
-;;   -  2020-08-28 Create
+;;   -  2020-08-28 Created
 (when (bk-load-path-add "counsel-projectile")
   (bk-auto-loads "counsel-projectile" #'counsel-projectile-mode)
   (add-hook 'after-init-hook #'counsel-projectile-mode))
 
 ;; * clojure mode
 ;; - History
-;;   -  2020-08-14 Create
+;;   -  2020-08-14 Created
 (when (bk-load-path-add "clojure-mode")
   (bk-auto-loads "clojure-mode"
 		 '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
@@ -308,7 +308,7 @@
 ;; * scala
 ;; - https://github.com/hvesalai/emacs-scala-mode
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "emacs-scala-mode")
   (bk-auto-loads "scala-mode"
 		 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
@@ -324,7 +324,7 @@
 
 ;; * lsp-mode
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "lsp-mode")
   (bk-auto-loads "lsp-mode" #'lsp #'lsp-lens-mode)
   (bk-auto-loads "lsp-modeline" #'lsp-modeline-diagnostics-mode)
@@ -335,7 +335,7 @@
 
 ;; * dap-mode
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "dap-mode")
   (bk-auto-loads "dap-mode" #'dap-mode)
   (bk-auto-loads "dap-ui" #'dap-ui-mode)
@@ -346,20 +346,20 @@
 
 ;; * treemacs
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "treemacs/src/elisp")
   (bk-auto-loads "treemacs" #'treemacs))
 
 ;; * lsp-metals
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "lsp-metals")
   (bk-auto-loads "lsp-metals" #'lsp-metals)
   (bk-auto-loads "lsp-metals-treeview" #'lsp-metals-treeview-mode))
 
 ;; * lsp-Treemacs
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "lsp-treemacs")
   (bk-auto-loads "lsp-treemacs")
   (with-eval-after-load 'lsp-mode
@@ -368,13 +368,13 @@
 
 ;; * ace-window
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "ace-window")
   (bk-auto-loads "ace-window" #'ace-window))
 
 ;; * avy
 ;; - History
-;;  - 2020/08/27 Create
+;;  - 2020/08/27 Created
 (when (bk-load-path-add "avy")
   (bk-auto-loads "avy" #'avy-goto-char)
   (global-set-key (kbd "C-;") #'avy-goto-char))
@@ -383,7 +383,7 @@
 ;; * flycheck-clj-kondo
 ;; - https://github.com/borkdude/flycheck-clj-kondo
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 (when (bk-load-path-add "flycheck-clj-kondo")
   (bk-auto-loads "flycheck-clj-kondo" #'flycheck-clj-kondo)
   (with-eval-after-load 'clojure-mode
@@ -391,7 +391,7 @@
 
 ;; * markdown mode
 ;; - History
-;;   -  2020-08-17 Create
+;;   -  2020-08-17 Created
 (when (bk-load-path-add "markdown-mode")
   (bk-auto-loads "markdown-mode"
 		 '("\\.md\\'" . markdown-mode)
@@ -402,7 +402,7 @@
 
 ;; * cider mode
 ;; - History
-;;   -  2020-08-14 Create
+;;   -  2020-08-14 Created
 ;;   -  2020-08-18 Adding key binding to cider-jack-in
 (defun bk/nrepl-warn-when-not-connected ()
   "Function to warn me to start the REPL."
@@ -432,7 +432,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * clj-refactor.el
 ;; - https://github.com/clojure-emacs/clj-refactor.el
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 ;;   -  2020-09-02 Create function to setup and hook in clojure mode
 (defun bk-setup-feature-clj-refactor ()
   "Customizations for Clj refactor."
@@ -447,7 +447,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * cljr-ivy
 ;; - https://github.com/wandersoncferreira/cljr-ivy
 ;; - History
-;;   -  2020-09-03 Create
+;;   -  2020-09-03 Created
 (when (bk-load-path-add "cljr-ivy")
   (bk-auto-loads "cljr-ivy" #'cljr-ivy)
   (with-eval-after-load 'clojure-mode
@@ -456,7 +456,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * hydra
 ;; - https://github.com/abo-abo/hydra
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 (when (bk-load-path-add "hydra")
   (bk-auto-loads "hydra" #'hydra))
 
@@ -478,7 +478,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 ;; * projectile mode
 ;; - History
-;;   -  2020-08-14 Create
+;;   -  2020-08-14 Created
 ;;   -  2020-08-28 Changing completion system to `ivy'
 (when (bk-load-path-add "projectile")
   (bk-auto-loads "projectile" #'projectile-mode)
@@ -494,7 +494,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * yasnippet
 ;; - https://github.com/joaotavora/yasnippet
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 (when (bk-load-path-add "yasnippet")
   (bk-auto-loads "yasnippet" #'yas-global-mode)
   (add-hook 'prog-mode-hook (lambda ()
@@ -504,7 +504,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * change-inner
 ;; - https://github.com/magnars/change-inner.el
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 (when (bk-load-path-add "change-inner.el")
   (bk-auto-loads "change-inner" #'change-inner #'change-outer)
   (global-set-key (kbd "M-i") #'change-inner)
@@ -560,7 +560,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * magit
 ;; - https://github.com/magit/magit
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 (defun bk/magit-cursor-fix ()
   "Fix the cursor position inside magit buffers."
   (goto-char (point-min))
@@ -578,7 +578,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * ledger mode
 ;; - https://github.com/ledger/ledger-mode
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 ;;   -  2020-08-18 Fix eval-after-load to ledger-modex
 (defun bk/clean-ledger ()
   "Bring back timeline structure to the whole file."
@@ -613,7 +613,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * smex
 ;; - https://github.com/nonsequitur/smex
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 (when (and (bk-load-path-add "smex") not-disabled?)
   (bk-auto-loads "smex" #'smex)
   (global-set-key (kbd "M-x") #'smex)
@@ -655,7 +655,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 ;; * org
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (defun bk-setup-feature-org ()
   "Customizations for org mode."
   (setq org-return-follows-link t)
@@ -668,7 +668,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * plantuml
 ;; - https://github.com/skuro/plantuml-mode
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 ;;   -  2020-08-17 Change after-load to enable usage in org-mode
 (defvar bk-plantuml-path "~/plantuml.jar")
 (when (bk-load-path-add "plantuml-mode")
@@ -679,7 +679,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * org-roam
 ;; - https://github.com/org-roam
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 ;;   -  2020-09-12 Improve find notes by adding a prefix `f` in the Org roam chords
 (setq bk-org-roam-directory "~/all/zettelkasten")
 (when (bk-load-path-add "org-roam")
@@ -741,7 +741,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * org-roam-server
 ;; - https://github.com/org-roam/org-roam-server
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 ;;   -  2020-08-31 Setup feature org-roam-server function created
 ;;   -  2020-09-12 Remove automatic startup and provide manual alternative
 ;;   -  2020-09-13 Update with upstream
@@ -766,7 +766,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * company-mode
 ;; - https://github.com/company-mode/company-mode
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 ;;   -  2020-08-17 Remap C-M-S and C-s to filter list of results
 (when (bk-load-path-add "company-mode")
   (bk-auto-loads "company" #'global-company-mode)
@@ -800,7 +800,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * ivy-postframe
 ;; - https://github.com/tumashu/ivy-posframe
 ;; - History
-;;   -  2020-08-18 Create
+;;   -  2020-08-18 Created
 (when (bk-load-path-add "ivy-posframe")
   (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-window-bottom-left)))
@@ -817,14 +817,14 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "company-org-roam")
   (bk-auto-loads "company-org-roam" #'company-org-roam))
 
 ;; * jump-char
 ;; - https://github.com/lewang/jump-char
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "jump-char")
   (bk-auto-loads "jump-char" #'jump-char-forward #'jump-char-backward)
   (global-set-key (kbd "M-n") 'jump-char-forward)
@@ -833,7 +833,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "switch-window")
   (bk-auto-loads "switch-window" #'switch-window)
   (global-set-key (kbd "C-x o") 'switch-window)
@@ -844,7 +844,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * multiple-cursors.el
 ;; - https://github.com/magnars/multiple-cursors.el
 ;; - History
-;;   -  2020-08-16 Create
+;;   -  2020-08-16 Created
 (when (bk-load-path-add "multiple-cursors.el")
   (bk-auto-loads "multiple-cursors" #'mc/mark-next-like-this #'mc/mark-previous-like-this)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -908,7 +908,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * fix-word
 ;; - https://github.com/mrkkrp/fix-word
 ;; - History
-;;   -  2020-08-17 Create
+;;   -  2020-08-17 Created
 (when (bk-load-path-add "fix-word")
   (bk-auto-loads "fix-word" #'fix-word-upcase #'fix-word-downcase #'fix-word-capitalize)
   (global-set-key (kbd "M-u") #'fix-word-upcase)
@@ -923,20 +923,20 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 ;; * windresize
 ;; - History
-;;   -  2020-08-17 Create
+;;   -  2020-08-17 Created
 (when (bk-load-path-add "windresize")
   (bk-auto-loads "windresize" #'windresize))
 
 ;; * sql indent mode
 ;; - History
-;;   -  2020-08-17 Create
+;;   -  2020-08-17 Created
 (when (bk-load-path-add "emacs-sql-indent")
   (bk-auto-loads "sql-indent" #'sqlind-minor-mode)
   (add-hook 'sql-mode-hook 'sqlind-minor-mode))
 
 ;; * toggle-test
 ;; - History
-;;   -  2020-08-17 Create
+;;   -  2020-08-17 Created
 (when (bk-load-path-add "toggle-test")
   (bk-auto-loads "toggle-test" #'tgt-toggle)
   (global-set-key (kbd "s-t") #'tgt-toggle)
@@ -964,7 +964,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * haskell-mode
 ;; - https://github.com/haskell/haskell-mode
 ;; - History
-;;   -  2020-09-02 Create
+;;   -  2020-09-02 Created
 (when (bk-load-path-add "haskell-mode")
   (bk-auto-loads "haskell" '("\\.hs\\'" . haskell-mode))
   (bk-auto-loads "haskell-interactive-mode" #'interactive-haskell-mode)
@@ -987,14 +987,14 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * json-mode
 ;; - https://github.com/joshwnj/json-mode
 ;; - History
-;;   -  2020-09-04 Create
+;;   -  2020-09-04 Created
 (when (bk-load-path-add "json-mode")
   (bk-auto-loads "json-mode" '("\\.json\\'" . json-mode)))
 
 ;; * docker.el
 ;; - https://github.com/Silex/docker.el
 ;; - History
-;;   -  2020-09-04 Create
+;;   -  2020-09-04 Created
 (when (bk-load-path-add "docker.el")
   (bk-auto-loads "docker" #'docker)
   (global-set-key (kbd "C-c d") #'docker))
