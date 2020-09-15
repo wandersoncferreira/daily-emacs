@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-13 22:38:45 (wand)>
+;; Time-stamp: <2020-09-14 22:04:19 (wand)>
 
 ;;; Code:
 
@@ -151,7 +151,7 @@
 (add-hook 'emacs-lisp-mode-hook
 	  (lambda ()
 	    (outline-minor-mode +1)
-	    (diminish 'outline-mode)
+	    (diminish 'outline-minor-mode)
 	    (setq outline-blank-line t)
 	    (setq-local outline-regexp ";; \\*")
 	    (outline-hide-body)))
@@ -635,7 +635,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - History
 ;;   -  2020-08-16 Create
 ;;   -  2020-09-12 Improve find notes by adding a prefix `f` in the Org roam chords
-(defvar bk-org-roam-directory "~/all/permanent")
+(setq bk-org-roam-directory "~/all/zettelkasten")
 (when (bk-load-path-add "org-roam")
   (bk-auto-loads "org-roam"
 		 #'org-roam-capture
@@ -663,16 +663,17 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (setq org-roam-completion-system 'ivy)
     (setq org-roam-dailies-capture-templates
 	  '(("d" "daily" plain (function org-roam-capture--get-point) ""
-             :file-name "dailies/%<%Y-%m-%d>"
+             :file-name "daily/%<%Y-%m-%d>"
              :unnarrowed t
-             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\nTime-stamp:<>")))
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
 
     (setq org-roam-capture-templates
 	  '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\nTime-stamp:<>"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+Time-stamp: <>"
              :unnarrowed t)))
-    (org-roam-mode +1)))
+    (org-roam-mode +1)
+    (diminish 'org-roam-mode)))
 
 (define-derived-mode orgr-mode org-mode "orgr"
   "Major mode to segregate configs of Org-roam from Org-mode."
@@ -681,7 +682,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (make-local-variable 'company-idle-delay)
   (make-local-variable 'company-minimum-prefix-length)
   (setq company-backends '(company-org-roam))
-  (setq company-idle-delay 0.15
+  (setq company-idle-delay 0.20
 	company-minimum-prefix-length 2))
 
 (setq org-roam-file-extensions '("orgr"))
