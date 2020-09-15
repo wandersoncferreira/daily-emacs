@@ -232,3 +232,6 @@
 [submodule "external/ivy-posframe"]
 	path = external/ivy-posframe
 	url = https://github.com/tumashu/ivy-posframe
+[submodule "external/flycheck-posframe"]
+	path = external/flycheck-posframe
+	url = https://github.com/alexmurray/flycheck-posframe

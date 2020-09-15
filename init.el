@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-14 23:08:09 (wand)>
+;; Time-stamp: <2020-09-15 08:28:13 (wand)>
 
 ;;; Code:
 
@@ -463,7 +463,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * which-key
 ;; - https://github.com/justbur/emacs-which-key
 ;; - History
-;;   -  2020-08-28 Create
+;;   -  2020-08-28 Created
 (defun bk-setup-feature-which-key ()
   "Customizations to which-key mode."
   (setq which-key-show-early-on-C-h t)
@@ -633,7 +633,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; * flycheck
 ;; - https://github.com/flycheck/flycheck
 ;; - History
-;;   -  2020-08-15 Create
+;;   -  2020-08-15 Created
 (defun bk-setup-feature-flycheck ()
   "Customizations for flycheck."
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-buffer-switch)
@@ -644,6 +644,14 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (add-hook 'prog-mode-hook #'flycheck-mode)
   (with-eval-after-load 'flycheck
     (bk-setup-feature-flycheck)))
+
+;; * flycheck-posframe
+;; - https://github.com/alexmurray/flycheck-posframe
+;; - History
+;;   -  2020-09-15 Created
+(when (bk-load-path-add "flycheck-posframe")
+  (bk-auto-loads "flycheck-posframe" #'flycheck-posframe-mode)
+  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
 ;; * org
 ;; - History
@@ -801,7 +809,10 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 	ivy-posframe-border-width 3)
   (setq ivy-posframe-parameters	'((left-fringe . 8)
 				  (right-fringe . 8)))
-  (add-hook 'after-init-hook #'ivy-posframe-mode))
+  (add-hook 'after-init-hook
+	    (lambda ()
+	      (ivy-posframe-mode)
+	      (diminish 'ivy-posframe-mode))))
 
 ;; * company-org-roam
 ;; - https://github.com/org-roam/company-org-roam
