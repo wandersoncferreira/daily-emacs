@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 14:01:16 (wand)>
+;; Time-stamp: <2020-09-15 16:25:10 (wand)>
 
 ;;; Code:
 
@@ -134,7 +134,7 @@ n
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
   (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 100)))
+    (set-face-attribute 'default nil :font "Monaco" :height 110)))
 
 ;;; change themes
 (defun bk/light-theme ()
@@ -266,16 +266,19 @@ n
   (bk-auto-loads "ivy" #'ivy-mode)
   (add-hook 'after-init-hook #'ivy-mode)
   (with-eval-after-load 'ivy
+
     (setq ivy-use-virtual-buffers t
           ivy-case-fold-search-default t
+          enable-recursive-minibuffers t
           ivy-count-format "(%d/%d) "
           ivy-re-builders-alist '((t . ivy--regex-plus))
           ivy-initial-inputs-alist nil)
 
     (global-set-key (kbd "C-s") #'swiper)
     (global-set-key (kbd "C-r") #'swiper)
+    (global-set-key (kbd "C-x C-f") #'counsel-find-file)
     (global-set-key (kbd "C-x B") #'ivy-switch-buffer-other-window)
-    
+
     (diminish 'ivy-mode)))
 
 ;; * ivy-rich
@@ -342,6 +345,14 @@ n
 (when (bk-load-path-add "emacs-scala-mode")
   (bk-auto-loads "scala-mode"
                  '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
+
+;; * hl-todo
+;; - https://github.com/tarsius/hl-todo
+;; - History
+;;  - 2020-09-15 Created
+(when (bk-load-path-add "hl-todo")
+  (bk-auto-loads "hl-todo" #'hl-todo-mode)
+  (add-hook 'prog-mode-hook #'hl-todo-mode))
 
 ;; * sbt
 ;; - https://github.com/hvesalai/emacs-sbt-mode
@@ -810,13 +821,16 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (bk-auto-loads "company" #'global-company-mode)
   (add-hook 'after-init-hook #'global-company-mode)
   (with-eval-after-load 'company
+
     (setq company-show-numbers t
           company-idle-delay 0.25
           company-minimum-prefix-length 2
-          company-tooltip-limit 14
+          company-tooltip-limit 10
+          company-tooltip-flip-when-above t
           company-tooltip-align-annotations t
-          company-require-match 'never)
-    (setq company-global-modes '(not org-mode))
+          company-require-match 'never
+          company-global-modes '(not org-mode))
+
     (define-key company-active-map [(control) (meta) ?s] 'company-search-candidates)
     (define-key company-active-map "\C-s" 'company-filter-candidates)
     (define-key company-active-map (kbd "C-/") 'counsel-company)

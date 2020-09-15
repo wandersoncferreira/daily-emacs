@@ -244,3 +244,6 @@
 [submodule "external/easy-kill"]
 	path = external/easy-kill
 	url = https://github.com/leoliu/easy-kill
+[submodule "external/hl-todo"]
+	path = external/hl-todo
+	url = https://github.com/tarsius/hl-todo
