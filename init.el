@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 23:19:26 (wand)>
+;; Time-stamp: <2020-09-16 10:06:48 (wand)>
 
 ;;; Code:
 
@@ -30,7 +30,6 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (setq file-name-handler-alist bk--file-name-handler-alist)))
-
 
 (defvar not-disabled? nil)
 
@@ -279,35 +278,6 @@
     (global-set-key (kbd "C-x B") #'ivy-switch-buffer-other-window)
 
     (diminish 'ivy-mode)))
-
-;; * ivy-rich
-;; https://github.com/Yevgnen/ivy-rich
-;; - History
-;; - 2020-09-14 Created
-(when (bk-load-path-add "ivy-rich")
-  (bk-auto-loads "ivy-rich" #'ivy-rich-mode)
-  (with-eval-after-load 'ivy
-    (setq ivy-virtual-abbreviate 'full
-          ivy-rich-switch-buffer-align-virtual-buffer t
-          ivy-rich-path-style 'abbrev)
-    (ivy-rich-mode +1)))
-
-;; * all-the-icons-ivy-rich
-;; https://github.com/seagle0128/all-the-icons-ivy-rich
-;; - History
-;; - 2020-09-14 Created
-(when (bk-load-path-add "all-the-icons-ivy-rich")
-  (bk-auto-loads "all-the-icons-ivy-rich" #'all-the-icons-ivy-rich-mode)
-  (with-eval-after-load 'ivy
-    (all-the-icons-ivy-rich-mode +1)))
-
-;; * all-the-icons
-;; https://github.com/domtronn/all-the-icons.el
-;; - History
-;; - 2020-09-14 Created
-(when (bk-load-path-add "all-the-icons.el")
-  (bk-auto-loads "all-the-icons" #'all-the-icons-install-fonts)
-  (setq inhibit-compacting-font-caches t))
 
 ;; * counsel
 ;; - https://github.com/abo-abo/swiper

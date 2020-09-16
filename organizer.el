@@ -4,7 +4,7 @@
 
 ;; Here be more dragons! Spice ones...
 
-;; Time-stamp: <2020-09-15 23:35:26 (wand)>
+;; Time-stamp: <2020-09-16 09:13:15 (wand)>
 
 ;;; Code:
 
@@ -62,6 +62,8 @@
   "Customizations for `org-agenda'."
   (setq org-agenda-files '("/home/wand/all/agenda/todo.org"))
 
+  (set-register ?t '(file . "~/all/agenda/todo.org"))
+
   ;; add closing time when changing to DONE
   (setq org-log-done 'time)
 
@@ -82,7 +84,7 @@
   
   (setq org-capture-templates
         '(("t" "Todo" entry
-           (file+headline "todo.org" "Task")
+           (file+headline "/home/wand/all/agenda/todo.org" "Task")
            "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
            :clock-in t :clock-resume t)))
 
@@ -125,7 +127,7 @@
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
 
             ;; next life
-            (tags "+life+TODO=\"NEXT\"|+life+TODO=\"STARTED\"|+life+TODO=\"WAIT\""
+            (tags "+life+"
                   ((org-agenda-overriding-header "Next task in LIFE:")
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
 
@@ -181,6 +183,7 @@
                  #'org-roam-dailies-find-previous-note
                  #'org-roam-insert
                  #'org-roam)
+  
   (global-set-key (kbd "C-c n c") #'org-roam-capture)
   (global-set-key (kbd "C-c n t") #'org-roam-dailies-today)
   (global-set-key (kbd "C-c n i") #'org-roam-insert)
