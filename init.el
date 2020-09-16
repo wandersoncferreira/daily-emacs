@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-15 21:41:35 (wand)>
+;; Time-stamp: <2020-09-15 23:19:26 (wand)>
 
 ;;; Code:
 
@@ -116,7 +116,7 @@
       time-stamp-format "%Y-%02m-%02d %02H:%02M:%02S (%u)")
 
 (add-hook 'write-file-functions 'time-stamp)
-n
+
 ;;; abbreviate yes-or-no questions
 (fset 'yes-or-no-p 'y-or-n-p)
 

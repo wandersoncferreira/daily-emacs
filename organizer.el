@@ -4,7 +4,7 @@
 
 ;; Here be more dragons! Spice ones...
 
-;; Time-stamp: <2020-09-15 21:40:51 (wand)>
+;; Time-stamp: <2020-09-15 23:35:26 (wand)>
 
 ;;; Code:
 
@@ -21,12 +21,148 @@
 
 (defun bk-setup-feature-org ()
   "Customizations for org mode."
-  (setq org-return-follows-link t)
-  (setq org-use-speed-commands t)
+  (setq org-return-follows-link t
+        org-use-speed-commands t)
   (require 'ob-plantuml))
 
 (with-eval-after-load 'org
   (bk-setup-feature-org))
+
+;; * org-agenda
+;; - History
+;; - 2020-09-15 Created
+(require 'org-agenda)
+
+(defun lgm/clock-in-when-started ()
+"Automatically clock in a task when status is changed to STARTED."
+    (when (string= org-state "STARTED")
+      (org-clock-in)))
+
+(defun bk/clock-out-when-waiting ()
+  "Clock out when the task change to WAIT."
+  (when (and (string= org-state "WAIT")
+             (not (string= org-last-state org-state)))
+    (org-clock-out)))
+
+(defun air-org-skip-subtree-if-habit ()
+  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
+  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+    (if (string= (org-entry-get nil "STYLE") "habit")
+        subtree-end
+      nil)))
+
+(defun scheduled-or-not (resp)
+  "Improve the schedule view in agenda mode when there is no RESP available."
+  (interactive)
+  (if resp
+      (concat "In " (number-to-string (org-time-stamp-to-now resp)) " day(s)")
+    '"Not Scheduled"))
+
+(defun bk-setup-feature-org-agenda ()
+  "Customizations for `org-agenda'."
+  (setq org-agenda-files '("/home/wand/all/agenda/todo.org"))
+
+  ;; add closing time when changing to DONE
+  (setq org-log-done 'time)
+
+  ;; clock out when moving task to done
+  (setq org-clock-out-when-done t)
+
+  (add-hook 'org-after-todo-state-change-hook 'lgm/clock-in-when-started)
+  (add-hook 'org-after-todo-state-change-hook 'bk/clock-out-when-waiting)
+
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "WAIT(w!)" "STARTED(s!)" "|"
+                    "DONE(d)" "CANCELED(c@)" "INACTIVE(i@)" "FAIL(f@)")))
+
+  (setq org-agenda-block-separator " "
+        org-agenda-span 'day
+        org-agenda-skip-function-global
+        '(org-agenda-skip-entry-if 'todo '("ACTED" "CANCELED")))
+  
+  (setq org-capture-templates
+        '(("t" "Todo" entry
+           (file+headline "todo.org" "Task")
+           "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
+           :clock-in t :clock-resume t)))
+
+  (setq org-agenda-custom-commands
+        '(("d" "Daily agenda and NEXTs!"
+           (;; deadlines in the next 45 days
+            (agenda ""
+                    ((org-agenda-time-grid nil)
+                     (org-agenda-span 'day)
+                     (org-deadline-warning-days 45)
+                     (org-agenda-entry-types '(:deadline))
+                     (org-agenda-sorting-strategy '(deadline-up))
+                     (org-agenda-overriding-header "Deadlines in the next 45 days:")))
+
+            ;; week tasks and deadlines
+            (agenda ""
+                    ((org-agenda-time-grid nil)
+                     (org-agenda-span 'week)
+                     (org-agenda-start-on-weekday 0)
+                     (org-deadline-warning-days 0)
+                     (org-deadline-past-days 0)
+                     (org-scheduled-past-days 0)
+                     (org-agenda-entry-types '(:deadline :scheduled))
+                     (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
+                     (org-agenda-overriding-header "Week tasks completed:")))
+            
+            ;; high priority tasks
+            (tags "PRIORITY=\"A\"&-TODO=\"DONE\""
+                  ((org-agenda-overriding-header "High priority tasks:")
+                   (org-agenda-skip-function '(air-org-skip-subtree-if-habit))))
+
+            ;; work
+            (tags "+work+TODO=\"NEXT\"|+work+TODO=\"STARTED\"|+work+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Next task in WORK:")
+                   (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
+
+            ;; next study
+            (tags "+study+TODO=\"NEXT\"|+study+TODO=\"STARTED\"|+study+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Next task in STUDY:")
+                   (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
+
+            ;; next life
+            (tags "+life+TODO=\"NEXT\"|+life+TODO=\"STARTED\"|+life+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Next task in LIFE:")
+                   (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
+
+            ;; next projects
+            (tags "+project+TODO=\"NEXT\"|+project+TODO=\"STARTED\"|+project+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Next task in PROJECTS:")
+                   (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
+            
+            ))))
+
+  ;; compact only day view
+  (add-to-list 'org-agenda-custom-commands
+               '("l" "Compact today"
+                 agenda "" ((org-agenda-ndays 5)
+                            (org-agenda-span 'day)
+                            (org-deadline-warning-days 0)
+                            (org-agenda-skip-scheduled-delay-if-deadline t)
+                            (org-agenda-todo-ignore-scheduled t)
+                            (org-agenda-scheduled-leaders '("" ""))
+                            (org-agenda-tags-todo-honor-ignore-options t)
+                            (org-agenda-overriding-header "Today Agenda:"))))
+
+  ;; daily habits
+  (add-to-list 'org-agenda-custom-commands
+               '("h" "Daily habits"
+                 agenda ""
+                 ((org-agenda-show-log t)
+                  (org-agenda-ndays 7)
+                  (org-agenda-log-mode-items '(state))
+                  (org-agenda-skip-function '(org-agenda-skip-if 'notregexp ":daily:")))))
+
+  ;; enable the usage of two agenda views at the same time
+  (org-toggle-sticky-agenda))
+
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(add-hook 'after-init-hook #'bk-setup-feature-org-agenda)
 
 ;; * org-roam
 ;; - https://github.com/org-roam
