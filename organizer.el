@@ -4,7 +4,7 @@
 
 ;; Here be more dragons! Spice ones...
 
-;; Time-stamp: <2020-09-16 09:13:15 (wand)>
+;; Time-stamp: <2020-09-16 12:34:35 (wand)>
 
 ;;; Code:
 
@@ -70,6 +70,8 @@
   ;; clock out when moving task to done
   (setq org-clock-out-when-done t)
 
+  (setq org-agenda-log-mode-items '(closed clock state))
+
   (add-hook 'org-after-todo-state-change-hook 'lgm/clock-in-when-started)
   (add-hook 'org-after-todo-state-change-hook 'bk/clock-out-when-waiting)
 
@@ -104,10 +106,6 @@
                     ((org-agenda-time-grid nil)
                      (org-agenda-span 'week)
                      (org-agenda-start-on-weekday 0)
-                     (org-deadline-warning-days 0)
-                     (org-deadline-past-days 0)
-                     (org-scheduled-past-days 0)
-                     (org-agenda-entry-types '(:deadline :scheduled))
                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'nottodo 'done))
                      (org-agenda-overriding-header "Week tasks completed:")))
             

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-16 10:06:48 (wand)>
+;; Time-stamp: <2020-09-20 21:35:18 (wand)>
 
 ;;; Code:
 
@@ -85,6 +85,24 @@
     (kill-new myip)
     (message "IP: %s" myip)))
 
+;; * dired
+;; - History
+;; - 2020/09/20 Created
+;; xdg-open
+(defun bk/dired-xdg-open ()
+  "Open the file at point with xdg-open."
+  (interactive)
+  (let ((file (dired-get-filename nil t)))
+    (message "Opening %s..." file)
+    (call-process "xdg-open" nil 0 nil file)
+    (message "Opening %s done" file)))
+
+(eval-after-load 'dired
+  '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open))
+
+(setq dired-omit-files "^\\...+$")
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
 ;; * basic customizations
 ;; basics
 (setq tab-always-indent 'complete
@@ -128,7 +146,12 @@
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 
+;;; cheatsheet
+(set-register ?c '(file . "~/.emacs.d/cheatsheet.org"))
+
 ;; * theming and Fonts
+;; - History
+;; - 2020-09-17 - Enabling Zenburn
 ;;; change font
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
@@ -144,7 +167,19 @@
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
 
-(add-hook 'after-init-hook #'bk/light-theme)
+;; * themes
+;; - History
+;; - 2020-09-17 Added zenburn
+(setq custom-theme-directory (concat user-emacs-directory "themes")
+      custom-safe-themes t)
+
+(dolist (path (directory-files custom-theme-directory t "\\w+"))
+  (when (file-directory-p path)
+    (add-to-list 'custom-theme-load-path path)))
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (bk/light-theme)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)
@@ -170,6 +205,7 @@
             (diminish 'outline-minor-mode)
             (setq outline-blank-line t)
             (setq-local outline-regexp ";; \\*")))
+
 
 ;; * whitespace
 ;; - History
@@ -389,6 +425,28 @@
   (bk-auto-loads "avy" #'avy-goto-char)
   (global-set-key (kbd "C-;") #'avy-goto-char))
 
+;; * grep
+;; - History
+;; - 2020/09/20 Created
+(defun bk-setup-feature-grep ()
+  "Customizations for grep."
+  (let ((blocked-dirs '("tmp" "target" "elpa" "workspace" ".cache"
+                        "data" "node_modules"))
+        (blocked-files '("ido.last" "smex-items" "recentf" "dmenu-items")))
+    (eval-after-load 'grep
+      '(progn
+         (dolist (it blocked-dirs)
+           (add-to-list 'grep-find-ignored-directories it))
+         (dolist (et blocked-files)
+           (add-to-list 'grep-find-ignored-files et))))))
+
+(add-hook 'after-init-hook #'bk-setup-feature-grep)
+
+;; * wgrep
+;; - History
+;;  - 2020/09/20 Created
+(when (bk-load-path-add "wgrep")
+  (bk-auto-loads "wgrep" #'wgrep-change-to-wgrep-mode))
 
 ;; * flycheck-clj-kondo
 ;; - https://github.com/borkdude/flycheck-clj-kondo
@@ -935,6 +993,9 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 
 ;; * organizer
 (load-file (expand-file-name "organizer.el" user-emacs-directory))
+
+;;; abbreviations
+(load-file (expand-file-name "abbreviations.el" user-emacs-directory))
 
 ;; End of file
 (f-msg "Loaded init.el!")

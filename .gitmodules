@@ -238,3 +238,6 @@
 [submodule "external/hl-todo"]
 	path = external/hl-todo
 	url = https://github.com/tarsius/hl-todo
+[submodule "themes/zenburn-emacs"]
+	path = themes/zenburn-emacs
+	url = https://github.com/bbatsov/zenburn-emacs

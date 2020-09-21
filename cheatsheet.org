@@ -1,0 +1,29 @@
+#+title: Cheatsheet
+#+startup: showall
+#+Time-stamp: <2020-09-17 22:26:52 (wand)>
+
+
+* Easy Kill
+
+  | Keys  | Descriptions                        |
+  |-------+-------------------------------------|
+  | M-w w | save word at point                  |
+  | M-w s | save sexp at point                  |
+  | M-w l | save list at point (enclosing sexp) |
+  | M-w d | save defun at point                 |
+  | M-w D | save current defun name             |
+  | M-w f | save file at point                  |
+  | M-w b | save =buffer-file-name=             |
+
+  The following keys modify the selection:
+
+  | Keys          | Descriptions                               |
+  |---------------+--------------------------------------------|
+  | @             | append selection to previous kill and exit |
+  | C-w           | kill selection and exit                    |
+  | +,- and 1...9 | expand/shrink selection                    |
+  | 0             | shrink the selection to the initial size   |
+  | SPC           | cycle through things in =easy-kill-alist=  |
+  | C-SPC         | turn selection into an active region       |
+  | C-g           | abort                                      |
+  | ?             | help                                       |
