@@ -149,25 +149,25 @@
 	path = external/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
 [submodule "external/emacs-scala-mode"]
-	path = external/emacs-scala-mode
+	path = scala/pkgs/emacs-scala-mode
 	url = https://github.com/hvesalai/emacs-scala-mode
 [submodule "external/emacs-sbt-mode"]
-	path = external/emacs-sbt-mode
+	path = scala/pkgs/emacs-sbt-mode
 	url = https://github.com/hvesalai/emacs-sbt-mode
 [submodule "external/lsp-mode"]
-	path = external/lsp-mode
+	path = scala/pkgs/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode
 [submodule "external/lsp-metals"]
-	path = external/lsp-metals
+	path = scala/pkgs/lsp-metals
 	url = https://github.com/emacs-lsp/lsp-metals
 [submodule "external/ht.el"]
 	path = external/ht.el
 	url = https://github.com/Wilfred/ht.el
 [submodule "external/dap-mode"]
-	path = external/dap-mode
+	path = scala/pkgs/dap-mode
 	url = https://github.com/emacs-lsp/dap-mode
 [submodule "external/treemacs"]
-	path = external/treemacs
+	path = scala/pkgs/treemacs
 	url = https://github.com/Alexander-Miller/treemacs
 [submodule "external/ace-window"]
 	path = external/ace-window
@@ -179,7 +179,7 @@
 	path = external/pfuture
 	url = https://github.com/Alexander-Miller/pfuture
 [submodule "external/lsp-treemacs"]
-	path = external/lsp-treemacs
+	path = scala/pkgs/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs
 [submodule "external/bui.el"]
 	path = external/bui.el

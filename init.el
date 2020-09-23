@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 21:53:30 (wand)>
+;; Time-stamp: <2020-09-22 21:57:22 (wand)>
 
 ;;; Code:
 
@@ -361,14 +361,6 @@
   (elpy-enable)
   (bk-setup-feature-elpy))
 
-;; * scala
-;; - https://github.com/hvesalai/emacs-scala-mode
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "emacs-scala-mode")
-  (bk-auto-loads "scala-mode"
-                 '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
-
 ;; * hl-todo
 ;; - https://github.com/tarsius/hl-todo
 ;; - History
@@ -376,59 +368,6 @@
 (when (bk-load-path-add "hl-todo")
   (bk-auto-loads "hl-todo" #'hl-todo-mode)
   (add-hook 'prog-mode-hook #'hl-todo-mode))
-
-;; * sbt
-;; - https://github.com/hvesalai/emacs-sbt-mode
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "emacs-sbt-mode")
-  (bk-auto-loads "sbt-mode" #'sbt-start #'sbt-command)
-  (with-eval-after-load 'scala-mode
-    (setq sbt:program-options '("-Dsbt.supershell=false"))))
-
-;; * lsp-mode
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "lsp-mode")
-  (bk-auto-loads "lsp-mode" #'lsp #'lsp-lens-mode)
-  (bk-auto-loads "lsp-modeline" #'lsp-modeline-diagnostics-mode)
-  (add-hook 'scala-mode-hook #'lsp)
-  (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-  (with-eval-after-load 'lsp-mode
-    (setq lsp-prefer-flymake nil)))
-
-;; * dap-mode
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "dap-mode")
-  (bk-auto-loads "dap-mode" #'dap-mode)
-  (bk-auto-loads "dap-ui" #'dap-ui-mode)
-  (bk-auto-loads "dap-mouse" #'dap-tooltip-mode)
-  (with-eval-after-load 'lsp-mode
-    (dap-mode +1)
-    (dap-ui-mode +1)))
-
-;; * treemacs
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "treemacs/src/elisp")
-  (bk-auto-loads "treemacs" #'treemacs))
-
-;; * lsp-metals
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "lsp-metals")
-  (bk-auto-loads "lsp-metals" #'lsp-metals)
-  (bk-auto-loads "lsp-metals-treeview" #'lsp-metals-treeview-mode))
-
-;; * lsp-Treemacs
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "lsp-treemacs")
-  (bk-auto-loads "lsp-treemacs")
-  (with-eval-after-load 'lsp-mode
-    (lsp-metals-treeview-mode +1)
-    (setq lsp-metals-treeview-show-when-views-received t)))
 
 ;; * ace-window
 ;; - History
