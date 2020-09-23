@@ -4,14 +4,14 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 21:49:24 (wand)>
+;; Time-stamp: <2020-09-22 22:02:43 (wand)>
 
 ;;; Code:
 
 ;; * clojure mode
 ;; - History
 ;;   -  2020-08-14 Created
-(when (bk/add-load-path "clojure" "clojure-mode")
+(when (bk/add-load-path "lang/clojure" "clojure-mode")
   (bk-auto-loads "clojure-mode"
                  '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
                  '("\\.cljc\\'" . clojurec-mode)
@@ -29,7 +29,7 @@
   (message "Oops! You're not connected to an nREPL server.
 Please run M-x cider or M-x cider-jack-in to connect"))
 
-(when (bk/add-load-path "clojure" "cider")
+(when (bk/add-load-path "lang/clojure" "cider")
   (bk-auto-loads "cider"
                  #'cider-jack-in
                  #'cider-connect
@@ -59,7 +59,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (diminish 'clj-refactor-mode))
 
-(when (bk/add-load-path "clojure" "clj-refactor.el")
+(when (bk/add-load-path "lang/clojure" "clj-refactor.el")
   (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode #'cljr-add-keybindings-with-prefix)
   (add-hook 'clojure-mode-hook #'bk-setup-feature-clj-refactor))
 
@@ -67,7 +67,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - https://github.com/wandersoncferreira/cljr-ivy
 ;; - History
 ;;   -  2020-09-03 Created
-(when (bk/add-load-path "clojure" "cljr-ivy")
+(when (bk/add-load-path "lang/clojure" "cljr-ivy")
   (bk-auto-loads "cljr-ivy" #'cljr-ivy)
   (with-eval-after-load 'clojure-mode
     (define-key clojure-mode-map (kbd "C-c C-r") #'cljr-ivy)))
@@ -76,7 +76,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - https://github.com/borkdude/flycheck-clj-kondo
 ;; - History
 ;;   -  2020-08-18 Created
-(when (bk/add-load-path "clojure" "flycheck-clj-kondo")
+(when (bk/add-load-path "lang/clojure" "flycheck-clj-kondo")
   (bk-auto-loads "flycheck-clj-kondo" #'flycheck-clj-kondo)
   (with-eval-after-load 'clojure-mode
     (require 'flycheck-clj-kondo)))
