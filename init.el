@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 22:13:04 (wand)>
+;; Time-stamp: <2020-09-22 23:41:42 (wand)>
 
 ;;; Code:
 
@@ -50,6 +50,7 @@
 ;; - History
 ;; - 2020-09-22 Added clojure pack
 (load-file (expand-file-name "lang/loader.el" user-emacs-directory))
+
 (load-file (expand-file-name "completion/init.el" user-emacs-directory))
 
 ;; * custom functions
@@ -292,39 +293,6 @@
   (with-eval-after-load 'ido
     (ido-ubiquitous-mode +1)))
 
-;; * ivy
-;; - https://github.com/abo-abo/swiper
-;; - History
-;;   -  2020-08-28 Created
-;;   -  2020-09-14 Add swiper binding
-(when (bk-load-path-add "swiper")
-  (bk-auto-loads "ivy" #'ivy-mode)
-  (add-hook 'after-init-hook #'ivy-mode)
-  (with-eval-after-load 'ivy
-
-    (setq ivy-use-virtual-buffers t
-          ivy-case-fold-search-default t
-          enable-recursive-minibuffers t
-          ivy-count-format "(%d/%d) "
-          ivy-re-builders-alist '((t . ivy--regex-plus))
-          ivy-initial-inputs-alist nil)
-
-    (global-set-key (kbd "C-s") #'swiper)
-    (global-set-key (kbd "C-r") #'swiper)
-    (global-set-key (kbd "C-x C-f") #'counsel-find-file)
-    (global-set-key (kbd "C-x B") #'ivy-switch-buffer-other-window)
-
-    (diminish 'ivy-mode)))
-
-;; * counsel
-;; - https://github.com/abo-abo/swiper
-;; - History
-;;   -  2020-08-28 Created
-(when (bk-load-path-add "swiper")
-  (bk-auto-loads "counsel" #'counsel-M-x)
-  (global-set-key (kbd "M-x") #'counsel-M-x)
-  (global-set-key (kbd "C-x C-m") 'counsel-M-x))
-
 ;; * counsel-projectile
 ;; - https://github.com/ericdanan/counsel-projectile
 ;; - History
@@ -375,36 +343,6 @@
 (when (bk-load-path-add "ace-window")
   (bk-auto-loads "ace-window" #'ace-window))
 
-;; * avy
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "avy")
-  (bk-auto-loads "avy" #'avy-goto-char)
-  (global-set-key (kbd "C-;") #'avy-goto-char))
-
-;; * grep
-;; - History
-;; - 2020/09/20 Created
-(defun bk-setup-feature-grep ()
-  "Customizations for grep."
-  (let ((blocked-dirs '("tmp" "target" "elpa" "workspace" ".cache"
-                        "data" "node_modules"))
-        (blocked-files '("ido.last" "smex-items" "recentf" "dmenu-items")))
-    (eval-after-load 'grep
-      '(progn
-         (dolist (it blocked-dirs)
-           (add-to-list 'grep-find-ignored-directories it))
-         (dolist (et blocked-files)
-           (add-to-list 'grep-find-ignored-files et))))))
-
-(add-hook 'after-init-hook #'bk-setup-feature-grep)
-
-;; * wgrep
-;; - History
-;;  - 2020/09/20 Created
-(when (bk-load-path-add "wgrep")
-  (bk-auto-loads "wgrep" #'wgrep-change-to-wgrep-mode))
-
 ;; * markdown mode
 ;; - History
 ;;   -  2020-08-17 Created
@@ -422,8 +360,6 @@
 ;; - 2020-09-15 Created
 (when (bk-load-path-add "zoom-frm")
   (bk-auto-loads "zoom-frm" #'zoom-in #'zoom-out))
-
-
 
 ;; * hydra
 ;; - https://github.com/abo-abo/hydra
@@ -632,33 +568,6 @@
 (when (bk-load-path-add "flycheck-posframe")
   (bk-auto-loads "flycheck-posframe" #'flycheck-posframe-mode)
   (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
-
-;; * ivy-postframe
-;; - https://github.com/tumashu/ivy-posframe
-;; - History
-;;   -  2020-08-18 Created
-(when (bk-load-path-add "ivy-posframe")
-  (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
-  (setq ivy-posframe-display-functions-alist
-        '((t . ivy-posframe-display-at-frame-bottom-left)))
-  (setq ivy-posframe-height-alist '((t . 13)))
-  (setq ivy-posframe-hide-minibuffer t
-        ivy-posframe-border-width 3)
-  (setq ivy-posframe-parameters '((left-fringe . 8)
-                                  (right-fringe . 8)))
-  (add-hook 'after-init-hook
-            (lambda ()
-              (ivy-posframe-mode)
-              (diminish 'ivy-posframe-mode))))
-
-;; * jump-char
-;; - https://github.com/lewang/jump-char
-;; - History
-;;   -  2020-08-16 Created
-(when (bk-load-path-add "jump-char")
-  (bk-auto-loads "jump-char" #'jump-char-forward #'jump-char-backward)
-  (global-set-key (kbd "M-n") 'jump-char-forward)
-  (global-set-key (kbd "M-p") 'jump-char-backward))
 
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window

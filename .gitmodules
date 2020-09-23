@@ -98,7 +98,7 @@
 	path = external/expand-region.el
 	url = https://github.com/magnars/expand-region.el
 [submodule "external/jump-char"]
-	path = external/jump-char
+	path = search/pkgs/jump-char
 	url = https://github.com/lewang/jump-char
 [submodule "external/fix-word"]
 	path = external/fix-word
@@ -173,7 +173,7 @@
 	path = external/ace-window
 	url = https://github.com/abo-abo/ace-window
 [submodule "external/avy"]
-	path = external/avy
+	path = search/pkgs/avy
 	url = https://github.com/abo-abo/avy
 [submodule "external/pfuture"]
 	path = external/pfuture
@@ -188,7 +188,7 @@
 	path = external/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui
 [submodule "external/swiper"]
-	path = external/swiper
+	path = completion/pkgs/swiper
 	url = https://github.com/abo-abo/swiper
 [submodule "external/counsel-projectile"]
 	path = external/counsel-projectile
@@ -221,7 +221,7 @@
 	path = external/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize
 [submodule "external/ivy-posframe"]
-	path = external/ivy-posframe
+	path = completion/pkgs/ivy-posframe
 	url = https://github.com/tumashu/ivy-posframe
 [submodule "external/flycheck-posframe"]
 	path = external/flycheck-posframe
