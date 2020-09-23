@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 23:41:42 (wand)>
+;; Time-stamp: <2020-09-22 23:52:20 (wand)>
 
 ;;; Code:
 
@@ -50,7 +50,7 @@
 ;; - History
 ;; - 2020-09-22 Added clojure pack
 (load-file (expand-file-name "lang/loader.el" user-emacs-directory))
-
+(load-file (expand-file-name "search/init.el" user-emacs-directory))
 (load-file (expand-file-name "completion/init.el" user-emacs-directory))
 
 ;; * custom functions
@@ -80,17 +80,6 @@
   (message "Buffer evaluated!"))
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
-
-;;; get my current ip address
-(defvar url-http-end-of-headers)
-(defun bk/ip ()
-  "Find my current public IP address."
-  (interactive)
-  (let* ((endpoint "https://api.ipify.org")
-         (myip (with-current-buffer (url-retrieve-synchronously endpoint)
-                 (buffer-substring (+ 1 url-http-end-of-headers) (point-max)))))
-    (kill-new myip)
-    (message "IP: %s" myip)))
 
 ;; * dired
 ;; - History
@@ -234,14 +223,6 @@
 (when (bk-load-path-add "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
   (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
-
-;; * expand-region.el
-;; - https://github.com/magnars/expand-region.el
-;; - History
-;;   -  2020-08-16 Created
-(when (bk-load-path-add "expand-region.el")
-  (bk-auto-loads "expand-region" #'er/expand-region)
-  (global-set-key (kbd "C-'") #'er/expand-region))
 
 ;; * diminish
 ;; - https://github.com/emacsmirror/diminish
@@ -415,15 +396,6 @@
                               (yas-global-mode +1)
                               (diminish 'yas-minor-mode))))
 
-;; * change-inner
-;; - https://github.com/magnars/change-inner.el
-;; - History
-;;   -  2020-08-15 Created
-(when (bk-load-path-add "change-inner.el")
-  (bk-auto-loads "change-inner" #'change-inner #'change-outer)
-  (global-set-key (kbd "M-i") #'change-inner)
-  (global-set-key (kbd "M-o") #'change-outer))
-
 ;;; improve scroll functions
 (defun bk/scroll-up ()
   "Scroll only specific amount of lines."
@@ -580,15 +552,6 @@
     (setq-default switch-window-shortcut-style 'alphabet
                   switch-window-timeout nil)))
 
-;; * multiple-cursors.el
-;; - https://github.com/magnars/multiple-cursors.el
-;; - History
-;;   -  2020-08-16 Created
-(when (bk-load-path-add "multiple-cursors.el")
-  (bk-auto-loads "multiple-cursors" #'mc/mark-next-like-this #'mc/mark-previous-like-this)
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
-
 
 ;;; allow ad-handle-redefinition
 ;;; got from here https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
@@ -605,14 +568,6 @@
 ;;; - queue.el
 ;;; - multiple-cursors-steps.el
 (setq byte-compile-warnings '(cl-functions))
-
-;;; edit using sudo
-(defun bk/sudo-edit (&optional arg)
-  "Function to edit file with super-user with optional ARG."
-  (interactive "P")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;;; cheatsheet
 (set-register ?k '(file . "~/private/cheatsheet.org"))
@@ -643,18 +598,6 @@
   (kill-buffer (current-buffer)))
 
 (global-set-key (kbd "C-x k") 'bk/kill-buffer)
-
-;; * fix-word
-;; - https://github.com/mrkkrp/fix-word
-;; - History
-;;   -  2020-08-17 Created
-(when (bk-load-path-add "fix-word")
-  (bk-auto-loads "fix-word"
-                 #'fix-word-upcase
-                 #'fix-word-downcase #'fix-word-capitalize)
-  (global-set-key (kbd "M-u") #'fix-word-upcase)
-  (global-set-key (kbd "M-l") #'fix-word-downcase)
-  (global-set-key (kbd "M-c") #'fix-word-capitalize))
 
 ;;; winner mode is a global minor mode that records
 ;;; the changes in the window configuration
