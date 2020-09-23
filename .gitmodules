@@ -20,7 +20,7 @@
 	path = external/parseclj
 	url = https://github.com/clojure-emacs/parseclj
 [submodule "external/cider"]
-	path = external/cider
+	path = clojure/pkgs/cider
 	url = https://github.com/clojure-emacs/cider
 [submodule "external/spinner.el"]
 	path = external/spinner.el
@@ -89,7 +89,7 @@
 	path = external/multiple-cursors.el
 	url = https://github.com/magnars/multiple-cursors.el
 [submodule "external/clojure-mode"]
-	path = external/clojure-mode
+	path = clojure/pkgs/clojure-mode
 	url = https://github.com/clojure-emacs/clojure-mode
 [submodule "external/exec-path-from-shell"]
 	path = external/exec-path-from-shell

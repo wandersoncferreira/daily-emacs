@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-21 23:21:27 (wand)>
+;; Time-stamp: <2020-09-22 21:36:50 (wand)>
 
 ;;; Code:
 
@@ -335,7 +335,7 @@
 ;; * clojure mode
 ;; - History
 ;;   -  2020-08-14 Created
-(when (bk-load-path-add "clojure-mode")
+(when (bk-load-path-add "clojure/pkgs/clojure-mode")
   (bk-auto-loads "clojure-mode"
                  '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
                  '("\\.cljc\\'" . clojurec-mode)
@@ -506,7 +506,7 @@
   (message "Oops! You're not connected to an nREPL server.
 Please run M-x cider or M-x cider-jack-in to connect"))
 
-(when (bk-load-path-add "cider")
+(when (bk-load-path-add "clojure/pkgs/cider")
   (bk-auto-loads "cider"
                  #'cider-jack-in
                  #'cider-connect
@@ -543,7 +543,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (diminish 'clj-refactor-mode))
 
-(when (bk-load-path-add "clj-refactor.el")
+(when (bk-load-path-add "clojure/pkgs/clj-refactor.el")
   (bk-auto-loads "clj-refactor.el" #'clj-refactor-mode #'cljr-add-keybindings-with-prefix)
   (add-hook 'clojure-mode-hook #'bk-setup-feature-clj-refactor))
 
@@ -551,7 +551,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
 ;; - https://github.com/wandersoncferreira/cljr-ivy
 ;; - History
 ;;   -  2020-09-03 Created
-(when (bk-load-path-add "cljr-ivy")
+(when (bk-load-path-add "clojure/pkgs/cljr-ivy")
   (bk-auto-loads "cljr-ivy" #'cljr-ivy)
   (with-eval-after-load 'clojure-mode
     (define-key clojure-mode-map (kbd "C-c C-r") #'cljr-ivy)))
