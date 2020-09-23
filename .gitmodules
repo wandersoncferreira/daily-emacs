@@ -241,3 +241,12 @@
 [submodule "themes/zenburn-emacs"]
 	path = themes/zenburn-emacs
 	url = https://github.com/bbatsov/zenburn-emacs
+[submodule "external/elpy"]
+	path = external/elpy
+	url = https://github.com/jorgenschaefer/elpy
+[submodule "external/pyvenv"]
+	path = external/pyvenv
+	url = https://github.com/jorgenschaefer/pyvenv
+[submodule "external/Highlight-Indentation-for-Emacs"]
+	path = external/Highlight-Indentation-for-Emacs
+	url = https://github.com/antonj/Highlight-Indentation-for-Emacs

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-20 21:35:18 (wand)>
+;; Time-stamp: <2020-09-21 23:21:27 (wand)>
 
 ;;; Code:
 
@@ -343,6 +343,34 @@
                  '("\\.cljs\\'" . clojurescript-mode)
                  '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
 
+;; * pyvenv
+;; - History
+;; - 2020-09-21 Created
+(when (bk-load-path-add "pyvenv")
+  (bk-auto-loads "pyvenv" #'pyvenv-activate))
+
+;; * highlight-identation
+;; - History
+;; - 2020-09-21 Created
+(when (bk-load-path-add "Highlight-Indentation-for-Emacs")
+  (bk-auto-loads "highlight-identation"))
+
+;; * elpy
+;; - History:
+;; - 2020-09-21 Created
+(defun bk-setup-feature-elpy ()
+  "Customizations for elpy."
+  (pyvenv-activate "~/miniconda3")
+  (delete `elpy-module-django elpy-modules)
+  (delete `elpy-module-highlight-indentation elpy-modules))
+
+(when (bk-load-path-add "elpy")
+  (bk-auto-loads "elpy" #'elpy-enable #'elpy-modules))
+
+(with-eval-after-load 'python
+  (elpy-enable)
+  (bk-setup-feature-elpy))
+
 ;; * scala
 ;; - https://github.com/hvesalai/emacs-scala-mode
 ;; - History
@@ -560,8 +588,14 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (add-hook 'after-init-hook #'projectile-mode)
   (with-eval-after-load 'projectile
     (setq projectile-completion-system 'ivy
+          projectile-cache-file (concat user-emacs-directory "projectile.cache")
+          projectile-auto-discover nil
+          projectile-globally-ignored-files '(".DS_Store" "TAGS")
+          projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
           projectile-enable-caching t
           projectile-indexing-method 'hybrid
+          projectile-kill-buffers-filter 'kill-only-files
+          projectile-ignored-projects '("~/" "/tmp")
           projectile-mode-line-prefix " Prj"
           projectile-sort-order 'access-time)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
@@ -955,6 +989,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
          (idg (shell-command-to-string "id -g"))
          (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
     (setenv "WEBSERVER_PORT" "3000")
+    (setenv "GRAPHQL_PORT" "4000")
     (setenv "CURRENT_UID" uid)
     (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
     (docker)))

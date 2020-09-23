@@ -29,7 +29,10 @@
     ("requier" "require" nil 0)
     ))
 
-(add-hook 'prog-mode-hook 'abbrev-mode)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (abbrev-mode +1)
+            (diminish 'abbrev-mode)))
 
 
 (provide 'abbreviations)
