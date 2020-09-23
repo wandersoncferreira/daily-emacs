@@ -119,7 +119,7 @@
 	path = external/ido-completing-read-plus
 	url = https://github.com/DarwinAwardWinner/ido-completing-read-plus
 [submodule "external/flycheck-clj-kondo"]
-	path = external/flycheck-clj-kondo
+	path = clojure/pkgs/flycheck-clj-kondo
 	url = https://github.com/borkdude/flycheck-clj-kondo
 [submodule "external/clj-refactor.el"]
 	path = external/clj-refactor.el

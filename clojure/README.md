@@ -14,11 +14,13 @@ with something else.
 
 ## Dependencies
 
-    - clojure-mode
-    - cider
-    - cljr-ivy (proprietary)
-    - clj-refactor
-    
+- clojure-mode
+- cider
+- cljr-ivy (proprietary)
+- clj-refactor
+- flycheck-clj-kondo
+
+
 ## Main bindings
 
 | Key      | Function |
