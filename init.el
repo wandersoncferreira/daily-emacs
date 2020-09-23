@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:26:38 (wand)>
+;; Time-stamp: <2020-09-23 00:35:24 (wand)>
 
 ;;; Code:
 
@@ -50,7 +50,8 @@
 ;; - History
 ;; - 2020-09-22 Added clojure pack
 (dolist (pkg '("langs"
-               "modes"))
+               "modes"
+               "apps"))
   (let* ((pkg-name (concat pkg "/loader.el"))
          (pkg-name (expand-file-name pkg-name user-emacs-directory)))
     (load-file pkg-name)))
@@ -174,15 +175,6 @@
 (when (bk-load-path-add "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
   (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
-
-;; * diminish
-;; - https://github.com/emacsmirror/diminish
-;; - History
-;;   -  2020-08-15 Created
-(when (bk-load-path-add "diminish")
-  (bk-auto-loads "diminish" #'diminish)
-  (global-eldoc-mode +1)
-  (diminish 'eldoc-mode))
 
 ;; * ido (disabled)
 ;; - History
@@ -309,41 +301,6 @@
     (set-default 'magit-no-confirm '(stage-all-changes
                                      unstage-all-changes))))
 
-;; * ledger mode
-;; - https://github.com/ledger/ledger-mode
-;; - History
-;;   -  2020-08-15 Created
-;;   -  2020-08-18 Fix eval-after-load to ledger-modex
-(defun bk/clean-ledger ()
-  "Bring back timeline structure to the whole file."
-  (interactive)
-  (if (eq major-mode 'ledger-mode)
-      (let ((curr-line (line-number-at-pos)))
-        (ledger-mode-clean-buffer)
-        (line-move (- curr-line 1)))))
-
-(defun bk-setup-feature-ledger ()
-  "Customizations for ledger."
-  (setq ledger-reports
-        '(("netcash" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^assets:bank liabilities:card")
-          ("networth" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank liabilities equity:apartment")
-          ("spent-vs-earned" "ledger [[ledger-mode-flags]] -f /home/wand/.ledger bal -X BRL --period=\"last 4 weeks\" ^Expenses ^Income --invert -S amount")
-          ("budget" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^assets:bank:checking:budget liabilities:card")
-          ("creta" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -X R$ --current bal ^expenses:car: ^equity:car")
-          ("taxes" "ledger [[ledger-mode-flags]] -f /home/wand/private/finance/ledger -R -X R$ --current bal ^expenses:taxes")
-          ("bal" "%(binary) -f %(ledger-file) bal")
-          ("reg" "%(binary) -f %(ledger-file) reg")
-          ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-          ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
-
-(when (bk-load-path-add "ledger-mode")
-  (bk-auto-loads "ledger-mode"
-                 '("\\ledger$" . ledger-mode)
-                 '("\\.ledger$" . ledger-mode))
-  (set-register ?l '(file . "~/.ledger"))
-  (with-eval-after-load 'ledger-mode
-    (bk-setup-feature-ledger)))
-
 ;;; when two buffers have the same name, we need a way to distinguish them
 (setq uniquify-buffer-name-style 'post-forward)
 
@@ -446,27 +403,6 @@
 
 (global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
-
-;;; docker
-(defun bk/docker-compose-custom-envs ()
-  "Add usual env variables to Emacs environment."
-  (interactive)
-  (let* ((idu (shell-command-to-string "id -u"))
-         (idg (shell-command-to-string "id -g"))
-         (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
-    (setenv "WEBSERVER_PORT" "3000")
-    (setenv "GRAPHQL_PORT" "4000")
-    (setenv "CURRENT_UID" uid)
-    (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
-    (docker)))
-
-;; * docker.el
-;; - https://github.com/Silex/docker.el
-;; - History
-;;   -  2020-09-04 Created
-(when (bk-load-path-add "docker.el")
-  (bk-auto-loads "docker" #'docker)
-  (global-set-key (kbd "C-c d") #'docker))
 
 ;; * line numbers (disabled)
 ;; - History

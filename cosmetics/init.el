@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:21:22 (wand)>
+;; Time-stamp: <2020-09-23 00:31:50 (wand)>
 
 ;;; Code:
 
@@ -66,6 +66,15 @@
   (diminish 'whitespace-mode))
 
 (add-hook 'after-init-hook #'bk-setup-feature-whitespace)
+
+;; * diminish
+;; - https://github.com/emacsmirror/diminish
+;; - History
+;;   -  2020-08-15 Created
+(when (bk/add-load-path "cosmetics" "diminish")
+  (bk-auto-loads "diminish" #'diminish)
+  (global-eldoc-mode +1)
+  (diminish 'eldoc-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -41,13 +41,13 @@
 	path = external/transient
 	url = https://github.com/magit/transient
 [submodule "external/ledger-mode"]
-	path = external/ledger-mode
+	path = apps/ledger/pkgs/ledger-mode
 	url = https://github.com/ledger/ledger-mode
 [submodule "external/smex"]
 	path = completion/pkgs/smex
 	url = https://github.com/nonsequitur/smex
 [submodule "external/diminish"]
-	path = external/diminish
+	path = cosmetics/pkgs/diminish
 	url = https://github.com/emacsmirror/diminish
 [submodule "external/flycheck"]
 	path = modes/prog/pkgs/flycheck
@@ -203,7 +203,7 @@
 	path = external/cljr-ivy
 	url = https://github.com/wandersoncferreira/cljr-ivy
 [submodule "external/docker.el"]
-	path = external/docker.el
+	path = apps/docker/pkgs/docker.el
 	url = https://github.com/Silex/docker.el
 [submodule "external/tablist"]
 	path = external/tablist
