@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:27:14 (wand)>
+;; Time-stamp: <2020-09-23 08:25:25 (wand)>
 
 ;;; Code:
 
@@ -77,7 +77,10 @@
   (setq tgt-open-in-new-window nil)
   (put 'tgt-projects 'safe-local-variable #'listp))
 
+
+(provide 'init.el)
+;;; init.el ends here
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-;;; init.el ends here

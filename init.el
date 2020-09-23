@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:35:24 (wand)>
+;; Time-stamp: <2020-09-23 08:26:29 (wand)>
 
 ;;; Code:
 
@@ -40,6 +40,15 @@
 ;;; helper functions to perform lazy loading of packages
 (defvar bk-external-packages-dir "~/.emacs.d/external/")
 
+(defun bk/add-load-path (pkg subdir)
+  "If PKG/SUBDIR exist add it to `load-path'.
+Return non-nil if successful."
+  (let* ((path (concat (file-name-as-directory
+			(expand-file-name pkg user-emacs-directory))
+		       (concat "pkgs/" subdir))))
+    (when (file-readable-p path)
+      (add-to-list 'load-path path))))
+
 ;;; load lazy-loading helper functions
 (load-file (expand-file-name "lazy-loading.el" user-emacs-directory))
 
@@ -49,22 +58,24 @@
 ;; * extra packages
 ;; - History
 ;; - 2020-09-22 Added clojure pack
-(dolist (pkg '("langs"
-               "modes"
-               "apps"))
-  (let* ((pkg-name (concat pkg "/loader.el"))
-         (pkg-name (expand-file-name pkg-name user-emacs-directory)))
-    (load-file pkg-name)))
-
 (dolist (module '("completion"
                   "editor"
                   "projects"
                   "search"
                   "functions"
-                  "cosmetics"))
+                  "cosmetics"
+		  "apps/docker"
+		  "apps/ledger"
+		  "langs/clojure"
+		  "langs/haskell"
+		  "langs/python"
+		  "langs/scala"
+		  "modes/json"
+		  "modes/prog"
+		  "modes/markdown"))
   (let* ((module-name (concat module "/init.el"))
          (module-name (expand-file-name module-name user-emacs-directory)))
-    (load-file module-name)))
+    (load module-name)))
 
 ;; * custom functions
 ;;; smart beg/end of line

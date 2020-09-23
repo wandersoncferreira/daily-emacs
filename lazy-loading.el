@@ -2,15 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(defun bk/add-load-path (pkg subdir)
-  "If PKG/SUBDIR exist add it to `load-path'.
-Return non-nil if successful."
-  (let* ((path (concat (file-name-as-directory
-			(expand-file-name pkg user-emacs-directory))
-		       (concat "pkgs/" subdir))))
-    (when (file-readable-p path)
-      (add-to-list 'load-path path))))
-
 (defun bk-load-path-add (subdirectory)
   "If SUBDIRECTORY exist add it to `load-path'.
 Return non-nil if successful.  Used for external packages."
