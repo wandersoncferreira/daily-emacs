@@ -4,15 +4,9 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 21:47:37 (wand)>
+;; Time-stamp: <2020-09-22 21:49:24 (wand)>
 
 ;;; Code:
-
-;;; load lazy-loading helper functions
-(load-file (expand-file-name "lazy-loading.el" user-emacs-directory))
-
-;;; load dependencies
-(load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
 ;; * clojure mode
 ;; - History
