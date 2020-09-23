@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 22:04:30 (wand)>
+;; Time-stamp: <2020-09-22 22:13:04 (wand)>
 
 ;;; Code:
 
@@ -49,8 +49,7 @@
 ;; * extra packages
 ;; - History
 ;; - 2020-09-22 Added clojure pack
-(load-file (expand-file-name "lang/clojure/init.el" user-emacs-directory))
-(load-file (expand-file-name "lang/scala/init.el" user-emacs-directory))
+(load-file (expand-file-name "lang/loader.el" user-emacs-directory))
 (load-file (expand-file-name "completion/init.el" user-emacs-directory))
 
 ;; * custom functions
