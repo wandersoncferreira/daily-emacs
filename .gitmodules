@@ -2,7 +2,7 @@
 	path = projects/pkgs/projectile
 	url = https://github.com/bbatsov/projectile
 [submodule "external/paredit"]
-	path = external/paredit
+	path = modes/prog/pkgs/paredit
 	url = https://github.com/emacsmirror/paredit
 [submodule "external/a.el"]
 	path = external/a.el
@@ -50,7 +50,7 @@
 	path = external/diminish
 	url = https://github.com/emacsmirror/diminish
 [submodule "external/flycheck"]
-	path = external/flycheck
+	path = modes/prog/pkgs/flycheck
 	url = https://github.com/flycheck/flycheck
 [submodule "external/plantuml-mode"]
 	path = external/plantuml-mode
@@ -113,7 +113,7 @@
 	path = external/emacs-sql-indent
 	url = https://github.com/alex-hhh/emacs-sql-indent
 [submodule "external/toggle-test"]
-	path = external/toggle-test
+	path = modes/prog/pkgs/toggle-test
 	url = https://github.com/rags/toggle-test
 [submodule "external/ido-completing-read-plus"]
 	path = external/ido-completing-read-plus
@@ -125,7 +125,7 @@
 	path = external/clj-refactor.el
 	url = https://github.com/clojure-emacs/clj-refactor.el
 [submodule "external/yasnippet"]
-	path = external/yasnippet
+	path = modes/prog/pkgs/yasnippet
 	url = https://github.com/joaotavora/yasnippet
 [submodule "external/company-posframe"]
 	path = completion/pkgs/company-posframe
@@ -191,7 +191,7 @@
 	path = completion/pkgs/swiper
 	url = https://github.com/abo-abo/swiper
 [submodule "external/counsel-projectile"]
-	path = external/counsel-projectile
+	path = projects/pkgs/counsel-projectile
 	url = https://github.com/ericdanan/counsel-projectile
 [submodule "external/emacs-which-key"]
 	path = external/emacs-which-key
@@ -224,7 +224,7 @@
 	path = completion/pkgs/ivy-posframe
 	url = https://github.com/tumashu/ivy-posframe
 [submodule "external/flycheck-posframe"]
-	path = external/flycheck-posframe
+	path = modes/prog/pkgs/flycheck-posframe
 	url = https://github.com/alexmurray/flycheck-posframe
 [submodule "external/zoom-frm"]
 	path = external/zoom-frm
@@ -236,17 +236,17 @@
 	path = editor/pkgs/easy-kill
 	url = https://github.com/leoliu/easy-kill
 [submodule "external/hl-todo"]
-	path = external/hl-todo
+	path = modes/prog/pkgs/hl-todo
 	url = https://github.com/tarsius/hl-todo
 [submodule "themes/zenburn-emacs"]
 	path = themes/zenburn-emacs
 	url = https://github.com/bbatsov/zenburn-emacs
 [submodule "external/elpy"]
-	path = external/elpy
+	path = langs/python/pkgs/elpy
 	url = https://github.com/jorgenschaefer/elpy
 [submodule "external/pyvenv"]
-	path = external/pyvenv
+	path = langs/python/pkgs/pyvenv
 	url = https://github.com/jorgenschaefer/pyvenv
 [submodule "external/Highlight-Indentation-for-Emacs"]
-	path = external/Highlight-Indentation-for-Emacs
+	path = langs/python/pkgs/Highlight-Indentation-for-Emacs
 	url = https://github.com/antonj/Highlight-Indentation-for-Emacs

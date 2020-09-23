@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:09:35 (wand)>
+;; Time-stamp: <2020-09-23 00:22:20 (wand)>
 
 ;;; Code:
 
@@ -28,6 +28,14 @@
           projectile-mode-line-prefix " Prj"
           projectile-sort-order 'access-time)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
+
+;; * counsel-projectile
+;; - https://github.com/ericdanan/counsel-projectile
+;; - History
+;;   -  2020-08-28 Created
+(when (bk/add-load-path "projects" "counsel-projectile")
+  (bk-auto-loads "counsel-projectile" #'counsel-projectile-mode)
+  (add-hook 'after-init-hook #'counsel-projectile-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

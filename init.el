@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:15:01 (wand)>
+;; Time-stamp: <2020-09-23 00:26:38 (wand)>
 
 ;;; Code:
 
@@ -59,7 +59,8 @@
                   "editor"
                   "projects"
                   "search"
-                  "functions"))
+                  "functions"
+                  "cosmetics"))
   (let* ((module-name (concat module "/init.el"))
          (module-name (expand-file-name module-name user-emacs-directory)))
     (load-file module-name)))
@@ -156,53 +157,6 @@
 ;;; cheatsheet
 (set-register ?c '(file . "~/.emacs.d/cheatsheet.org"))
 
-;; * theming and Fonts
-;; - History
-;; - 2020-09-17 - Enabling Zenburn
-;;; change font
-(defun bk/set-monaco-font ()
-  "Define the Monaco font."
-  (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 110)))
-
-;;; change themes
-(defun bk/light-theme ()
-  "Define custom light theme."
-  (interactive)
-  (bk/set-monaco-font)
-  (set-face-attribute 'lazy-highlight nil :background "light green")
-  (set-face-attribute 'isearch nil :background "khaki1")
-  (set-face-attribute 'region nil :background "khaki1"))
-
-;; * themes
-;; - History
-;; - 2020-09-17 Added zenburn
-(setq custom-theme-directory (concat user-emacs-directory "themes")
-      custom-safe-themes t)
-
-(dolist (path (directory-files custom-theme-directory t "\\w+"))
-  (when (file-directory-p path)
-    (add-to-list 'custom-theme-load-path path)))
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (bk/light-theme)))
-
-;;; supress unecessary things
-;; (put 'inhibit-startup-echo-area-message 'saved-value t)
-(setq inhibit-startup-message t
-      inhibit-startup-screen t
-      inhibit-startup-echo-area-message (user-login-name))
-
-(add-hook
- 'after-init-hook
- (lambda ()
-   (menu-bar-mode -1)
-   (tool-bar-mode -1)
-   (scroll-bar-mode -1)
-   (column-number-mode)
-   (size-indication-mode)))
-
 ;; * outline
 ;; - History
 ;; - 2020-09-13 Created
@@ -212,20 +166,6 @@
             (diminish 'outline-minor-mode)
             (setq outline-blank-line t)
             (setq-local outline-regexp ";; \\*")))
-
-
-;; * whitespace
-;; - History
-;; - 2020-09-15 Created
-;;; whitespace-mode config
-(defun bk-setup-feature-whitespace ()
-  "Customizations for `whitespace-mode'."
-  (setq whitespace-line-column 80
-        whitespace-style '(face tabs empty trailing lines-tail))
-  (whitespace-mode +1)
-  (diminish 'whitespace-mode))
-
-(add-hook 'after-init-hook #'bk-setup-feature-whitespace)
 
 ;; * exec-path-from-shell
 ;; - https://github.com/purcell/exec-path-from-shell
@@ -243,25 +183,6 @@
   (bk-auto-loads "diminish" #'diminish)
   (global-eldoc-mode +1)
   (diminish 'eldoc-mode))
-
-;; * paredit
-;; - History
-;;   - 2020-08-14 Created
-;;   - 2020-08-16 Add clojure(script) modes
-(defun bk-setup-feature-paredit ()
-  "Customizations for paredit."
-  (paredit-mode)
-  (define-key paredit-mode-map (kbd "M-s") nil)
-  (define-key paredit-mode-map (kbd "M-r") nil)
-  (define-key paredit-mode-map (kbd "M-?") nil)
-  (diminish 'paredit-mode))
-
-(when (bk-load-path-add "paredit")
-  (bk-auto-loads "paredit" #'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook #'bk-setup-feature-paredit)
-  (add-hook 'clojure-mode-hook #'bk-setup-feature-paredit)
-  (add-hook 'clojurescript-mode-hook #'bk-setup-feature-paredit)
-  (add-hook 'cider-repl-mode-hook #'bk-setup-feature-paredit))
 
 ;; * ido (disabled)
 ;; - History
@@ -284,50 +205,6 @@
   (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
   (with-eval-after-load 'ido
     (ido-ubiquitous-mode +1)))
-
-;; * counsel-projectile
-;; - https://github.com/ericdanan/counsel-projectile
-;; - History
-;;   -  2020-08-28 Created
-(when (bk-load-path-add "counsel-projectile")
-  (bk-auto-loads "counsel-projectile" #'counsel-projectile-mode)
-  (add-hook 'after-init-hook #'counsel-projectile-mode))
-
-;; * pyvenv
-;; - History
-;; - 2020-09-21 Created
-(when (bk-load-path-add "pyvenv")
-  (bk-auto-loads "pyvenv" #'pyvenv-activate))
-
-;; * highlight-identation
-;; - History
-;; - 2020-09-21 Created
-(when (bk-load-path-add "Highlight-Indentation-for-Emacs")
-  (bk-auto-loads "highlight-identation"))
-
-;; * elpy
-;; - History:
-;; - 2020-09-21 Created
-(defun bk-setup-feature-elpy ()
-  "Customizations for elpy."
-  (pyvenv-activate "~/miniconda3")
-  (delete `elpy-module-django elpy-modules)
-  (delete `elpy-module-highlight-indentation elpy-modules))
-
-(when (bk-load-path-add "elpy")
-  (bk-auto-loads "elpy" #'elpy-enable #'elpy-modules))
-
-(with-eval-after-load 'python
-  (elpy-enable)
-  (bk-setup-feature-elpy))
-
-;; * hl-todo
-;; - https://github.com/tarsius/hl-todo
-;; - History
-;;  - 2020-09-15 Created
-(when (bk-load-path-add "hl-todo")
-  (bk-auto-loads "hl-todo" #'hl-todo-mode)
-  (add-hook 'prog-mode-hook #'hl-todo-mode))
 
 ;; * ace-window
 ;; - History
@@ -364,16 +241,6 @@
 (when (bk-load-path-add "emacs-which-key")
   (bk-auto-loads "which-key" #'which-key-mode)
   (add-hook 'after-init-hook #'bk-setup-feature-which-key))
-
-;; * yasnippet
-;; - https://github.com/joaotavora/yasnippet
-;; - History
-;;   -  2020-08-18 Created
-(when (bk-load-path-add "yasnippet")
-  (bk-auto-loads "yasnippet" #'yas-global-mode)
-  (add-hook 'prog-mode-hook (lambda ()
-                              (yas-global-mode +1)
-                              (diminish 'yas-minor-mode))))
 
 ;;; improve scroll functions
 (defun bk/scroll-up ()
@@ -486,29 +353,6 @@
 ;;; auto revert buffers if the file underneath it gets modified
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 
-;; * flycheck
-;; - https://github.com/flycheck/flycheck
-;; - History
-;;   -  2020-08-15 Created
-(defun bk-setup-feature-flycheck ()
-  "Customizations for flycheck."
-  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-buffer-switch)
-        flycheck-display-errors-delay 0.25))
-
-(when (bk-load-path-add "flycheck")
-  (bk-auto-loads "flycheck" #'flycheck-mode)
-  (add-hook 'prog-mode-hook #'flycheck-mode)
-  (with-eval-after-load 'flycheck
-    (bk-setup-feature-flycheck)))
-
-;; * flycheck-posframe
-;; - https://github.com/alexmurray/flycheck-posframe
-;; - History
-;;   -  2020-09-15 Created
-(when (bk-load-path-add "flycheck-posframe")
-  (bk-auto-loads "flycheck-posframe" #'flycheck-posframe-mode)
-  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
-
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
 ;; - History
@@ -584,15 +428,6 @@
 (when (bk-load-path-add "emacs-sql-indent")
   (bk-auto-loads "sql-indent" #'sqlind-minor-mode)
   (add-hook 'sql-mode-hook 'sqlind-minor-mode))
-
-;; * toggle-test
-;; - History
-;;   -  2020-08-17 Created
-(when (bk-load-path-add "toggle-test")
-  (bk-auto-loads "toggle-test" #'tgt-toggle)
-  (global-set-key (kbd "s-t") #'tgt-toggle)
-  (setq tgt-open-in-new-window nil)
-  (put 'tgt-projects 'safe-local-variable #'listp))
 
 ;;; improve split windows
 (defun bk/vsplit-last-buffer ()
