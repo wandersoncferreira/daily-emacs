@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 23:56:21 (wand)>
+;; Time-stamp: <2020-09-23 00:07:11 (wand)>
 
 ;;; Code:
 
@@ -45,6 +45,15 @@
   (global-set-key (kbd "M-u") #'fix-word-upcase)
   (global-set-key (kbd "M-l") #'fix-word-downcase)
   (global-set-key (kbd "M-c") #'fix-word-capitalize))
+
+;; * easy-kill
+;; - https://github.com/leoliu/easy-kill
+;; - History
+;;   -  2020-09-15 Created
+(when (bk/add-load-path "editor" "easy-kill")
+  (bk-auto-loads "easy-kill" #'easy-kill #'easy-mark)
+  (global-set-key [remap kill-ring-save] 'easy-kill)
+  (global-set-key [remap mark-sexp] 'easy-mark))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

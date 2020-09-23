@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 23:52:20 (wand)>
+;; Time-stamp: <2020-09-23 00:15:01 (wand)>
 
 ;;; Code:
 
@@ -49,9 +49,20 @@
 ;; * extra packages
 ;; - History
 ;; - 2020-09-22 Added clojure pack
-(load-file (expand-file-name "lang/loader.el" user-emacs-directory))
-(load-file (expand-file-name "search/init.el" user-emacs-directory))
-(load-file (expand-file-name "completion/init.el" user-emacs-directory))
+(dolist (pkg '("langs"
+               "modes"))
+  (let* ((pkg-name (concat pkg "/loader.el"))
+         (pkg-name (expand-file-name pkg-name user-emacs-directory)))
+    (load-file pkg-name)))
+
+(dolist (module '("completion"
+                  "editor"
+                  "projects"
+                  "search"
+                  "functions"))
+  (let* ((module-name (concat module "/init.el"))
+         (module-name (expand-file-name module-name user-emacs-directory)))
+    (load-file module-name)))
 
 ;; * custom functions
 ;;; smart beg/end of line
@@ -324,17 +335,6 @@
 (when (bk-load-path-add "ace-window")
   (bk-auto-loads "ace-window" #'ace-window))
 
-;; * markdown mode
-;; - History
-;;   -  2020-08-17 Created
-(when (bk-load-path-add "markdown-mode")
-  (bk-auto-loads "markdown-mode"
-                 '("\\.md\\'" . markdown-mode)
-                 '("\\.markdown\\'" . markdown-mode)
-                 '("README\\.md" . gfm-mode))
-  (with-eval-after-load 'markdown-mode
-    (setq markdown-command "pandoc")))
-
 ;; * zoom-frm
 ;; - https://github.com/emacsmirror/zoom-frm
 ;; - History
@@ -364,27 +364,6 @@
 (when (bk-load-path-add "emacs-which-key")
   (bk-auto-loads "which-key" #'which-key-mode)
   (add-hook 'after-init-hook #'bk-setup-feature-which-key))
-
-;; * projectile mode
-;; - History
-;;   -  2020-08-14 Created
-;;   -  2020-08-28 Changing completion system to `ivy'
-(when (bk-load-path-add "projectile")
-  (bk-auto-loads "projectile" #'projectile-mode)
-  (add-hook 'after-init-hook #'projectile-mode)
-  (with-eval-after-load 'projectile
-    (setq projectile-completion-system 'ivy
-          projectile-cache-file (concat user-emacs-directory "projectile.cache")
-          projectile-auto-discover nil
-          projectile-globally-ignored-files '(".DS_Store" "TAGS")
-          projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
-          projectile-enable-caching t
-          projectile-indexing-method 'hybrid
-          projectile-kill-buffers-filter 'kill-only-files
-          projectile-ignored-projects '("~/" "/tmp")
-          projectile-mode-line-prefix " Prj"
-          projectile-sort-order 'access-time)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 ;; * yasnippet
 ;; - https://github.com/joaotavora/yasnippet
@@ -498,17 +477,6 @@
   (with-eval-after-load 'ledger-mode
     (bk-setup-feature-ledger)))
 
-;; * smex
-;; - https://github.com/nonsequitur/smex
-;; - History
-;;   -  2020-08-15 Created
-(when (and (bk-load-path-add "smex") not-disabled?)
-  (bk-auto-loads "smex" #'smex)
-  (global-set-key (kbd "M-x") #'smex)
-  (global-set-key (kbd "C-x C-m") 'smex)
-  (with-eval-after-load 'smex
-    (smex-initialize)))
-
 ;;; when two buffers have the same name, we need a way to distinguish them
 (setq uniquify-buffer-name-style 'post-forward)
 
@@ -551,7 +519,6 @@
   (with-eval-after-load 'switch-window
     (setq-default switch-window-shortcut-style 'alphabet
                   switch-window-timeout nil)))
-
 
 ;;; allow ad-handle-redefinition
 ;;; got from here https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
@@ -605,15 +572,6 @@
 (global-set-key (kbd "C-x 4 u") 'winner-undo)
 (global-set-key (kbd "C-x 4 U") 'winner-redo)
 
-;; * easy-kill
-;; - https://github.com/leoliu/easy-kill
-;; - History
-;;   -  2020-09-15 Created
-(when (bk-load-path-add "easy-kill")
-  (bk-auto-loads "easy-kill" #'easy-kill #'easy-mark)
-  (global-set-key [remap kill-ring-save] 'easy-kill)
-  (global-set-key [remap mark-sexp] 'easy-mark))
-
 ;; * windresize
 ;; - History
 ;;   -  2020-08-17 Created
@@ -654,17 +612,6 @@
 (global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
 
-;; * haskell-mode
-;; - https://github.com/haskell/haskell-mode
-;; - History
-;;   -  2020-09-02 Created
-(when (bk-load-path-add "haskell-mode")
-  (bk-auto-loads "haskell" '("\\.hs\\'" . haskell-mode))
-  (bk-auto-loads "haskell-interactive-mode" #'interactive-haskell-mode)
-  (bk-auto-loads "haskell-doc" #'haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-  (add-hook 'haskell-mode-hook 'haskell-doc-mode))
-
 ;;; docker
 (defun bk/docker-compose-custom-envs ()
   "Add usual env variables to Emacs environment."
@@ -677,13 +624,6 @@
     (setenv "CURRENT_UID" uid)
     (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
     (docker)))
-
-;; * json-mode
-;; - https://github.com/joshwnj/json-mode
-;; - History
-;;   -  2020-09-04 Created
-(when (bk-load-path-add "json-mode")
-  (bk-auto-loads "json-mode" '("\\.json\\'" . json-mode)))
 
 ;; * docker.el
 ;; - https://github.com/Silex/docker.el

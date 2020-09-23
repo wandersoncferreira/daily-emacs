@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 23:39:49 (wand)>
+;; Time-stamp: <2020-09-23 00:08:11 (wand)>
 
 ;;; Code:
 
@@ -95,6 +95,17 @@
             (lambda ()
               (ivy-posframe-mode)
               (diminish 'ivy-posframe-mode))))
+
+;; * smex
+;; - https://github.com/nonsequitur/smex
+;; - History
+;;   -  2020-08-15 Created
+(when (and (bk/add-load-path "completion" "smex") not-disabled?)
+  (bk-auto-loads "smex" #'smex)
+  (global-set-key (kbd "M-x") #'smex)
+  (global-set-key (kbd "C-x C-m") 'smex)
+  (with-eval-after-load 'smex
+    (smex-initialize)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

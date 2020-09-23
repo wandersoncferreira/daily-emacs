@@ -1,0 +1,35 @@
+;;; init.el --- Entry point for configurations ;; -*- lexical-binding: t -*-
+
+;;; Commentary:
+
+;; Here be dragons
+
+;; Time-stamp: <2020-09-23 00:09:35 (wand)>
+
+;;; Code:
+
+;; * projectile mode
+;; - History
+;;   -  2020-08-14 Created
+;;   -  2020-08-28 Changing completion system to `ivy'
+(when (bk/add-load-path "projects" "projectile")
+  (bk-auto-loads "projectile" #'projectile-mode)
+  (add-hook 'after-init-hook #'projectile-mode)
+  (with-eval-after-load 'projectile
+    (setq projectile-completion-system 'ivy
+          projectile-cache-file (concat user-emacs-directory "projectile.cache")
+          projectile-auto-discover nil
+          projectile-globally-ignored-files '(".DS_Store" "TAGS")
+          projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
+          projectile-enable-caching t
+          projectile-indexing-method 'hybrid
+          projectile-kill-buffers-filter 'kill-only-files
+          projectile-ignored-projects '("~/" "/tmp")
+          projectile-mode-line-prefix " Prj"
+          projectile-sort-order 'access-time)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init.el ends here

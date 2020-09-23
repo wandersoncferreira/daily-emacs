@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 22:03:15 (wand)>
+;; Time-stamp: <2020-09-23 00:03:37 (wand)>
 
 ;;; Code:
 
@@ -12,7 +12,7 @@
 ;; - https://github.com/hvesalai/emacs-scala-mode
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "emacs-scala-mode")
+(when (bk/add-load-path "langs/scala" "emacs-scala-mode")
   (bk-auto-loads "scala-mode"
                  '("\\.s\\(cala\\|bt\\)$" . scala-mode)))
 
@@ -20,7 +20,7 @@
 ;; - https://github.com/hvesalai/emacs-sbt-mode
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "emacs-sbt-mode")
+(when (bk/add-load-path "langs/scala" "emacs-sbt-mode")
   (bk-auto-loads "sbt-mode" #'sbt-start #'sbt-command)
   (with-eval-after-load 'scala-mode
     (setq sbt:program-options '("-Dsbt.supershell=false"))))
@@ -28,7 +28,7 @@
 ;; * lsp-mode
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "lsp-mode")
+(when (bk/add-load-path "langs/scala" "lsp-mode")
   (bk-auto-loads "lsp-mode" #'lsp #'lsp-lens-mode)
   (bk-auto-loads "lsp-modeline" #'lsp-modeline-diagnostics-mode)
   (add-hook 'scala-mode-hook #'lsp)
@@ -39,7 +39,7 @@
 ;; * dap-mode
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "dap-mode")
+(when (bk/add-load-path "langs/scala" "dap-mode")
   (bk-auto-loads "dap-mode" #'dap-mode)
   (bk-auto-loads "dap-ui" #'dap-ui-mode)
   (bk-auto-loads "dap-mouse" #'dap-tooltip-mode)
@@ -50,20 +50,20 @@
 ;; * treemacs
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "treemacs/src/elisp")
+(when (bk/add-load-path "langs/scala" "treemacs/src/elisp")
   (bk-auto-loads "treemacs" #'treemacs))
 
 ;; * lsp-metals
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "lsp-metals")
+(when (bk/add-load-path "langs/scala" "lsp-metals")
   (bk-auto-loads "lsp-metals" #'lsp-metals)
   (bk-auto-loads "lsp-metals-treeview" #'lsp-metals-treeview-mode))
 
 ;; * lsp-Treemacs
 ;; - History
 ;;  - 2020/08/27 Created
-(when (bk/add-load-path "lang/scala" "lsp-treemacs")
+(when (bk/add-load-path "langs/scala" "lsp-treemacs")
   (bk-auto-loads "lsp-treemacs")
   (with-eval-after-load 'lsp-mode
     (lsp-metals-treeview-mode +1)

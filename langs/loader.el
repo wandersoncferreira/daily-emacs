@@ -4,15 +4,15 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 22:12:45 (wand)>
+;; Time-stamp: <2020-09-23 00:11:59 (wand)>
 
 ;;; Code:
 
-(let* ((current-dir (expand-file-name "lang" user-emacs-directory)))
+(let* ((current-dir (expand-file-name "langs" user-emacs-directory)))
   (dolist (dir (directory-files current-dir nil directory-files-no-dot-files-regexp))
     (when (file-directory-p dir)
       (load-file (expand-file-name
-                  (concat "lang/" dir "/init.el")
+                  (concat "langs/" dir "/init.el")
                   user-emacs-directory)))))
 
 ;; Local Variables:
