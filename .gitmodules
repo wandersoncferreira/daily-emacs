@@ -77,7 +77,7 @@
 	path = external/emacs-web-server
 	url = https://github.com/skeeto/emacs-web-server
 [submodule "external/company-mode"]
-	path = external/company-mode
+	path = completion/pkgs/company-mode
 	url = https://github.com/company-mode/company-mode
 [submodule "external/company-org-roam"]
 	path = external/company-org-roam
@@ -128,7 +128,7 @@
 	path = external/yasnippet
 	url = https://github.com/joaotavora/yasnippet
 [submodule "external/company-posframe"]
-	path = external/company-posframe
+	path = completion/pkgs/company-posframe
 	url = https://github.com/tumashu/company-posframe
 [submodule "external/posframe"]
 	path = external/posframe
