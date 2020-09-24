@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:35:58 (wand)>
+;; Time-stamp: <2020-09-24 00:37:48 (wand)>
 
 ;;; Code:
 
@@ -46,15 +46,6 @@ Return non-nil if successful."
   (let* ((path (concat (file-name-as-directory
 			(expand-file-name pkg user-emacs-directory))
 		       (concat "pkgs/" subdir))))
-    (when (file-readable-p path)
-      (add-to-list 'load-path path))))
-
-(defun bk-load-path-add (subdirectory)
-  "If SUBDIRECTORY exist add it to `load-path'.
-Return non-nil if successful.  Used for external packages."
-  (let* ((path (concat (file-name-as-directory
-				   (expand-file-name bk-external-packages-dir))
-		       subdirectory)))
     (when (file-readable-p path)
       (add-to-list 'load-path path))))
 
