@@ -1,18 +1,12 @@
-;;; organizer.el --- Org-mode setup ;; -*- lexical-binding: t -*-
+;;; init.el --- Entry point for configurations ;; -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
-;; Here be more dragons! Spice ones...
+;; Here be dragons
 
-;; Time-stamp: <2020-09-16 12:34:35 (wand)>
+;; Time-stamp: <2020-09-23 23:44:29 (wand)>
 
 ;;; Code:
-
-;;; load lazy-loading helper functions
-(load-file (expand-file-name "lazy-loading.el" user-emacs-directory))
-
-;;; load dependencies
-(load-file (expand-file-name "dependencies.el" user-emacs-directory))
 
 ;; org
 ;; basic functionalities of org
@@ -170,7 +164,7 @@
 ;;   -  2020-08-16 Created
 ;;   -  2020-09-12 Improve find notes by adding a prefix `f` in the Org roam chords
 (setq bk-org-roam-directory "~/all/zettelkasten")
-(when (bk-load-path-add "org-roam")
+(when (bk/add-load-path "org" "org-roam")
   (bk-auto-loads "org-roam"
                  #'org-roam-capture
                  #'org-roam-dailies-today
@@ -249,7 +243,7 @@
   (interactive)
   (bk-setup-feature-org-roam-server))
 
-(when (bk-load-path-add "org-roam-server")
+(when (bk/add-load-path "org" "org-roam-server")
   (bk-auto-loads "org-roam-server" #'org-roam-server-mode))
 
 ;; * plantuml
@@ -258,7 +252,7 @@
 ;;   -  2020-08-16 Created
 ;;   -  2020-08-17 Change after-load to enable usage in org-mode
 (defvar bk-plantuml-path "~/plantuml.jar")
-(when (bk-load-path-add "plantuml-mode")
+(when (bk/add-load-path "org" "plantuml-mode")
   (bk-auto-loads "plantuml-mode" '("\\.plantuml$" . plantuml-mode))
   (with-eval-after-load 'org
     (setq org-plantuml-jar-path bk-plantuml-path)))
@@ -267,12 +261,10 @@
 ;; - https://github.com/org-roam/company-org-roam
 ;; - History
 ;;   -  2020-08-16 Created
-(when (bk-load-path-add "company-org-roam")
+(when (bk/add-load-path "org" "company-org-roam")
   (bk-auto-loads "company-org-roam" #'company-org-roam))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
-
-(provide 'organizer.el)
-;;; organizer.el ends here
+;;; init.el ends here

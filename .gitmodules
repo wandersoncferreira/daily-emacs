@@ -53,10 +53,10 @@
 	path = modes/prog/pkgs/flycheck
 	url = https://github.com/flycheck/flycheck
 [submodule "external/plantuml-mode"]
-	path = external/plantuml-mode
+	path = org/pkgs/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
 [submodule "external/org-roam"]
-	path = external/org-roam
+	path = org/pkgs/org-roam
 	url = https://github.com/org-roam/org-roam
 [submodule "external/f.el"]
 	path = external/f.el
@@ -71,7 +71,7 @@
 	path = external/emacsql-sqlite3
 	url = https://github.com/cireu/emacsql-sqlite3
 [submodule "external/org-roam-server"]
-	path = external/org-roam-server
+	path = org/pkgs/org-roam-server
 	url = https://github.com/org-roam/org-roam-server
 [submodule "external/emacs-web-server"]
 	path = external/emacs-web-server
@@ -80,7 +80,7 @@
 	path = completion/pkgs/company-mode
 	url = https://github.com/company-mode/company-mode
 [submodule "external/company-org-roam"]
-	path = external/company-org-roam
+	path = org/pkgs/company-org-roam
 	url = https://github.com/org-roam/company-org-roam
 [submodule "external/switch-window"]
 	path = window/pkgs/switch-window
@@ -110,7 +110,7 @@
 	path = window/pkgs/windresize
 	url = https://github.com/emacsmirror/windresize
 [submodule "external/emacs-sql-indent"]
-	path = external/emacs-sql-indent
+	path = langs/sql/pkgs/emacs-sql-indent
 	url = https://github.com/alex-hhh/emacs-sql-indent
 [submodule "external/toggle-test"]
 	path = modes/prog/pkgs/toggle-test

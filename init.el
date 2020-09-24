@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:40:09 (wand)>
+;; Time-stamp: <2020-09-23 23:47:52 (wand)>
 
 ;;; Code:
 
@@ -65,12 +65,14 @@ Return non-nil if successful."
                   "functions"
                   "cosmetics"
                   "window"
+                  "org"
 		  "apps/docker"
 		  "apps/ledger"
 		  "langs/clojure"
 		  "langs/haskell"
 		  "langs/python"
 		  "langs/scala"
+                  "langs/sql"
 		  "modes/json"
 		  "modes/prog"
 		  "modes/markdown"))
@@ -192,13 +194,6 @@ Return non-nil if successful."
     (set-default 'magit-no-confirm '(stage-all-changes
                                      unstage-all-changes))))
 
-;; * sql indent mode
-;; - History
-;;   -  2020-08-17 Created
-(when (bk-load-path-add "emacs-sql-indent")
-  (bk-auto-loads "sql-indent" #'sqlind-minor-mode)
-  (add-hook 'sql-mode-hook 'sqlind-minor-mode))
-
 ;; * custom
 ;; - History
 ;; - 2020-09-13 Organized into outlines
@@ -209,9 +204,6 @@ Return non-nil if successful."
 (require 'server)
 (when (not (server-running-p))
   (server-start))
-
-;; * organizer
-(load-file (expand-file-name "organizer.el" user-emacs-directory))
 
 ;;; abbreviations
 (load-file (expand-file-name "abbreviations.el" user-emacs-directory))
