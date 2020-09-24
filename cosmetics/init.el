@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:38:07 (wand)>
+;; Time-stamp: <2020-09-24 00:27:35 (wand)>
 
 ;;; Code:
 
@@ -69,6 +69,16 @@
   (diminish 'whitespace-mode))
 
 (add-hook 'after-init-hook #'bk-setup-feature-whitespace)
+
+;; * outline
+;; - History
+;; - 2020-09-13 Created
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (outline-minor-mode +1)
+            (diminish 'outline-minor-mode)
+            (setq outline-blank-line t)
+            (setq-local outline-regexp ";; \\*")))
 
 ;; * diminish
 ;; - https://github.com/emacsmirror/diminish

@@ -5,40 +5,40 @@
 	path = modes/prog/pkgs/paredit
 	url = https://github.com/emacsmirror/paredit
 [submodule "external/a.el"]
-	path = external/a.el
+	path = dependencies/pkgs/a.el
 	url = https://github.com/plexus/a.el
 [submodule "external/parseedn"]
-	path = external/parseedn
+	path = dependencies/pkgs/parseedn
 	url = https://github.com/clojure-emacs/parseedn
 [submodule "external/sesman"]
-	path = external/sesman
+	path = dependencies/pkgs/sesman
 	url = https://github.com/vspinu/sesman
 [submodule "external/queue"]
-	path = external/queue
+	path = dependencies/pkgs/queue
 	url = https://github.com/emacsmirror/queue
 [submodule "external/parseclj"]
-	path = external/parseclj
+	path = dependencies/pkgs/parseclj
 	url = https://github.com/clojure-emacs/parseclj
 [submodule "external/cider"]
 	path = langs/clojure/pkgs/cider
 	url = https://github.com/clojure-emacs/cider
 [submodule "external/spinner.el"]
-	path = external/spinner.el
+	path = dependencies/pkgs/spinner.el
 	url = http://github.com/Malabarba/spinner.el
 [submodule "external/change-inner.el"]
 	path = editor/pkgs/change-inner.el
 	url = https://github.com/magnars/change-inner.el
 [submodule "external/magit"]
-	path = external/magit
+	path = version-control/pkgs/magit
 	url = https://github.com/magit/magit
 [submodule "external/dash.el"]
-	path = external/dash.el
+	path = dependencies/pkgs/dash.el
 	url = https://github.com/magnars/dash.el
 [submodule "external/with-editor"]
-	path = external/with-editor
+	path = dependencies/pkgs/with-editor
 	url = https://github.com/magit/with-editor
 [submodule "external/transient"]
-	path = external/transient
+	path = dependencies/pkgs/transient
 	url = https://github.com/magit/transient
 [submodule "external/ledger-mode"]
 	path = apps/ledger/pkgs/ledger-mode
@@ -59,22 +59,22 @@
 	path = org/pkgs/org-roam
 	url = https://github.com/org-roam/org-roam
 [submodule "external/f.el"]
-	path = external/f.el
+	path = dependencies/pkgs/f.el
 	url = https://github.com/rejeep/f.el
 [submodule "external/s.el"]
-	path = external/s.el
+	path = dependencies/pkgs/s.el
 	url = https://github.com/magnars/s.el
 [submodule "external/emacsql"]
-	path = external/emacsql
+	path = dependencies/pkgs/emacsql
 	url = https://github.com/skeeto/emacsql
 [submodule "external/emacsql-sqlite3"]
-	path = external/emacsql-sqlite3
+	path = dependencies/pkgs/emacsql-sqlite3
 	url = https://github.com/cireu/emacsql-sqlite3
 [submodule "external/org-roam-server"]
 	path = org/pkgs/org-roam-server
 	url = https://github.com/org-roam/org-roam-server
 [submodule "external/emacs-web-server"]
-	path = external/emacs-web-server
+	path = dependencies/pkgs/emacs-web-server
 	url = https://github.com/skeeto/emacs-web-server
 [submodule "external/company-mode"]
 	path = completion/pkgs/company-mode
@@ -92,7 +92,7 @@
 	path = langs/clojure/pkgs/clojure-mode
 	url = https://github.com/clojure-emacs/clojure-mode
 [submodule "external/exec-path-from-shell"]
-	path = external/exec-path-from-shell
+	path = core/pkgs/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell
 [submodule "external/expand-region.el"]
 	path = editor/pkgs/expand-region.el
@@ -131,22 +131,22 @@
 	path = completion/pkgs/company-posframe
 	url = https://github.com/tumashu/company-posframe
 [submodule "external/posframe"]
-	path = external/posframe
+	path = dependencies/pkgs/posframe
 	url = https://github.com/tumashu/posframe
 [submodule "external/jump.el"]
-	path = external/jump.el
+	path = dependencies/pkgs/jump.el
 	url = https://github.com/eschulte/jump.el
 [submodule "external/hydra"]
-	path = external/hydra
+	path = dependencies/pkgs/hydra
 	url = https://github.com/abo-abo/hydra
 [submodule "external/pkg-info"]
-	path = external/pkg-info
+	path = dependencies/pkgs/pkg-info
 	url = https://github.com/emacsorphanage/pkg-info
 [submodule "external/epl"]
-	path = external/epl
+	path = dependencies/pkgs/epl
 	url = https://github.com/cask/epl
 [submodule "external/edit-indirect"]
-	path = external/edit-indirect
+	path = dependencies/pkgs/edit-indirect
 	url = https://github.com/Fanael/edit-indirect
 [submodule "external/emacs-scala-mode"]
 	path = langs/scala/pkgs/emacs-scala-mode
@@ -161,7 +161,7 @@
 	path = langs/scala/pkgs/lsp-metals
 	url = https://github.com/emacs-lsp/lsp-metals
 [submodule "external/ht.el"]
-	path = external/ht.el
+	path = dependencies/pkgs/ht.el
 	url = https://github.com/Wilfred/ht.el
 [submodule "external/dap-mode"]
 	path = langs/scala/pkgs/dap-mode
@@ -170,22 +170,22 @@
 	path = langs/scala/pkgs/treemacs
 	url = https://github.com/Alexander-Miller/treemacs
 [submodule "external/ace-window"]
-	path = external/ace-window
+	path = window/pkgs/ace-window
 	url = https://github.com/abo-abo/ace-window
 [submodule "external/avy"]
 	path = search/pkgs/avy
 	url = https://github.com/abo-abo/avy
 [submodule "external/pfuture"]
-	path = external/pfuture
+	path = dependencies/pkgs/pfuture
 	url = https://github.com/Alexander-Miller/pfuture
 [submodule "external/lsp-treemacs"]
 	path = langs/scala/pkgs/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs
 [submodule "external/bui.el"]
-	path = external/bui.el
+	path = dependencies/pkgs/bui.el
 	url = https://github.com/alezost/bui.el
 [submodule "external/lsp-ui"]
-	path = external/lsp-ui
+	path = dependencies/pkgs/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui
 [submodule "external/swiper"]
 	path = completion/pkgs/swiper
@@ -194,7 +194,7 @@
 	path = projects/pkgs/counsel-projectile
 	url = https://github.com/ericdanan/counsel-projectile
 [submodule "external/emacs-which-key"]
-	path = external/emacs-which-key
+	path = core/pkgs/emacs-which-key
 	url = https://github.com/justbur/emacs-which-key
 [submodule "external/haskell-mode"]
 	path = langs/haskell/pkgs/haskell-mode
@@ -206,19 +206,19 @@
 	path = apps/docker/pkgs/docker.el
 	url = https://github.com/Silex/docker.el
 [submodule "external/tablist"]
-	path = external/tablist
+	path = dependencies/pkgs/tablist
 	url = https://github.com/politza/tablist
 [submodule "external/json-mode"]
 	path = modes/json/pkgs/json-mode
 	url = https://github.com/joshwnj/json-mode
 [submodule "external/json-snatcher"]
-	path = external/json-snatcher
+	path = dependencies/pkgs/json-snatcher
 	url = https://github.com/Sterlingg/json-snatcher
 [submodule "external/json-reformat"]
-	path = external/json-reformat
+	path = dependencies/pkgs/json-reformat
 	url = https://github.com/gongo/json-reformat
 [submodule "external/emacs-memoize"]
-	path = external/emacs-memoize
+	path = dependencies/pkgs/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize
 [submodule "external/ivy-posframe"]
 	path = completion/pkgs/ivy-posframe
@@ -230,7 +230,7 @@
 	path = window/pkgs/zoom-frm
 	url = https://github.com/emacsmirror/zoom-frm
 [submodule "external/frame-fns"]
-	path = external/frame-fns
+	path = dependencies/pkgs/frame-fns
 	url = https://github.com/emacsmirror/frame-fns
 [submodule "external/easy-kill"]
 	path = editor/pkgs/easy-kill

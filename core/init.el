@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:39:39 (wand)>
+;; Time-stamp: <2020-09-24 00:27:56 (wand)>
 
 ;;; Code:
 
@@ -123,6 +123,80 @@
 ;; - 2020-09-13 - Disabling it
 (when not-disabled?
   (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+
+
+;; * abbreviations
+(defun bk/add-region-local-abbrev (start end)
+  "Move from START to END and add the selected text to a local abbrev."
+  (interactive "r")
+  (if (use-region-p)
+      (let ((num-words (count-words-region start end)))
+        (add-mode-abbrev num-words)
+        (deactivate-mark))
+    (message "No selected region!")))
+
+(defun bk/add-region-global-abbrev (start end)
+  "Go from START to END and add the selected text to global abbrev."
+  (interactive "r")
+  (if (use-region-p)
+      (let ((num-words (count-words-region start end)))
+        (add-abbrev global-abbrev-table "Global" num-words)
+        (deactivate-mark))
+    (message "No selected region!")))
+
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ("reuslt" "result" nil 0)
+    ("requie" "require" nil 0)
+    ("requier" "require" nil 0)
+    ))
+
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (abbrev-mode +1)
+            (diminish 'abbrev-mode)))
+
+;; * which-key
+;; - https://github.com/justbur/emacs-which-key
+;; - History
+;;   -  2020-08-28 Created
+(defun bk-setup-feature-which-key ()
+  "Customizations to which-key mode."
+  (setq which-key-show-early-on-C-h t)
+  (setq which-key-idle-delay 10000)
+  (setq which-key-idle-secondary-delay 0.05)
+  (which-key-mode)
+  (diminish 'which-key-mode))
+
+(when (bk/add-load-path "core" "emacs-which-key")
+  (bk-auto-loads "which-key" #'which-key-mode)
+  (add-hook 'after-init-hook #'bk-setup-feature-which-key))
+
+;; * dired
+;; - History
+;; - 2020/09/20 Created
+;; xdg-open
+(defun bk/dired-xdg-open ()
+  "Open the file at point with xdg-open."
+  (interactive)
+  (let ((file (dired-get-filename nil t)))
+    (message "Opening %s..." file)
+    (call-process "xdg-open" nil 0 nil file)
+    (message "Opening %s done" file)))
+
+(eval-after-load 'dired
+  '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open))
+
+;;; open dired in the current file
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+
+;; * exec-path-from-shell
+;; - https://github.com/purcell/exec-path-from-shell
+;; - History
+;;   -  2020-08-16 Created
+(when (bk/add-load-path "core" "exec-path-from-shell")
+  (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
+  (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
