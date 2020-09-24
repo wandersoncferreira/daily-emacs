@@ -83,7 +83,7 @@
 	path = external/company-org-roam
 	url = https://github.com/org-roam/company-org-roam
 [submodule "external/switch-window"]
-	path = external/switch-window
+	path = window/pkgs/switch-window
 	url = https://github.com/dimitri/switch-window
 [submodule "external/multiple-cursors.el"]
 	path = editor/pkgs/multiple-cursors.el
@@ -107,7 +107,7 @@
 	path = modes/markdown/pkgs/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode
 [submodule "external/windresize"]
-	path = external/windresize
+	path = window/pkgs/windresize
 	url = https://github.com/emacsmirror/windresize
 [submodule "external/emacs-sql-indent"]
 	path = external/emacs-sql-indent
@@ -116,7 +116,7 @@
 	path = modes/prog/pkgs/toggle-test
 	url = https://github.com/rags/toggle-test
 [submodule "external/ido-completing-read-plus"]
-	path = external/ido-completing-read-plus
+	path = completion/pkgs/ido-completing-read-plus
 	url = https://github.com/DarwinAwardWinner/ido-completing-read-plus
 [submodule "external/flycheck-clj-kondo"]
 	path = langs/clojure/pkgs/flycheck-clj-kondo
@@ -227,7 +227,7 @@
 	path = modes/prog/pkgs/flycheck-posframe
 	url = https://github.com/alexmurray/flycheck-posframe
 [submodule "external/zoom-frm"]
-	path = external/zoom-frm
+	path = window/pkgs/zoom-frm
 	url = https://github.com/emacsmirror/zoom-frm
 [submodule "external/frame-fns"]
 	path = external/frame-fns

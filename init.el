@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 08:26:29 (wand)>
+;; Time-stamp: <2020-09-23 23:40:09 (wand)>
 
 ;;; Code:
 
@@ -64,6 +64,7 @@ Return non-nil if successful."
                   "search"
                   "functions"
                   "cosmetics"
+                  "window"
 		  "apps/docker"
 		  "apps/ledger"
 		  "langs/clojure"
@@ -76,34 +77,6 @@ Return non-nil if successful."
   (let* ((module-name (concat module "/init.el"))
          (module-name (expand-file-name module-name user-emacs-directory)))
     (load module-name)))
-
-;; * custom functions
-;;; smart beg/end of line
-(defun bk/beginning-of-line ()
-  "Go back at the first non-whitespace character."
-  (interactive)
-  (let ((oldpos (point)))
-    (back-to-indentation)
-    (and (= oldpos (point))
-         (beginning-of-line))))
-
-(defun bk/end-of-line ()
-  "Go to the end of the last non-whitespace character."
-  (interactive)
-  (move-end-of-line nil)
-  (re-search-backward "^\\|[^[:space:]]")
-  (forward-char))
-
-(global-set-key (kbd "C-a") 'bk/beginning-of-line)
-(global-set-key (kbd "C-e") 'bk/end-of-line)
-
-(defun bk/eval-buffer ()
-  "Provide some feedback after evaluating the buffer."
-  (interactive)
-  (eval-buffer)
-  (message "Buffer evaluated!"))
-
-(define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
 
 ;; * dired
 ;; - History
@@ -123,51 +96,10 @@ Return non-nil if successful."
 (setq dired-omit-files "^\\...+$")
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
-;; * basic customizations
-;; basics
-(setq tab-always-indent 'complete
-      vc-follow-symlinks t
-      create-lockfiles nil
-      backup-directory-alist `(("." . ,(expand-file-name
-                                        (concat user-emacs-directory "backups")))))
-
-;;; don't use tabs to indent
-(setq-default indent-tabs-mode nil)
-
-;;; newline at the end of file
-(setq require-final-newline t)
-
-(setq blink-matching-paren nil)
-
-;;; use shift+arrow keys to switch between visible buffers
-(add-hook 'after-init-hook
-          (lambda ()
-            (windmove-default-keybindings)))
-
-;;; reduce the frequency of garbage collection
-(setq gc-cons-threshold 50000000)
-
-;;; timestamps
-(setq time-stamp-active t
-      time-stamp-line-limit 10
-      time-stamp-format "%Y-%02m-%02d %02H:%02M:%02S (%u)")
-
-(add-hook 'write-file-functions 'time-stamp)
-
-;;; abbreviate yes-or-no questions
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;;; change column automatic wrap
-(setq-local fill-column 70)
-
-;;; activate highlight parenthesis
-(add-hook 'after-init-hook 'show-paren-mode)
-
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
-
-;;; cheatsheet
 (set-register ?c '(file . "~/.emacs.d/cheatsheet.org"))
+(set-register ?k '(file . "~/private/cheatsheet.org"))
 
 ;; * outline
 ;; - History
@@ -186,41 +118,6 @@ Return non-nil if successful."
 (when (bk-load-path-add "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
   (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
-
-;; * ido (disabled)
-;; - History
-;;   -  2020-08-14 Created
-;;   -  2020-08-18 Enable ido-everywhere
-;;   -  2020-08-28 Disabled
-(when not-disabled?
-  (add-hook 'after-init-hook #'ido-mode)
-  (with-eval-after-load 'ido
-    (setq ido-use-virtual-buffers t
-          ido-enable-flex-matching t)
-    (ido-everywhere +1)))
-
-;; * ido completing-read-plus (disabled)
-;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
-;; - History
-;;   -  2020-08-18 Created
-;;   -  2020-08-28 Disabled
-(when (and (bk-load-path-add "ido-completing-read-plus") not-disabled?)
-  (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
-  (with-eval-after-load 'ido
-    (ido-ubiquitous-mode +1)))
-
-;; * ace-window
-;; - History
-;;  - 2020/08/27 Created
-(when (bk-load-path-add "ace-window")
-  (bk-auto-loads "ace-window" #'ace-window))
-
-;; * zoom-frm
-;; - https://github.com/emacsmirror/zoom-frm
-;; - History
-;; - 2020-09-15 Created
-(when (bk-load-path-add "zoom-frm")
-  (bk-auto-loads "zoom-frm" #'zoom-in #'zoom-out))
 
 ;; * hydra
 ;; - https://github.com/abo-abo/hydra
@@ -244,23 +141,6 @@ Return non-nil if successful."
 (when (bk-load-path-add "emacs-which-key")
   (bk-auto-loads "which-key" #'which-key-mode)
   (add-hook 'after-init-hook #'bk-setup-feature-which-key))
-
-;;; improve scroll functions
-(defun bk/scroll-up ()
-  "Scroll only specific amount of lines."
-  (interactive)
-  (scroll-up-command 8))
-
-(defun bk/scroll-down ()
-  "Scroll only specific amount of lines."
-  (interactive)
-  (scroll-down-command 8))
-
-(global-set-key (kbd "C-v") #'bk/scroll-up)
-(global-set-key (kbd "M-v") #'bk/scroll-down)
-
-;;; go back to last marked place
-(global-set-key (kbd "C-x p") 'pop-to-mark-command)
 
 ;;; open eshell more easily
 (global-set-key (kbd "C-c e") 'eshell)
@@ -312,114 +192,12 @@ Return non-nil if successful."
     (set-default 'magit-no-confirm '(stage-all-changes
                                      unstage-all-changes))))
 
-;;; when two buffers have the same name, we need a way to distinguish them
-(setq uniquify-buffer-name-style 'post-forward)
-
-;;; delete selected text with a key..
-(add-hook 'after-init-hook 'delete-selection-mode)
-
-;;; auto revert buffers if the file underneath it gets modified
-(add-hook 'after-init-hook 'global-auto-revert-mode)
-
-;; * switch-window
-;; - https://github.com/dimitri/switch-window
-;; - History
-;;   -  2020-08-16 Created
-(when (bk-load-path-add "switch-window")
-  (bk-auto-loads "switch-window" #'switch-window)
-  (global-set-key (kbd "C-x o") 'switch-window)
-  (with-eval-after-load 'switch-window
-    (setq-default switch-window-shortcut-style 'alphabet
-                  switch-window-timeout nil)))
-
-;;; allow ad-handle-redefinition
-;;; got from here https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
-;;; I dont like that warning telling me that ad-handle-definition was changed.. that's ok.
-(setq ad-redefinition-action 'accept)
-
-;;; supress the warning about cl package
-;;; right now, the following files are not updated with the new cl-lib:
-;;; - sesman-test.el
-;;; - change-inner.el
-;;; - ert.el
-;;; - dash.el
-;;; - flycheck-test.el
-;;; - queue.el
-;;; - multiple-cursors-steps.el
-(setq byte-compile-warnings '(cl-functions))
-
-;;; cheatsheet
-(set-register ?k '(file . "~/private/cheatsheet.org"))
-
-;;; set a register at a specific point
-(defun bk/point-to-register ()
-  "Store cursor position in a register."
-  (interactive)
-  (point-to-register 8)
-  (message "Point set"))
-
-(global-set-key (kbd "C-c r p") 'bk/point-to-register)
-
-;;; jump to register
-(defun bk/jump-to-register ()
-  "Switch between current position and pos stored."
-  (interactive)
-  (let ((tmp (point-marker)))
-    (jump-to-register 8)
-    (set-register 8 tmp)))
-
-(global-set-key (kbd "C-c r j") 'bk/jump-to-register)
-
-;;; kill current buffer
-(defun bk/kill-buffer ()
-  "Kill current buffer."
-  (interactive)
-  (kill-buffer (current-buffer)))
-
-(global-set-key (kbd "C-x k") 'bk/kill-buffer)
-
-;;; winner mode is a global minor mode that records
-;;; the changes in the window configuration
-(add-hook 'after-init-hook #'winner-mode)
-(global-set-key (kbd "C-x 4 u") 'winner-undo)
-(global-set-key (kbd "C-x 4 U") 'winner-redo)
-
-;; * windresize
-;; - History
-;;   -  2020-08-17 Created
-(when (bk-load-path-add "windresize")
-  (bk-auto-loads "windresize" #'windresize))
-
 ;; * sql indent mode
 ;; - History
 ;;   -  2020-08-17 Created
 (when (bk-load-path-add "emacs-sql-indent")
   (bk-auto-loads "sql-indent" #'sqlind-minor-mode)
   (add-hook 'sql-mode-hook 'sqlind-minor-mode))
-
-;;; improve split windows
-(defun bk/vsplit-last-buffer ()
-  "Split the window vertically and display the previous buffer."
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil)
-  (switch-to-next-buffer))
-
-(defun bk/hsplit-last-buffer ()
-  "Split the window horizontally and display the previous buffer."
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1 nil)
-  (switch-to-next-buffer))
-
-(global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
-(global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
-
-;; * line numbers (disabled)
-;; - History
-;; - 2020-09-13 - Disabling it
-(when not-disabled?
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
 ;; * custom
 ;; - History

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:08:11 (wand)>
+;; Time-stamp: <2020-09-23 23:32:26 (wand)>
 
 ;;; Code:
 
@@ -106,6 +106,28 @@
   (global-set-key (kbd "C-x C-m") 'smex)
   (with-eval-after-load 'smex
     (smex-initialize)))
+
+;; * ido (disabled)
+;; - History
+;;   -  2020-08-14 Created
+;;   -  2020-08-18 Enable ido-everywhere
+;;   -  2020-08-28 Disabled
+(when not-disabled?
+  (add-hook 'after-init-hook #'ido-mode)
+  (with-eval-after-load 'ido
+    (setq ido-use-virtual-buffers t
+          ido-enable-flex-matching t)
+    (ido-everywhere +1)))
+
+;; * ido completing-read-plus (disabled)
+;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
+;; - History
+;;   -  2020-08-18 Created
+;;   -  2020-08-28 Disabled
+(when (and (bk/add-load-path "completion" "ido-completing-read-plus") not-disabled?)
+  (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
+  (with-eval-after-load 'ido
+    (ido-ubiquitous-mode +1)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

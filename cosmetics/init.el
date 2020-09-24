@@ -4,9 +4,12 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:31:50 (wand)>
+;; Time-stamp: <2020-09-23 23:38:07 (wand)>
 
 ;;; Code:
+
+;;; activate highlight parenthesis
+(add-hook 'after-init-hook 'show-paren-mode)
 
 ;; - History
 ;; - 2020-09-17 - Enabling Zenburn
