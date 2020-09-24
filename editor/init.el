@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:07:11 (wand)>
+;; Time-stamp: <2020-09-24 00:46:59 (wand)>
 
 ;;; Code:
 
@@ -31,6 +31,7 @@
 ;;   -  2020-08-16 Created
 (when (bk/add-load-path "editor" "multiple-cursors.el")
   (bk-auto-loads "multiple-cursors" #'mc/mark-next-like-this #'mc/mark-previous-like-this)
+  (setq mc/list-file "~/.emacs.d/editor/etc/.mc-lists.el")
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
 

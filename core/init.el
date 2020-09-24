@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:27:56 (wand)>
+;; Time-stamp: <2020-09-24 00:45:20 (wand)>
 
 ;;; Code:
 
@@ -150,6 +150,8 @@
     ("requie" "require" nil 0)
     ("requier" "require" nil 0)
     ))
+
+(setq abbrev-file-name "~/.emacs.d/core/etc/abbrev_defs")
 
 (add-hook 'prog-mode-hook
           (lambda ()
