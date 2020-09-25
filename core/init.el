@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:45:20 (wand)>
+;; Time-stamp: <2020-09-25 09:22:29 (wand)>
 
 ;;; Code:
 
@@ -188,6 +188,8 @@
 
 (eval-after-load 'dired
   '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open))
+
+(setq dired-dwim-target t)
 
 ;;; open dired in the current file
 (global-set-key (kbd "C-x C-j") 'dired-jump)
