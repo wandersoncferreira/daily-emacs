@@ -250,3 +250,18 @@
 [submodule "external/Highlight-Indentation-for-Emacs"]
 	path = langs/python/pkgs/Highlight-Indentation-for-Emacs
 	url = https://github.com/antonj/Highlight-Indentation-for-Emacs
+[submodule "apps/telega/pkgs/telega.el"]
+	path = apps/telega/pkgs/telega.el
+	url = https://github.com/zevlg/telega.el
+[submodule "dependencies/pkgs/rainbow-identifiers"]
+	path = dependencies/pkgs/rainbow-identifiers
+	url = https://github.com/Fanael/rainbow-identifiers
+[submodule "dependencies/pkgs/visual-fill-column"]
+	path = dependencies/pkgs/visual-fill-column
+	url = https://github.com/joostkremers/visual-fill-column
+[submodule "dependencies/pkgs/emacs-emojify"]
+	path = dependencies/pkgs/emacs-emojify
+	url = https://github.com/iqbalansari/emacs-emojify
+[submodule "apps/telega/pkgs/telega"]
+	path = apps/telega/pkgs/telega.el
+	url = https://github.com/zevlg/telega.el

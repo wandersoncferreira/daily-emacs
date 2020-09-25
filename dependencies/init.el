@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:31:15 (wand)>
+;; Time-stamp: <2020-09-25 09:13:18 (wand)>
 
 ;;; Code:
 
@@ -177,7 +177,7 @@
 ;; * memoize (library)
 ;;   - https://github.com/skeeto/emacs-memoize
 ;;   - History
-;;     - 2020-09-04 Create
+;;     - 2020-09-04 Created
 (bk/add-load-path "dependencies" "emacs-memoize")
 
 ;; * hydra
@@ -185,6 +185,26 @@
 ;; - History
 ;;   -  2020-08-18 Created
 (bk/add-load-path "dependencies" "hydra")
+
+;; * rainbow-identifiers
+;; - https://github.com/Fanael/rainbow-identifiers
+;; - History
+;;   -  2020-09-25 Created
+(bk/add-load-path "dependencies" "rainbow-identifiers")
+
+;; * visual-fill-column
+;; - https://github.com/joostkremers/visual-fill-column
+;; - History
+;;   -  2020-09-25 Created
+(bk/add-load-path "dependencies" "visual-fill-column")
+
+
+;; * emacs-emojify
+;; - https://github.com/iqbalansari/emacs-emojify
+;; - History
+;;   -  2020-09-25 Created
+(bk/add-load-path "dependencies" "emacs-emojify")
+(bk-auto-loads "emojify" #'emojify-mode #'emojify-mode-line-mode)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
