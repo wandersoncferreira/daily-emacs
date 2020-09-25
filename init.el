@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:37:48 (wand)>
+;; Time-stamp: <2020-09-25 09:24:13 (wand)>
 
 ;;; Code:
 
@@ -36,8 +36,6 @@
 ;; * lazy loading
 ;; - History
 ;; - 2020-09-13 Organized into outlines
-
-;;; helper functions to perform lazy loading of packages
 (defvar bk-external-packages-dir "~/.emacs.d/external/")
 
 (defun bk/add-load-path (pkg subdir)
@@ -64,7 +62,6 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; * extra packages
 ;; - History
 ;; - 2020-09-22 Added clojure pack
-
 (load-file (expand-file-name "dependencies/init.el" user-emacs-directory))
 
 (dolist (module '("completion"
@@ -79,6 +76,7 @@ After any of the functions is called, the whole package is loaded in memory."
                   "version-control"
                   "shell"
 		  "apps/docker"
+                  "apps/telega"
 		  "apps/ledger"
 		  "langs/clojure"
 		  "langs/haskell"
