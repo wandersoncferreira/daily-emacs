@@ -268,3 +268,6 @@
 [submodule "apps/circle/pkgs/circe"]
 	path = apps/circle/pkgs/circe
 	url = https://github.com/jorgenschaefer/circe
+[submodule "apps/circe/pkgs/circe"]
+	path = apps/circe/pkgs/circe
+	url = https://github.com/jorgenschaefer/circe
