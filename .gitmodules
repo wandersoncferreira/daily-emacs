@@ -265,3 +265,6 @@
 [submodule "apps/telega/pkgs/telega"]
 	path = apps/telega/pkgs/telega.el
 	url = https://github.com/zevlg/telega.el
+[submodule "apps/circle/pkgs/circe"]
+	path = apps/circle/pkgs/circe
+	url = https://github.com/jorgenschaefer/circe

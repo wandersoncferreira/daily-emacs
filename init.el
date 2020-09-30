@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-25 09:24:13 (wand)>
+;; Time-stamp: <2020-09-29 22:03:06 (wand)>
 
 ;;; Code:
 
@@ -78,6 +78,7 @@ After any of the functions is called, the whole package is loaded in memory."
 		  "apps/docker"
                   "apps/telega"
 		  "apps/ledger"
+                  "apps/circe"
 		  "langs/clojure"
 		  "langs/haskell"
 		  "langs/python"
