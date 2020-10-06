@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:22:20 (wand)>
+;; Time-stamp: <2020-10-06 05:47:11 (wand)>
 
 ;;; Code:
 
@@ -19,14 +19,17 @@
     (setq projectile-completion-system 'ivy
           projectile-cache-file (concat user-emacs-directory "projectile.cache")
           projectile-auto-discover nil
-          projectile-globally-ignored-files '(".DS_Store" "TAGS")
+          projectile-globally-ignored-files '(".DS_Store"
+                                              "TAGS"
+                                              "ido.last"
+                                              "recentf"
+                                              "smex-items")
           projectile-globally-ignored-file-suffixes '(".elc" ".pyc" ".o")
           projectile-enable-caching t
           projectile-indexing-method 'hybrid
           projectile-kill-buffers-filter 'kill-only-files
           projectile-ignored-projects '("~/" "/tmp")
-          projectile-mode-line-prefix " Prj"
-          projectile-sort-order 'access-time)
+          projectile-mode-line-prefix " Prj")
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 ;; * counsel-projectile

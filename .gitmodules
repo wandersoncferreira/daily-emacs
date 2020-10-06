@@ -289,3 +289,6 @@
 [submodule "apps/webpaste/pkgs/webpaste.el"]
 	path = apps/webpaste/pkgs/webpaste.el
 	url = https://github.com/etu/webpaste.el
+[submodule "dependencies/pkgs/emacs-request"]
+	path = dependencies/pkgs/emacs-request
+	url = https://github.com/tkf/emacs-request

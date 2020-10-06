@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-02 15:28:35 (wand)>
+;; Time-stamp: <2020-10-06 05:26:35 (wand)>
 
 ;;; Code:
 
@@ -29,6 +29,14 @@
   (message "Oops! You're not connected to an nREPL server.
 Please run M-x cider or M-x cider-jack-in to connect"))
 
+(defun cider-eval-n-defuns (n)
+  (interactive "P")
+  (cider-eval-region (car (bounds-of-thing-at-point 'defun))
+                     (save-excursion
+                       (dotimes (i (or n 2))
+                         (end-of-defun))
+                       (point))))
+
 (when (bk/add-load-path "langs/clojure" "cider")
   (bk-auto-loads "cider"
                  #'cider-jack-in
@@ -47,6 +55,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (define-key clojure-mode-map (kbd "C-x C-e") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-k") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
+    (define-key cider-mode-map (kbd "C-c C-a") 'cider-eval-n-defuns)
     (diminish 'cider-mode)))
 
 ;; * clj-refactor.el

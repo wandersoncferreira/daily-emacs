@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-02 14:52:23 (wand)>
+;; Time-stamp: <2020-10-06 00:05:51 (wand)>
 
 ;;; Code:
 
@@ -40,7 +40,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (bk/light-theme)))
+            (load-theme 'zenburn t)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)

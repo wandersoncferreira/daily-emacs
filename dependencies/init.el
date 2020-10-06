@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-01 15:45:09 (wand)>
+;; Time-stamp: <2020-10-06 05:40:47 (wand)>
 
 ;;; Code:
 
@@ -228,6 +228,12 @@
 ;;   -  2020-09-25 Created
 (bk/add-load-path "dependencies" "emacs-emojify")
 (bk-auto-loads "emojify" #'emojify-mode #'emojify-mode-line-mode)
+
+;; * emacs-request
+;; - https://github.com/tkf/emacs-request
+;; - History
+;;   -  2020-10-06 Created
+(bk/add-load-path "dependencies" "emacs-request")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
