@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-05 22:48:34 (wand)>
+;; Time-stamp: <2020-10-05 23:53:36 (wand)>
 
 ;;; Code:
 
@@ -36,7 +36,6 @@
 ;; * lazy loading
 ;; - History
 ;; - 2020-09-13 Organized into outlines
-(defvar bk-external-packages-dir "~/.emacs.d/external/")
 
 (defun bk/add-load-path (pkg subdir)
   "If PKG/SUBDIR exist add it to `load-path'.
