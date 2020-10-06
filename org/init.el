@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:44:29 (wand)>
+;; Time-stamp: <2020-10-05 22:40:06 (wand)>
 
 ;;; Code:
 
@@ -119,7 +119,7 @@
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
 
             ;; next life
-            (tags "+life+"
+            (tags "+life+TODO=\"NEXT\"|+life+TODO=\"STARTED\"|+life+TODO=\"WAIT\""
                   ((org-agenda-overriding-header "Next task in LIFE:")
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
 

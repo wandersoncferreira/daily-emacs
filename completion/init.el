@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:32:26 (wand)>
+;; Time-stamp: <2020-10-01 21:46:53 (wand)>
 
 ;;; Code:
 
@@ -82,7 +82,7 @@
 ;; - https://github.com/tumashu/ivy-posframe
 ;; - History
 ;;   -  2020-08-18 Created
-(when (bk/add-load-path "completion" "ivy-posframe")
+(when nil ;; (bk/add-load-path "completion" "ivy-posframe")
   (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
   (setq ivy-posframe-display-functions-alist
         '((t . ivy-posframe-display-at-frame-bottom-left)))

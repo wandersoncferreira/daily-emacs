@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-25 09:22:29 (wand)>
+;; Time-stamp: <2020-10-04 20:06:17 (wand)>
 
 ;;; Code:
 
@@ -200,7 +200,9 @@
 ;;   -  2020-08-16 Created
 (when (bk/add-load-path "core" "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
-  (add-hook 'after-init-hook #'exec-path-from-shell-initialize))
+  (add-hook 'after-init-hook (lambda ()
+                               (message "Loading PATH!")
+                               (exec-path-from-shell-initialize))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

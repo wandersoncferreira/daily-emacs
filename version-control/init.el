@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:20:53 (wand)>
+;; Time-stamp: <2020-10-01 15:41:26 (wand)>
 
 ;;; Code:
 
@@ -26,6 +26,13 @@
     (set-default 'magit-revert-buffers 'silent)
     (set-default 'magit-no-confirm '(stage-all-changes
                                      unstage-all-changes))))
+
+;; * gist.el
+;; - https://github.com/defunkt/gist.el
+;; - History
+;;   -  2020-10-01 Created
+(when (bk/add-load-path "version-control" "gist.el")
+  (bk-auto-loads "gist" #'gist-buffer-private #'gist-list))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

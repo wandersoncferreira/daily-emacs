@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-26 23:29:30 (wand)>
+;; Time-stamp: <2020-10-02 14:52:23 (wand)>
 
 ;;; Code:
 
@@ -17,7 +17,7 @@
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
   (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 110)))
+    (set-face-attribute 'default nil :font "Monaco" :height 120)))
 
 ;;; change themes
 (defun bk/light-theme ()
@@ -40,7 +40,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (load-theme 'zenburn t)))
+            (bk/light-theme)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)

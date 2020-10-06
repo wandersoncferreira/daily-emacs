@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:03:17 (wand)>
+;; Time-stamp: <2020-10-02 15:28:35 (wand)>
 
 ;;; Code:
 
@@ -36,6 +36,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
                  #'cider-jack-in-clj&cljs)
   (bk-auto-loads "cider-macroexpansion" #'cider-macroexpand-1)
   (bk-auto-loads "cider-find" #'cider-find-var)
+  (bk-auto-loads "cider-scratch" #'cider-scratch)
   (with-eval-after-load 'clojure-mode
     (setq cider-save-file-on-load t
           cider-auto-select-error-buffer t

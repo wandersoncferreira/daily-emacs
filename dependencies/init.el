@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-25 09:13:18 (wand)>
+;; Time-stamp: <2020-10-01 15:45:09 (wand)>
 
 ;;; Code:
 
@@ -198,6 +198,29 @@
 ;;   -  2020-09-25 Created
 (bk/add-load-path "dependencies" "visual-fill-column")
 
+;; * gh.el
+;; - https://github.com/sigma/gh.el
+;; - History
+;;   -  2020-10-01 Created
+(bk/add-load-path "dependencies" "gh.el")
+
+;; * marshal.el
+;; - https://github.com/sigma/marshal.el
+;; - History
+;;   -  2020-10-01 Created
+(bk/add-load-path "dependencies" "marshal.el")
+
+;; * pcache
+;; - https://github.com/sigma/pcache
+;; - History
+;;   -  2020-10-01 Created
+(bk/add-load-path "dependencies" "pcache")
+
+;; * logito
+;; - https://github.com/sigma/logito
+;; - History
+;;   -  2020-10-01 Created
+(bk/add-load-path "dependencies" "logito")
 
 ;; * emacs-emojify
 ;; - https://github.com/iqbalansari/emacs-emojify

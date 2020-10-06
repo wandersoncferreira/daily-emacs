@@ -271,3 +271,21 @@
 [submodule "apps/circe/pkgs/circe"]
 	path = apps/circe/pkgs/circe
 	url = https://github.com/jorgenschaefer/circe
+[submodule "version-control/pkgs/gist.el"]
+	path = version-control/pkgs/gist.el
+	url = https://github.com/defunkt/gist.el
+[submodule "dependencies/pkgs/gh.el"]
+	path = dependencies/pkgs/gh.el
+	url = https://github.com/sigma/gh.el
+[submodule "dependencies/pkgs/marshal.el"]
+	path = dependencies/pkgs/marshal.el
+	url = https://github.com/sigma/marshal.el
+[submodule "dependencies/pkgs/pcache"]
+	path = dependencies/pkgs/pcache
+	url = https://github.com/sigma/pcache
+[submodule "dependencies/pkgs/logito"]
+	path = dependencies/pkgs/logito
+	url = https://github.com/sigma/logito
+[submodule "apps/webpaste/pkgs/webpaste.el"]
+	path = apps/webpaste/pkgs/webpaste.el
+	url = https://github.com/etu/webpaste.el

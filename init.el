@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-29 22:03:06 (wand)>
+;; Time-stamp: <2020-10-05 22:48:34 (wand)>
 
 ;;; Code:
 
@@ -79,6 +79,7 @@ After any of the functions is called, the whole package is loaded in memory."
                   "apps/telega"
 		  "apps/ledger"
                   "apps/circe"
+                  "apps/webpaste"
 		  "langs/clojure"
 		  "langs/haskell"
 		  "langs/python"
@@ -94,7 +95,6 @@ After any of the functions is called, the whole package is loaded in memory."
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 (set-register ?c '(file . "~/.emacs.d/cheatsheet.org"))
-(set-register ?k '(file . "~/private/cheatsheet.org"))
 
 ;; * custom
 ;; - History
