@@ -1,6 +1,18 @@
 #+title: Cheatsheet
 #+startup: showall
-#+Time-stamp: <2020-09-17 22:26:52 (wand)>
+#+Time-stamp: <2020-10-07 06:33:16 (wand)>
+
+* Neotree
+  
+  | Keys              | Descriptions                         |
+  |-------------------+--------------------------------------|
+  | SPEC, RET, or TAB | Open current item                    |
+  | A                 | Maximize/Minimize the neotree window |
+  | O                 | Recursively open a directory         |
+  | C-c C-n           | Create a file or directory           |
+  | C-c C-d           | Delete a file or directory           |
+  | C-c C-r           | Rename a file or directory           |
+  | C-c C-p           | Copy a file or directory             |
 
 
 * Easy Kill

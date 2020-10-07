@@ -1,3 +1,12 @@
+;;; init.el --- Entry point for configurations ;; -*- lexical-binding: t -*-
+
+;;; Commentary:
+
+;; Here be dragons
+
+;; Time-stamp: <2020-10-07 06:33:52 (wand)>
+
+;;; Code:
 
 ;; * circe.el
 ;; - https://github.com/Silex/circe.el
@@ -12,3 +21,8 @@
          :sasl-username "bartuka"
          :sasl-password "lkli3210"
          :channels ("#emacs")))))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init.el ends here
