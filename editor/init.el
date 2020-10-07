@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:46:59 (wand)>
+;; Time-stamp: <2020-10-07 06:26:50 (wand)>
 
 ;;; Code:
 
@@ -55,6 +55,16 @@
   (bk-auto-loads "easy-kill" #'easy-kill #'easy-mark)
   (global-set-key [remap kill-ring-save] 'easy-kill)
   (global-set-key [remap mark-sexp] 'easy-mark))
+
+;; * highlight-symbol.el
+;; - https://github.com/nschum/highlight-symbol.el
+;; - History
+;;   -  2020-10-07 Created
+(when (bk/add-load-path "editor" "highlight-symbol.el")
+  (bk-auto-loads "highlight-symbol" #'highlight-symbol #'highlight-symbol-next #'highlight-symbol-prev)
+  (global-set-key [(control f1)] 'highlight-symbol)
+  (global-set-key [f1] 'highlight-symbol-next)
+  (global-set-key [(shift f1)] 'highlight-symbol-prev))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

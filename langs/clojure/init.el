@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-06 05:26:35 (wand)>
+;; Time-stamp: <2020-10-06 06:20:07 (wand)>
 
 ;;; Code:
 
@@ -55,8 +55,10 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (define-key clojure-mode-map (kbd "C-x C-e") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-k") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
-    (define-key cider-mode-map (kbd "C-c C-a") 'cider-eval-n-defuns)
-    (diminish 'cider-mode)))
+    (diminish 'cider-mode))
+  
+  (with-eval-after-load 'cider
+    (define-key cider-mode-map (kbd "C-c C-a") 'cider-eval-n-defuns)))
 
 ;; * clj-refactor.el
 ;; - https://github.com/clojure-emacs/clj-refactor.el

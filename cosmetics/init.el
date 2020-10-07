@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-06 00:05:51 (wand)>
+;; Time-stamp: <2020-10-07 05:50:24 (wand)>
 
 ;;; Code:
 
@@ -17,13 +17,17 @@
 (defun bk/set-monaco-font ()
   "Define the Monaco font."
   (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 120)))
+    (set-face-attribute 'default nil :font "Monaco" :height 100)))
+
+(defun bk/increase-font (size)
+  "Increase the SIZE of the current font."
+  (set-face-attribute 'default nil :height size))
 
 ;;; change themes
 (defun bk/light-theme ()
   "Define custom light theme."
   (interactive)
-  (bk/set-monaco-font)
+  (bk/increase-font 120)
   (set-face-attribute 'lazy-highlight nil :background "light green")
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
@@ -40,7 +44,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (load-theme 'zenburn t)))
+            (bk/light-theme)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)

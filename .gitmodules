@@ -190,9 +190,6 @@
 [submodule "external/swiper"]
 	path = completion/pkgs/swiper
 	url = https://github.com/abo-abo/swiper
-[submodule "external/counsel-projectile"]
-	path = projects/pkgs/counsel-projectile
-	url = https://github.com/ericdanan/counsel-projectile
 [submodule "external/emacs-which-key"]
 	path = core/pkgs/emacs-which-key
 	url = https://github.com/justbur/emacs-which-key
@@ -292,3 +289,9 @@
 [submodule "dependencies/pkgs/emacs-request"]
 	path = dependencies/pkgs/emacs-request
 	url = https://github.com/tkf/emacs-request
+[submodule "apps/neotree/pkgs/emacs-neotree"]
+	path = apps/neotree/pkgs/emacs-neotree
+	url = https://github.com/jaypei/emacs-neotree
+[submodule "editor/pkgs/highlight-symbol.el"]
+	path = editor/pkgs/highlight-symbol.el
+	url = https://github.com/nschum/highlight-symbol.el

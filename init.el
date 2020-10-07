@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-05 23:53:36 (wand)>
+;; Time-stamp: <2020-10-07 06:07:31 (wand)>
 
 ;;; Code:
 
@@ -75,6 +75,7 @@ After any of the functions is called, the whole package is loaded in memory."
                   "version-control"
                   "shell"
 		  "apps/docker"
+                  "apps/neotree"
                   "apps/telega"
 		  "apps/ledger"
                   "apps/circe"
