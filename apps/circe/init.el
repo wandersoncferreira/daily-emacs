@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-07 06:33:52 (wand)>
+;; Time-stamp: <2020-10-07 07:13:14 (wand)>
 
 ;;; Code:
 
@@ -12,7 +12,7 @@
 ;; - https://github.com/Silex/circe.el
 ;; - History
 ;;   -  2020-09-04 Created
-(when (bk/add-load-path "apps/circe" "circe.el")
+(when (bk/add-load-path "apps/circe" "circe")
   (bk-auto-loads "circe" #'circe)
   (setq circe-network-options
       '(("Freenode"

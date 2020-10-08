@@ -289,9 +289,6 @@
 [submodule "dependencies/pkgs/emacs-request"]
 	path = dependencies/pkgs/emacs-request
 	url = https://github.com/tkf/emacs-request
-[submodule "apps/neotree/pkgs/emacs-neotree"]
-	path = apps/neotree/pkgs/emacs-neotree
-	url = https://github.com/jaypei/emacs-neotree
 [submodule "editor/pkgs/highlight-symbol.el"]
 	path = editor/pkgs/highlight-symbol.el
 	url = https://github.com/nschum/highlight-symbol.el

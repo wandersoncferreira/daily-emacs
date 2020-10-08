@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-01 21:46:53 (wand)>
+;; Time-stamp: <2020-10-07 21:55:56 (wand)>
 
 ;;; Code:
 
@@ -52,6 +52,7 @@
 ;;   -  2020-09-14 Add swiper binding
 (when (bk/add-load-path "completion" "swiper")
   (bk-auto-loads "ivy" #'ivy-mode)
+  (bk-auto-loads "counsel" #'counsel-find-file)
   (add-hook 'after-init-hook #'ivy-mode)
   (with-eval-after-load 'ivy
 
