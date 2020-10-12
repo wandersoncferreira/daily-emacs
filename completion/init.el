@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-08 20:22:59 (wand)>
+;; Time-stamp: <2020-10-12 10:52:12 (wand)>
 
 ;;; Code:
 
@@ -64,7 +64,8 @@
 (when (bk/add-load-path "completion" "swiper")
   (bk-auto-loads "counsel" #'counsel-M-x)
   (global-set-key (kbd "M-x") #'counsel-M-x)
-  (global-set-key (kbd "C-x C-m") 'counsel-M-x))
+  (global-set-key (kbd "C-x C-m") 'counsel-M-x)
+  (global-set-key (kbd "C-c g p") 'counsel-git-grep))
 
 ;; * smex
 ;; - https://github.com/nonsequitur/smex
