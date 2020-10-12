@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-07 21:55:56 (wand)>
+;; Time-stamp: <2020-10-08 20:22:59 (wand)>
 
 ;;; Code:
 
@@ -31,19 +31,6 @@
     (define-key company-active-map "\C-s" 'company-filter-candidates)
     (define-key company-active-map (kbd "C-/") 'counsel-company)
     (diminish 'company-mode)))
-
-;; * company-postframe
-;; - https://github.com/tumashu/company-posframe
-;; - History
-;;   -  2020-08-18 Created
-(when (bk/add-load-path "completion" "company-posframe")
-  (bk-auto-loads "company-posframe" #'company-posframe-mode)
-  (with-eval-after-load 'company
-    (setq company-posframe-show-indicator nil
-          company-posframe-show-metadata nil
-          company-posframe-show-params nil)
-    (company-posframe-mode 1)
-    (diminish 'company-posframe-mode)))
 
 ;; * ivy
 ;; - https://github.com/abo-abo/swiper
@@ -78,24 +65,6 @@
   (bk-auto-loads "counsel" #'counsel-M-x)
   (global-set-key (kbd "M-x") #'counsel-M-x)
   (global-set-key (kbd "C-x C-m") 'counsel-M-x))
-
-;; * ivy-postframe
-;; - https://github.com/tumashu/ivy-posframe
-;; - History
-;;   -  2020-08-18 Created
-(when nil ;; (bk/add-load-path "completion" "ivy-posframe")
-  (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
-  (setq ivy-posframe-display-functions-alist
-        '((t . ivy-posframe-display-at-frame-bottom-left)))
-  (setq ivy-posframe-height-alist '((t . 13)))
-  (setq ivy-posframe-hide-minibuffer t
-        ivy-posframe-border-width 3)
-  (setq ivy-posframe-parameters '((left-fringe . 8)
-                                  (right-fringe . 8)))
-  (add-hook 'after-init-hook
-            (lambda ()
-              (ivy-posframe-mode)
-              (diminish 'ivy-posframe-mode))))
 
 ;; * smex
 ;; - https://github.com/nonsequitur/smex

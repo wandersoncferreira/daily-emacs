@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-04 20:06:17 (wand)>
+;; Time-stamp: <2020-10-11 23:45:12 (wand)>
 
 ;;; Code:
 
@@ -124,6 +124,16 @@
 (when not-disabled?
   (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
+;; * time
+;; - History
+;;   - 2020-10-11 Created
+(add-hook 'after-init-hook
+          (lambda ()
+            (setq display-time-default-load-average nil
+                  display-time-format "%Hh%M"
+                  display-time-day-and-date t)
+            (display-time-mode +1)))
+
 
 ;; * abbreviations
 (defun bk/add-region-local-abbrev (start end)
@@ -203,6 +213,8 @@
   (add-hook 'after-init-hook (lambda ()
                                (message "Loading PATH!")
                                (exec-path-from-shell-initialize))))
+
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

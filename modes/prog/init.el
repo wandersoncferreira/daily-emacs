@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 08:25:25 (wand)>
+;; Time-stamp: <2020-10-09 21:10:57 (wand)>
 
 ;;; Code:
 
@@ -35,15 +35,25 @@
   (bk-auto-loads "hl-todo" #'hl-todo-mode)
   (add-hook 'prog-mode-hook #'hl-todo-mode))
 
+;; * yasnippet-snippets
+;; - https://github.com/AndreaCrotti/yasnippet-snippets
+;; - History
+;;   - 2020-10-09 Created
+(when (bk/add-load-path "modes/prog" "yasnippet-snippets")
+  (bk-auto-loads "yasnippet" #'yas-describe-tables)
+  (setq yas-snippet-dirs
+        '("/home/wand/.emacs.d/langs/python/pkgs/elpy/snippets/"
+          "/home/wand/.emacs.d/modes/prog/pkgs/yasnippet-snippets/snippets/")))
+
 ;; * yasnippet
 ;; - https://github.com/joaotavora/yasnippet
 ;; - History
 ;;   -  2020-08-18 Created
 (when (bk/add-load-path "modes/prog" "yasnippet")
   (bk-auto-loads "yasnippet" #'yas-global-mode)
-  (add-hook 'prog-mode-hook (lambda ()
-                              (yas-global-mode +1)
-                              (diminish 'yas-minor-mode))))
+  (add-hook 'after-init-hook (lambda ()
+                               (yas-global-mode +1)
+                               (define-key yas-minor-mode-map (kbd "C-c y") #'yas-expand))))
 
 ;; * flycheck
 ;; - https://github.com/flycheck/flycheck
@@ -59,14 +69,6 @@
   (add-hook 'prog-mode-hook #'flycheck-mode)
   (with-eval-after-load 'flycheck
     (bk-setup-feature-flycheck)))
-
-;; * flycheck-posframe
-;; - https://github.com/alexmurray/flycheck-posframe
-;; - History
-;;   -  2020-09-15 Created
-(when (bk/add-load-path "modes/prog" "flycheck-posframe")
-  (bk-auto-loads "flycheck-posframe" #'flycheck-posframe-mode)
-  (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
 
 ;; * toggle-test
 ;; - History

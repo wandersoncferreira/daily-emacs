@@ -127,9 +127,6 @@
 [submodule "external/yasnippet"]
 	path = modes/prog/pkgs/yasnippet
 	url = https://github.com/joaotavora/yasnippet
-[submodule "external/company-posframe"]
-	path = completion/pkgs/company-posframe
-	url = https://github.com/tumashu/company-posframe
 [submodule "external/posframe"]
 	path = dependencies/pkgs/posframe
 	url = https://github.com/tumashu/posframe
@@ -217,12 +214,6 @@
 [submodule "external/emacs-memoize"]
 	path = dependencies/pkgs/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize
-[submodule "external/ivy-posframe"]
-	path = completion/pkgs/ivy-posframe
-	url = https://github.com/tumashu/ivy-posframe
-[submodule "external/flycheck-posframe"]
-	path = modes/prog/pkgs/flycheck-posframe
-	url = https://github.com/alexmurray/flycheck-posframe
 [submodule "external/zoom-frm"]
 	path = window/pkgs/zoom-frm
 	url = https://github.com/emacsmirror/zoom-frm
@@ -236,7 +227,7 @@
 	path = modes/prog/pkgs/hl-todo
 	url = https://github.com/tarsius/hl-todo
 [submodule "themes/zenburn-emacs"]
-	path = themes/zenburn-emacs
+	path = cosmetics/themes/zenburn-emacs
 	url = https://github.com/bbatsov/zenburn-emacs
 [submodule "external/elpy"]
 	path = langs/python/pkgs/elpy
@@ -292,3 +283,18 @@
 [submodule "editor/pkgs/highlight-symbol.el"]
 	path = editor/pkgs/highlight-symbol.el
 	url = https://github.com/nschum/highlight-symbol.el
+[submodule "themes/noctilux-theme"]
+	path = cosmetics/themes/noctilux-theme
+	url = https://github.com/sjrmanning/noctilux-theme
+[submodule "cosmetics/themes/monokai-emacs"]
+	path = cosmetics/themes/monokai-emacs
+	url = https://github.com/oneKelvinSmith/monokai-emacs
+[submodule "cosmetics/themes/alabaster-theme"]
+	path = cosmetics/themes/alabaster-theme
+	url = https://github.com/wandersoncferreira/alabaster-theme
+[submodule "modes/prog/pkgs/yasnippet-snippets"]
+	path = modes/prog/pkgs/yasnippet-snippets
+	url = https://github.com/AndreaCrotti/yasnippet-snippets
+[submodule "langs/python/pkgs/py-isort.el"]
+	path = langs/python/pkgs/py-isort.el
+	url = https://github.com/paetzke/py-isort.el

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-07 05:50:24 (wand)>
+;; Time-stamp: <2020-10-11 23:42:40 (wand)>
 
 ;;; Code:
 
@@ -23,7 +23,6 @@
   "Increase the SIZE of the current font."
   (set-face-attribute 'default nil :height size))
 
-;;; change themes
 (defun bk/light-theme ()
   "Define custom light theme."
   (interactive)
@@ -35,7 +34,7 @@
 ;; * themes
 ;; - History
 ;; - 2020-09-17 Added zenburn
-(setq custom-theme-directory (concat user-emacs-directory "themes")
+(setq custom-theme-directory (concat user-emacs-directory "cosmetics/themes")
       custom-safe-themes t)
 
 (dolist (path (directory-files custom-theme-directory t "\\w+"))
@@ -59,7 +58,11 @@
    (tool-bar-mode -1)
    (scroll-bar-mode -1)
    (column-number-mode)
-   (size-indication-mode)))
+   (size-indication-mode)
+   (global-prettify-symbols-mode +1)))
+
+;; text mode
+(add-hook 'text-mode-hook #'auto-fill-mode)
 
 ;; * whitespace
 ;; - History
