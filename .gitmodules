@@ -316,3 +316,6 @@
 [submodule "langs/clojure/pkgs/clj-decompiler.el"]
 	path = langs/clojure/pkgs/clj-decompiler.el
 	url = https://github.com/bsless/clj-decompiler.el
+[submodule "modes/prog/pkgs/quickrun"]
+	path = modes/prog/pkgs/quickrun
+	url = https://github.com/emacsorphanage/quickrun

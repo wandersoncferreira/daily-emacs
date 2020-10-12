@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 11:22:02 (wand)>
+;; Time-stamp: <2020-10-12 18:22:39 (wand)>
 
 ;;; Code:
 
@@ -81,6 +81,12 @@
   (setq tgt-open-in-new-window nil)
   (put 'tgt-projects 'safe-local-variable #'listp))
 
+;; * quickrun
+;; - https://github.com/emacsorphanage/quickrun
+;; - History
+;;   - 2020-10-12 Created
+(when (bk/add-load-path "modes/prog" "quickrun")
+  (bk-auto-loads "quickrun" #'quickrun #'quickrun-region))
 
 (provide 'init.el)
 ;;; init.el ends here
