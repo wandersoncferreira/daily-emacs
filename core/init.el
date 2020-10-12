@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:34:04 (wand)>
+;; Time-stamp: <2020-10-12 10:40:21 (wand)>
 
 ;;; Code:
 
@@ -261,6 +261,36 @@
   (savehist-mode +1))
 
 (add-hook 'after-init-hook #'bk-setup-feature-savehist)
+
+;;; when two buffers have the same name, we need a way to distinguish them
+;; * uniquify
+;; - History
+;;   - 2020-10-12 Created
+(defun bk-setup-feature-uniquify ()
+  "Customizations to uniquify."
+  (interactive)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets
+        uniquify-separator " * "
+        uniquify-after-kill-buffer-p t
+        uniquify-strip-common-suffix t
+        uniquify-ignore-buffers-re "^\\*"))
+
+(add-hook 'after-init-hook #'bk-setup-feature-uniquify)
+
+;; * imenu
+;; - History
+;;   - 2020-10-12 Created
+(defun bk-setup-feature-imenu ()
+  "Customizations to imenu."
+  (interactive)
+  (setq imenu-auto-rescan t
+        imenu-auto-rescan-maxout 600000
+        imenu-max-item-length 600
+        imenu-use-markers t
+        imenu-max-items 200))
+
+(global-set-key (kbd "C-c i") 'counsel-imenu)
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

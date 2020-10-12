@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:39:41 (wand)>
+;; Time-stamp: <2020-10-12 10:40:16 (wand)>
 
 ;;; Code:
 
@@ -15,35 +15,6 @@
 ;;; got from here https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
 ;;; I dont like that warning telling me that ad-handle-definition was changed.. that's ok.
 (setq ad-redefinition-action 'accept)
-
-;;; when two buffers have the same name, we need a way to distinguish them
-;; * uniquify
-;; - History
-;;   - 2020-10-12 Created
-(defun bk-setup-feature-uniquify ()
-  "Customizations to uniquify."
-  (interactive)
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets
-        uniquify-separator " * "
-        uniquify-after-kill-buffer-p t
-        uniquify-strip-common-suffix t
-        uniquify-ignore-buffers-re "^\\*"))
-
-(add-hook 'after-init-hook #'bk-setup-feature-uniquify)
-
-;; * imenu
-;; - History
-;;   - 2020-10-12 Created
-(defun bk-setup-feature-imenu ()
-  "Customizations to imenu."
-  (interactive)
-  (setq imenu-auto-rescan t
-        imenu-auto-rescan-maxout 600000
-        imenu-max-item-length 600
-        imenu-use-markers t
-        imenu-max-items 200))
-
-(global-set-key (kbd "C-c i") 'counsel-imenu)
 
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
