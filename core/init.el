@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:30:53 (wand)>
+;; Time-stamp: <2020-10-12 10:31:12 (wand)>
 
 ;;; Code:
 
@@ -237,6 +237,7 @@
 ;; - History
 ;;   - 2020-10-12 Created
 (defun bk-setup-feature-recentf ()
+  "Customizations to recentf."
   (interactive)
   (setq recentf-max-saved-items 50
         recentf-max-menu-items 15
