@@ -313,3 +313,6 @@
 [submodule "version-control/pkgs/git-timemachine"]
 	path = version-control/pkgs/git-timemachine
 	url = https://github.com/emacsmirror/git-timemachine
+[submodule "langs/clojure/pkgs/clj-decompiler.el"]
+	path = langs/clojure/pkgs/clj-decompiler.el
+	url = https://github.com/bsless/clj-decompiler.el

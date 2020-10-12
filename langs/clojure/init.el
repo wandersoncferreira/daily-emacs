@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-06 06:20:07 (wand)>
+;; Time-stamp: <2020-10-12 18:03:08 (wand)>
 
 ;;; Code:
 
@@ -56,7 +56,7 @@ Please run M-x cider or M-x cider-jack-in to connect"))
     (define-key clojure-mode-map (kbd "C-c C-k") 'bk/nrepl-warn-when-not-connected)
     (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
     (diminish 'cider-mode))
-  
+
   (with-eval-after-load 'cider
     (define-key cider-mode-map (kbd "C-c C-a") 'cider-eval-n-defuns)))
 
@@ -92,6 +92,14 @@ Please run M-x cider or M-x cider-jack-in to connect"))
   (bk-auto-loads "flycheck-clj-kondo" #'flycheck-clj-kondo)
   (with-eval-after-load 'clojure-mode
     (require 'flycheck-clj-kondo)))
+
+;; * clj-decompiler
+;; - https://github.com/bsless/clj-decompiler.el
+;; - History
+;;   - 2020-10-12 Created
+(when (bk/add-load-path "langs/clojure" "clj-decompiler.el")
+  (bk-auto-loads "clj-decompiler" #'clj-decompiler-setup)
+  (eval-after-load 'cider '(clj-decompiler-setup)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
