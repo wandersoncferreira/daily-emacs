@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:40:16 (wand)>
+;; Time-stamp: <2020-10-12 17:26:31 (wand)>
 
 ;;; Code:
 
@@ -48,9 +48,27 @@
 
 (global-set-key (kbd "C-x k") 'bk/kill-buffer)
 
-;;; winner mode is a global minor mode that records
-;;; the changes in the window configuration
-(add-hook 'after-init-hook #'winner-mode)
+;; * winner
+;; - History
+;;   - 2020-10-12 Adding configurations
+(defun bk-setup-feature-winner ()
+  "Customizations to winner."
+  (interactive)
+  (setq winner-dont-bind-my-keys t
+        winner-boring-buffers
+        '("*Completions*"
+	  "*Compile-Log*"
+	  "*inferior-lisp*"
+	  "*Fuzzy Completions*"
+	  "*Apropos*"
+	  "*Help*"
+	  "*cvs*"
+	  "*Buffer List*"
+	  "*Ibuffer*"
+	  "*esh command on file*"))
+  (winner-mode +1))
+
+(add-hook 'after-init-hook #'bk-setup-feature-winner)
 (global-set-key (kbd "C-x 4 u") 'winner-undo)
 (global-set-key (kbd "C-x 4 U") 'winner-redo)
 
@@ -82,6 +100,36 @@
 (add-hook 'after-init-hook
           (lambda ()
             (windmove-default-keybindings)))
+
+;;; toggle window from
+;;; Window A ++++++++ Window B
+;;; Window A + Window B
+(defun bk/toggle-window-split ()
+  "Toggle window."
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter (if (= (car this-win-edges)
+                              (car (window-edges (next-window))))
+                           'split-window-horizontally
+                         'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+
+(global-set-key (kbd "C-c |") 'bk/toggle-window-split)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

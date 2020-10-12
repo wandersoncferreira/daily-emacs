@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 11:11:38 (wand)>
+;; Time-stamp: <2020-10-12 17:44:47 (wand)>
 
 ;;; Code:
 
@@ -40,6 +40,7 @@
 (when (bk/add-load-path "completion" "swiper")
   (bk-auto-loads "ivy" #'ivy-mode)
   (bk-auto-loads "counsel" #'counsel-find-file)
+  (bk-auto-loads "swiper" #'swiper)
   (add-hook 'after-init-hook #'ivy-mode)
   (with-eval-after-load 'ivy
 
@@ -100,6 +101,24 @@
   (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
   (with-eval-after-load 'ido
     (ido-ubiquitous-mode +1)))
+
+;; * occur
+;; - History
+;;   - 2020-10-12 Created
+(defun bk/occur-dwim ()
+  "Call `occur' with a sane default."
+  (interactive)
+  (push (if (region-active-p)
+            (buffer-substring-no-properties
+             (region-beginning)
+             (region-end))
+          (let ((sym (thing-at-point 'symbol)))
+            (when (stringp sym)
+              (regexp-quote sym))))
+        regexp-history)
+  (call-interactively 'occur))
+
+(global-set-key (kbd "M-s o") 'bk/occur-dwim)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

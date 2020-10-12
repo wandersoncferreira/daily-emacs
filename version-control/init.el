@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-01 15:41:26 (wand)>
+;; Time-stamp: <2020-10-12 17:41:30 (wand)>
 
 ;;; Code:
 
@@ -18,14 +18,27 @@
   (when (looking-at "#")
     (forward-line 2)))
 
+(defun bk-setup-feature-magit ()
+  "Customizations to magit."
+  (interactive)
+  (setq magit-diff-refine-hunk t
+        magit-revert-buffers 'silent
+        magit-commit-arguments '("--verbose")
+        magit-process-popup-time 10
+        magit-refresh-status-buffer nil)
+  
+  (set-default 'magit-revert-buffers 'silent)
+  (set-default 'magit-no-confirm '(stage-all-changes
+                                   unstage-all-changes)))
+
 (when (bk/add-load-path "version-control" "magit/lisp")
   (bk-auto-loads "magit" #'magit-status)
+  (bk-auto-loads "magit"
+                 #'magit-get
+                 #'magit-get-remote
+                 #'magit-get-current-branch)
   (global-set-key (kbd "C-c g s") #'magit-status)
-  (with-eval-after-load 'magit
-    (setq magit-refresh-status-buffer nil)
-    (set-default 'magit-revert-buffers 'silent)
-    (set-default 'magit-no-confirm '(stage-all-changes
-                                     unstage-all-changes))))
+  (with-eval-after-load 'magit (bk-setup-feature-magit)))
 
 ;; * gist.el
 ;; - https://github.com/defunkt/gist.el
@@ -33,6 +46,36 @@
 ;;   -  2020-10-01 Created
 (when (bk/add-load-path "version-control" "gist.el")
   (bk-auto-loads "gist" #'gist-buffer-private #'gist-list))
+
+;; * git-modes
+;; - https://github.com/magit/git-modes
+;; - History
+;;   - 2020-10-12 Created
+(when (bk/add-load-path "version-control" "git-modes")
+  (bk-auto-loads "gitconfig-mode" #'gitconfig-mode)
+  (bk-auto-loads "gitignore-mode" #'gitignore-mode)
+  (add-hook 'after-init-hook (lambda () (require 'gitconfig-mode)))
+  (add-hook 'after-init-hook (lambda () (require 'gitignore-mode))))
+
+;; * git-timemachines
+;; - https://github.com/emacsmirror/git-timemachine
+;; - History
+;;   - 2020-10-12 Created
+(when (bk/add-load-path "version-control" "git-timemachine")
+  (bk-auto-loads "git-timemachine" #'git-timemachine)
+  (global-set-key (kbd "C-c g t") 'git-timemachine))
+
+
+(defun bk/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote" (magit-get-remote) "url"))
+           (magit-get-current-branch))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

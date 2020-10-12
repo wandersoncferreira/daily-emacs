@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 08:07:19 (wand)>
+;; Time-stamp: <2020-10-12 11:22:02 (wand)>
 
 ;;; Code:
 
@@ -54,6 +54,7 @@
   (bk-auto-loads "yasnippet" #'yas-global-mode)
   (add-hook 'after-init-hook (lambda ()
                                (yas-global-mode +1)
+                               (diminish 'yas-minor-mode)
                                (define-key yas-minor-mode-map (kbd "C-c y") #'yas-expand))))
 
 ;; * flycheck

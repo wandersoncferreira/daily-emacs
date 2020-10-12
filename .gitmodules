@@ -307,3 +307,9 @@
 [submodule "org/pkgs/org-roam"]
 	path = org/pkgs/org-roam
 	url = https://github.com/org-roam/org-roam
+[submodule "version-control/git-modes"]
+	path = version-control/pkgs/git-modes
+	url = https://github.com/magit/git-modes
+[submodule "version-control/pkgs/git-timemachine"]
+	path = version-control/pkgs/git-timemachine
+	url = https://github.com/emacsmirror/git-timemachine
