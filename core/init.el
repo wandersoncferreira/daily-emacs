@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-11 23:48:51 (wand)>
+;; Time-stamp: <2020-10-12 10:30:53 (wand)>
 
 ;;; Code:
 
@@ -233,6 +233,20 @@
 ;; overriding the thing you copied earlier. We can have a kill ring solution
 (setq save-interprogram-paste-before-kill t)
 
+;; * recentf
+;; - History
+;;   - 2020-10-12 Created
+(defun bk-setup-feature-recentf ()
+  (interactive)
+  (setq recentf-max-saved-items 50
+        recentf-max-menu-items 15
+        recentf-show-file-shortcuts-flag nil
+        recentf-auto-cleanup 'never))
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (bk-setup-feature-recentf)
+            (recentf-mode +1)))
 
 
 ;; Local Variables:
