@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:31:12 (wand)>
+;; Time-stamp: <2020-10-12 10:34:04 (wand)>
 
 ;;; Code:
 
@@ -242,13 +242,25 @@
   (setq recentf-max-saved-items 50
         recentf-max-menu-items 15
         recentf-show-file-shortcuts-flag nil
-        recentf-auto-cleanup 'never))
+        recentf-auto-cleanup 'never)
+  (recentf-mode +1))
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (bk-setup-feature-recentf)
-            (recentf-mode +1)))
+(add-hook 'after-init-hook #'bk-setup-feature-recentf)
 
+;; * savehist
+;; - History
+;;   - 2020-10-12 Created
+(defun bk-setup-feature-savehist ()
+  "Customizations to savehist."
+  (interactive)
+  (setq savehist-file "~/.emacs.d/core/etc/savehist"
+        history-length 30000
+        history-delete-duplicates nil
+        savehist-additional-variables '(search-ring regexp-search-ring)
+        savehist-save-minibuffer-history t)
+  (savehist-mode +1))
+
+(add-hook 'after-init-hook #'bk-setup-feature-savehist)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
