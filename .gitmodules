@@ -304,3 +304,6 @@
 [submodule "langs/common-lisp/pkgs/slime-company"]
 	path = langs/common-lisp/pkgs/slime-company
 	url = https://github.com/anwyn/slime-company
+[submodule "editor/pkgs/goto-chg"]
+	path = editor/pkgs/goto-chg
+	url = https://github.com/emacs-evil/goto-chg

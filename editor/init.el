@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-07 06:26:50 (wand)>
+;; Time-stamp: <2020-10-12 10:45:00 (wand)>
 
 ;;; Code:
 
@@ -65,6 +65,16 @@
   (global-set-key [(control f1)] 'highlight-symbol)
   (global-set-key [f1] 'highlight-symbol-next)
   (global-set-key [(shift f1)] 'highlight-symbol-prev))
+
+;; * goto-chg
+;; - https://github.com/emacs-evil/goto-chg
+;; - History
+;;   - 2020-10-12 Created
+
+(when (bk/add-load-path "editor" "goto-chg")
+  (bk-auto-loads "goto-chg" #'goto-last-change #'goto-last-change-reverse)
+  (global-set-key (kbd "C-c ,") 'goto-last-change)
+  (global-set-key (kbd "C-c .") 'goto-last-change-reverse))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
