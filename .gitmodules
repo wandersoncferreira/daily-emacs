@@ -298,3 +298,9 @@
 [submodule "langs/python/pkgs/py-isort.el"]
 	path = langs/python/pkgs/py-isort.el
 	url = https://github.com/paetzke/py-isort.el
+[submodule "langs/common-lisp/pkgs/slime"]
+	path = langs/common-lisp/pkgs/slime
+	url = https://github.com/slime/slime
+[submodule "langs/common-lisp/pkgs/slime-company"]
+	path = langs/common-lisp/pkgs/slime-company
+	url = https://github.com/anwyn/slime-company

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-11 23:45:12 (wand)>
+;; Time-stamp: <2020-10-11 23:48:51 (wand)>
 
 ;;; Code:
 
@@ -213,6 +213,25 @@
   (add-hook 'after-init-hook (lambda ()
                                (message "Loading PATH!")
                                (exec-path-from-shell-initialize))))
+
+
+(define-advice goto-line (:before (&rest _) preview-line-number)
+  "Preview line number when prompting for goto-line."
+  (interactive
+   (lambda (spec)
+     (if (and (boundp 'display-line-numbers)
+              (not display-line-numbers))
+         (unwind-protect
+             (progn (display-line-numbers-mode)
+                    (advice-eval-interactive-spec spec))
+           (display-line-numbers-mode -1))
+       (advice-eval-interactive-spec spec)))))
+
+;; say you copied a link from your web browser, then switched to Emacs
+;; to paste it somewhere. Before you do that, you notice something you want
+;; to kill. Doing that will place the last kill to the clipboard, thus
+;; overriding the thing you copied earlier. We can have a kill ring solution
+(setq save-interprogram-paste-before-kill t)
 
 
 

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-11 23:42:40 (wand)>
+;; Time-stamp: <2020-10-12 10:22:18 (wand)>
 
 ;;; Code:
 
@@ -43,7 +43,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (bk/light-theme)))
+            (load-theme 'zenburn t)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)
@@ -71,7 +71,7 @@
 (defun bk-setup-feature-whitespace ()
   "Customizations for `whitespace-mode'."
   (setq whitespace-line-column 80
-        whitespace-style '(face tabs empty trailing lines-tail))
+        whitespace-style '(trailing tabs tab-mark))
   (whitespace-mode +1)
   (diminish 'whitespace-mode))
 

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-09 21:10:57 (wand)>
+;; Time-stamp: <2020-10-12 08:07:19 (wand)>
 
 ;;; Code:
 
@@ -22,6 +22,7 @@
 
 (when (bk/add-load-path "modes/prog" "paredit")
   (bk-auto-loads "paredit" #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'emacs-lisp-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'clojure-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'clojurescript-mode-hook #'bk-setup-feature-paredit)

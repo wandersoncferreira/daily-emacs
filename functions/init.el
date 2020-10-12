@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-08 07:32:03 (wand)>
+;; Time-stamp: <2020-10-12 10:25:31 (wand)>
 
 ;;; Code:
 
@@ -35,6 +35,26 @@
   (untabify (point-min) (point-max)))
 
 (global-set-key (kbd "<f7>") 'iwb)
+
+(defun bk/kill-inner-word ()
+  "Kill the entire word your cursor is in.  Equivalent to ciw in vim."
+  (interactive)
+  (forward-char 1)
+  (backward-word)
+  (kill-word 1))
+
+(global-set-key (kbd "C-c k w") 'bk/kill-inner-word)
+
+(defun bk/copy-whole-line ()
+  "Copy a line without regard for cursor position."
+  (interactive)
+  (save-excursion
+    (kill-new
+     (buffer-substring
+      (point-at-bol)
+      (point-at-eol)))))
+
+(global-set-key (kbd "C-c y l") 'bk/copy-whole-line)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
