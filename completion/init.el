@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:52:12 (wand)>
+;; Time-stamp: <2020-10-12 11:11:38 (wand)>
 
 ;;; Code:
 
@@ -75,6 +75,7 @@
   (bk-auto-loads "smex" #'smex)
   (global-set-key (kbd "M-x") #'smex)
   (global-set-key (kbd "C-x C-m") 'smex)
+  (setq smex-save-file "~/.emacs.d/completion/etc/smex-items")
   (with-eval-after-load 'smex
     (smex-initialize)))
 

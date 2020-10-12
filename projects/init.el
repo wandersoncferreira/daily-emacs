@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-07 06:13:08 (wand)>
+;; Time-stamp: <2020-10-12 11:13:36 (wand)>
 
 ;;; Code:
 
@@ -17,7 +17,8 @@
   (add-hook 'after-init-hook #'projectile-mode)
   (with-eval-after-load 'projectile
     (setq projectile-completion-system 'ivy
-          projectile-cache-file (concat user-emacs-directory "projectile.cache")
+          projectile-cache-file "~/.emacs.d/projects/etc/projectile.cache"
+          projectile-known-projects-file "~/.emacs.d/projects/etc/projectile-bookmarks.eld"
           projectile-auto-discover nil
           projectile-globally-ignored-files '(".DS_Store"
                                               "TAGS"

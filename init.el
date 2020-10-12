@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 08:15:46 (wand)>
+;; Time-stamp: <2020-10-12 11:06:24 (wand)>
 
 ;;; Code:
 
@@ -94,12 +94,12 @@ After any of the functions is called, the whole package is loaded in memory."
 
 ;;; open this file easily
 (set-register ?e '(file . "~/.emacs.d/init.el"))
-(set-register ?c '(file . "~/.emacs.d/cheatsheet.org"))
+(set-register ?c '(file . "~/.emacs.d/core/etc/cheatsheet.org"))
 
 ;; * custom
 ;; - History
 ;; - 2020-09-13 Organized into outlines
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file "~/.emacs.d/core/etc/custom.el")
 (load custom-file)
 
 ;; * server

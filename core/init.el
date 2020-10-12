@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:40:21 (wand)>
+;; Time-stamp: <2020-10-12 11:15:22 (wand)>
 
 ;;; Code:
 
@@ -241,6 +241,7 @@
   (interactive)
   (setq recentf-max-saved-items 50
         recentf-max-menu-items 15
+        recentf-save-file "~/.emacs.d/core/etc/recentf"
         recentf-show-file-shortcuts-flag nil
         recentf-auto-cleanup 'never)
   (recentf-mode +1))
@@ -291,6 +292,8 @@
 
 (global-set-key (kbd "C-c i") 'counsel-imenu)
 
+;;; bookmarks
+(setq bookmark-default-file "~/.emacs.d/core/etc/bookmarks")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

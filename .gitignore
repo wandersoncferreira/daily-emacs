@@ -24,3 +24,4 @@ session.*
 request/
 tramp
 var/
+savehist
