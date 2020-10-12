@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:37:46 (wand)>
+;; Time-stamp: <2020-10-12 10:36:02 (wand)>
 
 ;;; Code:
 
@@ -17,7 +17,19 @@
 (setq ad-redefinition-action 'accept)
 
 ;;; when two buffers have the same name, we need a way to distinguish them
-(setq uniquify-buffer-name-style 'post-forward)
+;; * uniquify
+;; - History
+;;   - 2020-10-12 Created
+(defun bk-setup-feature-uniquify ()
+  "Customizations to uniquify."
+  (interactive)
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets
+        uniquify-separator " * "
+        uniquify-after-kill-buffer-p t
+        uniquify-strip-common-suffix t
+        uniquify-ignore-buffers-re "^\\*"))
+
+(add-hook 'after-init-hook #'bk-setup-feature-uniquify)
 
 ;; * switch-window
 ;; - https://github.com/dimitri/switch-window
