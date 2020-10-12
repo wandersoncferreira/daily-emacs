@@ -55,9 +55,6 @@
 [submodule "external/plantuml-mode"]
 	path = org/pkgs/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
-[submodule "external/org-roam"]
-	path = org/pkgs/org-roam
-	url = https://github.com/org-roam/org-roam
 [submodule "external/f.el"]
 	path = dependencies/pkgs/f.el
 	url = https://github.com/rejeep/f.el
@@ -307,3 +304,6 @@
 [submodule "editor/pkgs/goto-chg"]
 	path = editor/pkgs/goto-chg
 	url = https://github.com/emacs-evil/goto-chg
+[submodule "org/pkgs/org-roam"]
+	path = org/pkgs/org-roam
+	url = https://github.com/org-roam/org-roam
