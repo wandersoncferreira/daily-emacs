@@ -4,9 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:45:00 (wand)>
+;; Time-stamp: <2020-10-12 21:25:02 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/editor/functions.el")
 
 ;; * expand-region.el
 ;; - https://github.com/magnars/expand-region.el

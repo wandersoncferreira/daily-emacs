@@ -4,23 +4,17 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:34:35 (wand)>
+;; Time-stamp: <2020-10-12 21:17:37 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/apps/ledger/functions.el")
 
 ;; * ledger mode
 ;; - https://github.com/ledger/ledger-mode
 ;; - History
 ;;   -  2020-08-15 Created
 ;;   -  2020-08-18 Fix eval-after-load to ledger-modex
-(defun bk/clean-ledger ()
-  "Bring back timeline structure to the whole file."
-  (interactive)
-  (if (eq major-mode 'ledger-mode)
-      (let ((curr-line (line-number-at-pos)))
-        (ledger-mode-clean-buffer)
-        (line-move (- curr-line 1)))))
-
 (defun bk-setup-feature-ledger ()
   "Customizations for ledger."
   (setq ledger-reports
@@ -42,6 +36,15 @@
   (set-register ?l '(file . "~/.ledger"))
   (with-eval-after-load 'ledger-mode
     (bk-setup-feature-ledger)))
+
+;; * flycheck-ledger
+;; - https://github.com/purcell/flycheck-ledger
+;; - History
+;;   - 2020/10/12 Created
+(when (bk/add-load-path "apps/ledger" "flycheck-ledger")
+  (bk-auto-loads "flycheck-ledger" #'flycheck-ledger)
+  (with-eval-after-load 'ledger-mode
+    (add-hook 'ledger-mode-hook 'flycheck-mode)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -4,9 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 18:22:39 (wand)>
+;; Time-stamp: <2020-10-12 21:06:25 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/modes/prog/functions.el")
 
 ;; * paredit
 ;; - History

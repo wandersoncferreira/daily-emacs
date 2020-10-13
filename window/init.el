@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 17:26:31 (wand)>
+;; Time-stamp: <2020-10-12 21:03:24 (wand)>
 
 ;;; Code:
 
@@ -130,6 +130,16 @@
           (if this-win-2nd (other-window 1))))))
 
 (global-set-key (kbd "C-c |") 'bk/toggle-window-split)
+
+(defun bk/kill-buffer-and-file (buffer-name)
+  "Remove file connected to current buffer and kill the BUFFER-NAME."
+  (interactive "bKill buffer and its file: ")
+  (let* ((buffer (get-buffer buffer-name))
+         (filename (buffer-file-name buffer)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" buffer-name)
+      (delete-file filename)
+      (kill-buffer buffer))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

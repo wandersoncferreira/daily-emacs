@@ -4,32 +4,14 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 10:22:18 (wand)>
+;; Time-stamp: <2020-10-12 21:23:32 (wand)>
 
 ;;; Code:
 
+(load-file "~/.emacs.d/cosmetics/functions.el")
+
 ;;; activate highlight parenthesis
 (add-hook 'after-init-hook 'show-paren-mode)
-
-;; - History
-;; - 2020-09-17 - Enabling Zenburn
-;;; change font
-(defun bk/set-monaco-font ()
-  "Define the Monaco font."
-  (when (member "Monaco" (font-family-list))
-    (set-face-attribute 'default nil :font "Monaco" :height 100)))
-
-(defun bk/increase-font (size)
-  "Increase the SIZE of the current font."
-  (set-face-attribute 'default nil :height size))
-
-(defun bk/light-theme ()
-  "Define custom light theme."
-  (interactive)
-  (bk/increase-font 120)
-  (set-face-attribute 'lazy-highlight nil :background "light green")
-  (set-face-attribute 'isearch nil :background "khaki1")
-  (set-face-attribute 'region nil :background "khaki1"))
 
 ;; * themes
 ;; - History

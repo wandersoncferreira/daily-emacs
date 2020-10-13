@@ -4,35 +4,14 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 11:15:22 (wand)>
+;; Time-stamp: <2020-10-12 21:14:18 (wand)>
 
 ;;; Code:
 
-;; * custom functions
-;;; smart beg/end of line
-(defun bk/beginning-of-line ()
-  "Go back at the first non-whitespace character."
-  (interactive)
-  (let ((oldpos (point)))
-    (back-to-indentation)
-    (and (= oldpos (point))
-         (beginning-of-line))))
-
-(defun bk/end-of-line ()
-  "Go to the end of the last non-whitespace character."
-  (interactive)
-  (move-end-of-line nil)
-  (re-search-backward "^\\|[^[:space:]]")
-  (forward-char))
+(load-file "~/.emacs.d/core/functions.el")
 
 (global-set-key (kbd "C-a") 'bk/beginning-of-line)
 (global-set-key (kbd "C-e") 'bk/end-of-line)
-
-(defun bk/eval-buffer ()
-  "Provide some feedback after evaluating the buffer."
-  (interactive)
-  (eval-buffer)
-  (message "Buffer evaluated!"))
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-k") 'bk/eval-buffer)
 
@@ -69,16 +48,6 @@
 (setq-local fill-column 70)
 
 ;;; improve scroll functions
-(defun bk/scroll-up ()
-  "Scroll only specific amount of lines."
-  (interactive)
-  (scroll-up-command 8))
-
-(defun bk/scroll-down ()
-  "Scroll only specific amount of lines."
-  (interactive)
-  (scroll-down-command 8))
-
 (global-set-key (kbd "C-v") #'bk/scroll-up)
 (global-set-key (kbd "M-v") #'bk/scroll-down)
 
@@ -99,23 +68,7 @@
 ;;; - multiple-cursors-steps.el
 (setq byte-compile-warnings '(cl-functions))
 
-;;; set a register at a specific point
-(defun bk/point-to-register ()
-  "Store cursor position in a register."
-  (interactive)
-  (point-to-register 8)
-  (message "Point set"))
-
 (global-set-key (kbd "C-c r p") 'bk/point-to-register)
-
-;;; jump to register
-(defun bk/jump-to-register ()
-  "Switch between current position and pos stored."
-  (interactive)
-  (let ((tmp (point-marker)))
-    (jump-to-register 8)
-    (set-register 8 tmp)))
-
 (global-set-key (kbd "C-c r j") 'bk/jump-to-register)
 
 ;; * line numbers (disabled)
@@ -136,24 +89,6 @@
 
 
 ;; * abbreviations
-(defun bk/add-region-local-abbrev (start end)
-  "Move from START to END and add the selected text to a local abbrev."
-  (interactive "r")
-  (if (use-region-p)
-      (let ((num-words (count-words-region start end)))
-        (add-mode-abbrev num-words)
-        (deactivate-mark))
-    (message "No selected region!")))
-
-(defun bk/add-region-global-abbrev (start end)
-  "Go from START to END and add the selected text to global abbrev."
-  (interactive "r")
-  (if (use-region-p)
-      (let ((num-words (count-words-region start end)))
-        (add-abbrev global-abbrev-table "Global" num-words)
-        (deactivate-mark))
-    (message "No selected region!")))
-
 (define-abbrev-table 'global-abbrev-table
   '(
     ("reuslt" "result" nil 0)
@@ -188,14 +123,6 @@
 ;; - History
 ;; - 2020/09/20 Created
 ;; xdg-open
-(defun bk/dired-xdg-open ()
-  "Open the file at point with xdg-open."
-  (interactive)
-  (let ((file (dired-get-filename nil t)))
-    (message "Opening %s..." file)
-    (call-process "xdg-open" nil 0 nil file)
-    (message "Opening %s done" file)))
-
 (eval-after-load 'dired
   '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open))
 
@@ -294,6 +221,16 @@
 
 ;;; bookmarks
 (setq bookmark-default-file "~/.emacs.d/core/etc/bookmarks")
+
+;; pop to mark
+(defadvice pop-to-mark-command (around ensure-new-position activate)
+  (let ((p (point)))
+    (when (eq last-command 'save-region-or-current-line)
+      ad-do-it
+      ad-do-it
+      ad-do-it)
+    (dotimes (i 10)
+      (when (= p (point)) ad-do-it))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

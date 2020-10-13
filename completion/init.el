@@ -4,9 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 17:44:47 (wand)>
+;; Time-stamp: <2020-10-12 21:22:46 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/completion/functions.el")
 
 ;; * company-mode
 ;; - https://github.com/company-mode/company-mode
@@ -105,18 +107,6 @@
 ;; * occur
 ;; - History
 ;;   - 2020-10-12 Created
-(defun bk/occur-dwim ()
-  "Call `occur' with a sane default."
-  (interactive)
-  (push (if (region-active-p)
-            (buffer-substring-no-properties
-             (region-beginning)
-             (region-end))
-          (let ((sym (thing-at-point 'symbol)))
-            (when (stringp sym)
-              (regexp-quote sym))))
-        regexp-history)
-  (call-interactively 'occur))
 
 (global-set-key (kbd "M-s o") 'bk/occur-dwim)
 

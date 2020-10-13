@@ -298,9 +298,6 @@
 [submodule "langs/common-lisp/pkgs/slime"]
 	path = langs/common-lisp/pkgs/slime
 	url = https://github.com/slime/slime
-[submodule "langs/common-lisp/pkgs/slime-company"]
-	path = langs/common-lisp/pkgs/slime-company
-	url = https://github.com/anwyn/slime-company
 [submodule "editor/pkgs/goto-chg"]
 	path = editor/pkgs/goto-chg
 	url = https://github.com/emacs-evil/goto-chg
@@ -319,3 +316,6 @@
 [submodule "modes/prog/pkgs/quickrun"]
 	path = modes/prog/pkgs/quickrun
 	url = https://github.com/emacsorphanage/quickrun
+[submodule "apps/ledger/pkgs/flycheck-ledger"]
+	path = apps/ledger/pkgs/flycheck-ledger
+	url = https://github.com/purcell/flycheck-ledger

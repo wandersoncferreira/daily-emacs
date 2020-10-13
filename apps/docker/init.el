@@ -4,22 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:36:49 (wand)>
+;; Time-stamp: <2020-10-12 21:21:44 (wand)>
 
 ;;; Code:
 
-;;; docker
-(defun bk/docker-compose-custom-envs ()
-  "Add usual env variables to Emacs environment."
-  (interactive)
-  (let* ((idu (shell-command-to-string "id -u"))
-         (idg (shell-command-to-string "id -g"))
-         (uid (string-join (vector (string-trim idu) ":" (string-trim idg)))))
-    (setenv "WEBSERVER_PORT" "3000")
-    (setenv "GRAPHQL_PORT" "4000")
-    (setenv "CURRENT_UID" uid)
-    (message "setenv WEBSERVER_PORT=3000 CURRENT_UID=$(id -u):$(id -g) done!")
-    (docker)))
+(load-file "~/.emacs.d/apps/docker/functions.el")
 
 ;; * docker.el
 ;; - https://github.com/Silex/docker.el
