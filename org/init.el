@@ -4,12 +4,12 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-05 22:40:06 (wand)>
+;; Time-stamp: <2020-10-12 21:31:27 (wand)>
 
 ;;; Code:
 
-;; org
-;; basic functionalities of org
+(load-file "~/.emacs.d/org/functions.el")
+
 ;; - History
 ;;   -  2020-08-16 Created
 
@@ -26,31 +26,6 @@
 ;; - History
 ;; - 2020-09-15 Created
 (require 'org-agenda)
-
-(defun lgm/clock-in-when-started ()
-"Automatically clock in a task when status is changed to STARTED."
-    (when (string= org-state "STARTED")
-      (org-clock-in)))
-
-(defun bk/clock-out-when-waiting ()
-  "Clock out when the task change to WAIT."
-  (when (and (string= org-state "WAIT")
-             (not (string= org-last-state org-state)))
-    (org-clock-out)))
-
-(defun air-org-skip-subtree-if-habit ()
-  "Skip an agenda entry if it has a STYLE property equal to \"habit\"."
-  (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-    (if (string= (org-entry-get nil "STYLE") "habit")
-        subtree-end
-      nil)))
-
-(defun scheduled-or-not (resp)
-  "Improve the schedule view in agenda mode when there is no RESP available."
-  (interactive)
-  (if resp
-      (concat "In " (number-to-string (org-time-stamp-to-now resp)) " day(s)")
-    '"Not Scheduled"))
 
 (defun bk-setup-feature-org-agenda ()
   "Customizations for `org-agenda'."
@@ -237,11 +212,6 @@
         org-roam-server-default-exclude-filters (json-encode (list (list (cons 'id "fleeting") (cons 'parent "tags"))))
         org-roam-server-served-file-extensions '("pdf" "mp4" "ogv" "mkv"))
   (org-roam-server-mode +1))
-
-(defun bk/second-brain-server ()
-  "Start my second brain server."
-  (interactive)
-  (bk-setup-feature-org-roam-server))
 
 (when (bk/add-load-path "org" "org-roam-server")
   (bk-auto-loads "org-roam-server" #'org-roam-server-mode))

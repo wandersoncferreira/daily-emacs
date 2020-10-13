@@ -4,9 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:03:24 (wand)>
+;; Time-stamp: <2020-10-12 21:29:21 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/window/functions.el")
 
 ;;; auto revert buffers if the file underneath it gets modified
 (add-hook 'after-init-hook 'global-auto-revert-mode)
@@ -41,11 +43,6 @@
   (bk-auto-loads "zoom-frm" #'zoom-in #'zoom-out))
 
 ;;; kill current buffer
-(defun bk/kill-buffer ()
-  "Kill current buffer."
-  (interactive)
-  (kill-buffer (current-buffer)))
-
 (global-set-key (kbd "C-x k") 'bk/kill-buffer)
 
 ;; * winner
@@ -79,20 +76,6 @@
   (bk-auto-loads "windresize" #'windresize))
 
 ;;; improve split windows
-(defun bk/vsplit-last-buffer ()
-  "Split the window vertically and display the previous buffer."
-  (interactive)
-  (split-window-vertically)
-  (other-window 1 nil)
-  (switch-to-next-buffer))
-
-(defun bk/hsplit-last-buffer ()
-  "Split the window horizontally and display the previous buffer."
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1 nil)
-  (switch-to-next-buffer))
-
 (global-set-key (kbd "C-x 2") 'bk/vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'bk/hsplit-last-buffer)
 
@@ -104,42 +87,8 @@
 ;;; toggle window from
 ;;; Window A ++++++++ Window B
 ;;; Window A + Window B
-(defun bk/toggle-window-split ()
-  "Toggle window."
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-             (next-win-buffer (window-buffer (next-window)))
-             (this-win-edges (window-edges (selected-window)))
-             (next-win-edges (window-edges (next-window)))
-             (this-win-2nd (not (and (<= (car this-win-edges)
-                                         (car next-win-edges))
-                                     (<= (cadr this-win-edges)
-                                         (cadr next-win-edges)))))
-             (splitter (if (= (car this-win-edges)
-                              (car (window-edges (next-window))))
-                           'split-window-horizontally
-                         'split-window-vertically)))
-        (delete-other-windows)
-        (let ((first-win (selected-window)))
-          (funcall splitter)
-          (if this-win-2nd (other-window 1))
-          (set-window-buffer (selected-window) this-win-buffer)
-          (set-window-buffer (next-window) next-win-buffer)
-          (select-window first-win)
-          (if this-win-2nd (other-window 1))))))
 
 (global-set-key (kbd "C-c |") 'bk/toggle-window-split)
-
-(defun bk/kill-buffer-and-file (buffer-name)
-  "Remove file connected to current buffer and kill the BUFFER-NAME."
-  (interactive "bKill buffer and its file: ")
-  (let* ((buffer (get-buffer buffer-name))
-         (filename (buffer-file-name buffer)))
-    (if (not (and filename (file-exists-p filename)))
-        (error "Buffer '%s' is not visiting a file!" buffer-name)
-      (delete-file filename)
-      (kill-buffer buffer))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
