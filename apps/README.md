@@ -1,1 +1,13 @@
 # Apps
+
+- circe
+- docker
+  - functions
+  - plugins
+- ledger
+  - functions
+    - [[file:ledger/functions.el::(defun bk/clean-ledger ()][`bk/clean-ledger`]]
+  - plugins
+    - [[file:ledger/pkgs/flycheck-ledger][file:~/.emacs.d/apps/ledger/pkgs/flycheck-ledger]]
+- telega
+- webpaste
