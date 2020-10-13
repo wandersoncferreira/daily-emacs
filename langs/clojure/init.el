@@ -4,9 +4,11 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 18:03:08 (wand)>
+;; Time-stamp: <2020-10-12 21:46:26 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/langs/clojure/functions.el")
 
 ;; * clojure mode
 ;; - History
@@ -23,20 +25,6 @@
 ;; - History
 ;;   -  2020-08-14 Created
 ;;   -  2020-08-18 Adding key binding to cider-jack-in
-(defun bk/nrepl-warn-when-not-connected ()
-  "Function to warn me to start the REPL."
-  (interactive)
-  (message "Oops! You're not connected to an nREPL server.
-Please run M-x cider or M-x cider-jack-in to connect"))
-
-(defun cider-eval-n-defuns (n)
-  (interactive "P")
-  (cider-eval-region (car (bounds-of-thing-at-point 'defun))
-                     (save-excursion
-                       (dotimes (i (or n 2))
-                         (end-of-defun))
-                       (point))))
-
 (when (bk/add-load-path "langs/clojure" "cider")
   (bk-auto-loads "cider"
                  #'cider-jack-in
