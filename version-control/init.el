@@ -4,20 +4,16 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 17:41:30 (wand)>
+;; Time-stamp: <2020-10-12 21:33:10 (wand)>
 
 ;;; Code:
+
+(load-file "~/.emacs.d/version-control/functions.el")
 
 ;; * magit
 ;; - https://github.com/magit/magit
 ;; - History
 ;;   -  2020-08-15 Created
-(defun bk/magit-cursor-fix ()
-  "Fix the cursor position inside magit buffers."
-  (goto-char (point-min))
-  (when (looking-at "#")
-    (forward-line 2)))
-
 (defun bk-setup-feature-magit ()
   "Customizations to magit."
   (interactive)
@@ -64,17 +60,6 @@
 (when (bk/add-load-path "version-control" "git-timemachine")
   (bk-auto-loads "git-timemachine" #'git-timemachine)
   (global-set-key (kbd "C-c g t") 'git-timemachine))
-
-
-(defun bk/visit-pull-request-url ()
-  "Visit the current branch's PR on Github."
-  (interactive)
-  (browse-url
-   (format "https://github.com/%s/pull/new%s"
-           (replace-regexp-in-string
-            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
-            (magit-get "remote" (magit-get-remote) "url"))
-           (magit-get-current-branch))))
 
 
 ;; Local Variables:
