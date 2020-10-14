@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:23:36 (wand)>
+;; Time-stamp: <2020-10-14 00:50:18 (wand)>
 
 ;;; Code:
 
@@ -24,6 +24,14 @@
   (set-face-attribute 'lazy-highlight nil :background "light green")
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
+
+(defun bk/slate-grey ()
+  "Nice composition."
+  (interactive)
+  (set-background-color "DarkSlateGray")
+  (set-face-background 'mode-line "Wheat")
+  (set-face-foreground 'mode-line "DarkSlateGray")
+  (set-foreground-color "Wheat"))
 
 ;;; functions.el ends here
 ;; Local Variables:

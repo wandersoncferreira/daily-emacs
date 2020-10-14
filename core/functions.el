@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:25:48 (wand)>
+;; Time-stamp: <2020-10-14 00:55:32 (wand)>
 
 ;;; Code:
 
@@ -108,6 +108,19 @@
    (string-trim (shell-command-to-string
                  " openssl rand -base64 32 | tr -d /=+ | cut -c -16")))
   (message "Password in kill ring!"))
+
+(defun bk/diff-last-two-kills (&optional ediff?)
+  "Diff last things in the `kill-ring' with prefix EDIFF? open ediff."
+  (interactive "P")
+  (let ((old "/tmp/old-kill")
+        (new "/tmp/new-kill"))
+    (with-temp-file new
+      (insert (current-kill 0 t)))
+    (with-temp-file old
+      (insert (current-kill 1 t)))
+    (if ediff?
+        (ediff old new)
+      (diff old new "-u" t))))
 
 ;;; functions.el ends here
 ;; Local Variables:
