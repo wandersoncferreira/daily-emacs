@@ -316,3 +316,24 @@
 [submodule "apps/ledger/pkgs/flycheck-ledger"]
 	path = apps/ledger/pkgs/flycheck-ledger
 	url = https://github.com/purcell/flycheck-ledger
+[submodule "langs/golang/pkgs/go-mode.el"]
+	path = langs/golang/pkgs/go-mode.el
+	url = https://github.com/dominikh/go-mode.el
+[submodule "modes/prog/pkgs/column-enforce-mode"]
+	path = modes/prog/pkgs/column-enforce-mode
+	url = https://github.com/jordonbiondo/column-enforce-mode
+[submodule "langs/python/pkgs/emacs-ipython-notebook"]
+	path = langs/python/pkgs/emacs-ipython-notebook
+	url = https://github.com/millejoh/emacs-ipython-notebook
+[submodule "dependencies/pkgs/emacs-deferred"]
+	path = dependencies/pkgs/emacs-deferred
+	url = https://github.com/kiwanami/emacs-deferred
+[submodule "dependencies/pkgs/anaphora"]
+	path = dependencies/pkgs/anaphora
+	url = https://github.com/rolandwalker/anaphora
+[submodule "dependencies/pkgs/emacs-websocket"]
+	path = dependencies/pkgs/emacs-websocket
+	url = https://github.com/ahyatt/emacs-websocket
+[submodule "dependencies/pkgs/polymode"]
+	path = dependencies/pkgs/polymode
+	url = https://github.com/polymode/polymode

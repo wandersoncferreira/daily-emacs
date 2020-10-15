@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:06:25 (wand)>
+;; Time-stamp: <2020-10-14 22:52:06 (wand)>
 
 ;;; Code:
 
@@ -89,6 +89,14 @@
 ;;   - 2020-10-12 Created
 (when (bk/add-load-path "modes/prog" "quickrun")
   (bk-auto-loads "quickrun" #'quickrun #'quickrun-region))
+
+;; * column-enforce-mode
+;; - https://github.com/jordonbiondo/column-enforce-mode
+;; - History
+;;   - 2020-10-14 Created
+(when (bk/add-load-path "modes/prog" "column-enforce-mode")
+  (bk-auto-loads "column-enforce-mode" #'column-enforce-mode)
+  (add-hook 'prog-mode-hook 'column-enforce-mode))
 
 (provide 'init.el)
 ;;; init.el ends here

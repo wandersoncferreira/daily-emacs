@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 21:13:53 (wand)>
+;; Time-stamp: <2020-10-14 22:49:43 (wand)>
 
 ;;; Code:
 
@@ -22,8 +22,12 @@
 
     (setq company-show-numbers t
           company-idle-delay 0.25
+          company-echo-delay 0.5
           company-minimum-prefix-length 2
-          company-tooltip-limit 10
+          company-dabbrev-downcase nil
+          company-tooltip-limit 12
+          company-transformers '(company-sort-by-occurrence)
+          company-selection-wrap-around t
           company-tooltip-flip-when-above t
           company-tooltip-align-annotations t
           company-require-match 'never

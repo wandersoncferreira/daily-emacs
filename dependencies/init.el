@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-06 05:40:47 (wand)>
+;; Time-stamp: <2020-10-14 22:59:46 (wand)>
 
 ;;; Code:
 
@@ -234,6 +234,30 @@
 ;; - History
 ;;   -  2020-10-06 Created
 (bk/add-load-path "dependencies" "emacs-request")
+
+;; * emacs-deferred
+;; - https://github.com/kiwanami/emacs-deferred
+;; - History
+;;   - 2020-10-14 Created
+(bk/add-load-path "dependencies" "emacs-deferred")
+
+;; * anaphora
+;; - https://github.com/rolandwalker/anaphora
+;; - History
+;;   - 2020-10-14 Created
+(bk/add-load-path "dependencies" "anaphora")
+
+;; * emacs-websocket
+;; - https://github.com/ahyatt/emacs-websocket
+;; - History
+;;   - 2020-10-14 Created
+(bk/add-load-path "dependencies" "emacs-websocket")
+
+;; * polymode
+;; - https://github.com/polymode/polymode
+;; - History
+;;   - 2020-10-14 Created
+(bk/add-load-path "dependencies" "polymode")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

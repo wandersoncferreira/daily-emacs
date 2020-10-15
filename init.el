@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:26:06 (wand)>
+;; Time-stamp: <2020-10-14 22:47:38 (wand)>
 
 ;;; Code:
 
@@ -81,6 +81,7 @@ After any of the functions is called, the whole package is loaded in memory."
 		  "langs/clojure"
 		  "langs/haskell"
 		  "langs/python"
+                  "langs/golang"
 		  "langs/scala"
                   "langs/sql"
                   "langs/common-lisp"
