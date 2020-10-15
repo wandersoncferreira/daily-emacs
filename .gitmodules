@@ -112,9 +112,6 @@
 [submodule "external/toggle-test"]
 	path = modes/prog/pkgs/toggle-test
 	url = https://github.com/rags/toggle-test
-[submodule "external/ido-completing-read-plus"]
-	path = completion/pkgs/ido-completing-read-plus
-	url = https://github.com/DarwinAwardWinner/ido-completing-read-plus
 [submodule "external/flycheck-clj-kondo"]
 	path = langs/clojure/pkgs/flycheck-clj-kondo
 	url = https://github.com/borkdude/flycheck-clj-kondo

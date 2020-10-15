@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 00:52:24 (wand)>
+;; Time-stamp: <2020-10-14 09:04:07 (wand)>
 
 ;;; Code:
 
@@ -123,16 +123,22 @@
 ;; - History
 ;; - 2020/09/20 Created
 ;; xdg-open
-(eval-after-load 'dired
-  '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open))
+(defun bk-setup-feature-dired ()
+  "Customizations for dired."
+  (interactive)
+  (require 'dired)
+  (require 'dired-x)
 
-(setq dired-dwim-target t
-      dired-omit-files "^\\...+$")
-(bk-auto-loads "dired" #'dired-omit-mode)
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode +1)))
+  (setq dired-dwim-target t
+        dired-omit-files "^\\...+$")
 
-;;; open dired in the current file
-(global-set-key (kbd "C-x C-j") 'dired-jump)
+  ;;; open dired in the current file
+  (global-set-key (kbd "C-x C-j") 'dired-jump)
+  
+  (add-hook 'dired-mode-hook 'dired-omit-mode)
+  (eval-after-load 'dired '(define-key dired-mode-map (kbd "O") 'bk/dired-xdg-open)))
+
+(add-hook 'after-init-hook #'bk-setup-feature-dired)
 
 ;; * exec-path-from-shell
 ;; - https://github.com/purcell/exec-path-from-shell

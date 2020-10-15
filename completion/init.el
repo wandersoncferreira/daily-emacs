@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:22:46 (wand)>
+;; Time-stamp: <2020-10-14 21:13:53 (wand)>
 
 ;;; Code:
 
@@ -81,28 +81,6 @@
   (setq smex-save-file "~/.emacs.d/completion/etc/smex-items")
   (with-eval-after-load 'smex
     (smex-initialize)))
-
-;; * ido (disabled)
-;; - History
-;;   -  2020-08-14 Created
-;;   -  2020-08-18 Enable ido-everywhere
-;;   -  2020-08-28 Disabled
-(when not-disabled?
-  (add-hook 'after-init-hook #'ido-mode)
-  (with-eval-after-load 'ido
-    (setq ido-use-virtual-buffers t
-          ido-enable-flex-matching t)
-    (ido-everywhere +1)))
-
-;; * ido completing-read-plus (disabled)
-;; - https://github.com/DarwinAwardWinner/ido-completing-read-plus
-;; - History
-;;   -  2020-08-18 Created
-;;   -  2020-08-28 Disabled
-(when (and (bk/add-load-path "completion" "ido-completing-read-plus") not-disabled?)
-  (bk-auto-loads "ido-completing-read+" #'ido-ubiquitous-mode)
-  (with-eval-after-load 'ido
-    (ido-ubiquitous-mode +1)))
 
 ;; * occur
 ;; - History
