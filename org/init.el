@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:31:27 (wand)>
+;; Time-stamp: <2020-10-19 12:56:08 (wand)>
 
 ;;; Code:
 
@@ -164,20 +164,31 @@
   
   (with-eval-after-load 'org-roam
     (setq org-roam-directory bk-org-roam-directory)
+    (setq org-roam-db-location "/home/wand/all/zettelkasten/org-roam.db")
     (setq org-roam-completion-system 'ivy)
     (setq org-roam-dailies-capture-templates
           '(("d" "daily" plain (function org-roam-capture--get-point) ""
              :file-name "daily/%<%Y-%m-%d>"
              :unnarrowed t
-             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+setupfile:./hugo_setup.org\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
 
     (setq org-roam-capture-templates
           '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+Time-stamp: <>"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+setupfile:./hugo_setup.org\n#+Time-stamp: <>"
              :unnarrowed t)))
     (org-roam-mode +1)
     (diminish 'org-roam-mode)))
+
+;; * ox-hugo
+;; - https://github.com/kaushalmodi/ox-hugo
+;; - History
+;;   - 2020-10-18 Created
+(when (bk/add-load-path "org" "ox-hugo")
+  (bk-auto-loads "ox-hugo" #'ox-hugo #'org-hugo-export-wim-to-md)
+  (bk-auto-loads "org-hugo-auto-export-mode.el" #'org-hugo-auto-export-mode)
+  (with-eval-after-load 'ox
+    (require 'ox-hugo)))
 
 (define-derived-mode orgr-mode org-mode "orgr"
   "Major mode to segregate configs of Org-roam from Org-mode."
@@ -191,6 +202,8 @@
 
 (setq org-roam-file-extensions '("orgr"))
 (add-to-list 'auto-mode-alist '("\\.orgr\\'" . orgr-mode))
+(add-hook 'orgr-mode-hook 'org-hugo-auto-export-mode)
+
 
 ;;; * org-roam-protocol
 (with-eval-after-load 'org-roam
@@ -207,10 +220,7 @@
   "Customizations for `org-roam-server'."
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 8080
-        org-roam-server-export-inline-images t
-        org-roam-server-serve-files t
-        org-roam-server-default-exclude-filters (json-encode (list (list (cons 'id "fleeting") (cons 'parent "tags"))))
-        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv" "mkv"))
+        )
   (org-roam-server-mode +1))
 
 (when (bk/add-load-path "org" "org-roam-server")
@@ -233,6 +243,43 @@
 ;;   -  2020-08-16 Created
 (when (bk/add-load-path "org" "company-org-roam")
   (bk-auto-loads "company-org-roam" #'company-org-roam))
+
+(when (bk/add-load-path "org" "org-ref")
+  (bk-auto-loads "org-ref" #'org-ref))
+
+(require 'org-roam)
+(org-add-link-type "braindump" nil
+                   '(lambda (path desc frmt)
+                      (format "[%s]({{< relref \"/posts/%s\" >}} \"%s\")" desc path desc)))
+
+(defun bk/org-roam--backlinks-list (file)
+  "Find links referring to FILE."
+  (if (org-roam--org-roam-file-p file)
+      (--reduce-from
+       (concat acc
+               (let ((fld (car (split-string (file-relative-name (car it) org-roam-directory) ".orgr"))))
+                 (format "- [[braindump:%s][%s]]\n"
+                         fld
+                         (org-roam--get-title-or-slug (car it)))))
+       "" (org-roam-db-query [:select [from] :from links :where (= to $s1)] file))
+    ""))
+
+(defun bk/org-export-preprocessor (backend)
+  "BACKEND passed by `org-export-before-processing-hook'."
+  (let ((links (bk/org-roam--backlinks-list (buffer-file-name))))
+    (save-excursion
+      (goto-char (point-max))
+      (insert (concat "\n* Links to this note\n"))
+      (insert links))))
+
+(defun bk/replace-file-handle (_backend)
+  (save-excursion
+    (goto-char (point-min))
+    (while (re-search-forward "\\(file:\\).+\.org" nil t)
+      (replace-match "braindump:" nil nil nil 1))))
+
+(add-hook 'org-export-before-processing-hook 'bk/org-export-preprocessor)
+(add-hook 'org-export-before-processing-hook 'bk/replace-file-handle)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:33:10 (wand)>
+;; Time-stamp: <2020-10-16 13:46:18 (wand)>
 
 ;;; Code:
 
@@ -41,8 +41,8 @@
 ;; - History
 ;;   -  2020-10-01 Created
 (when (bk/add-load-path "version-control" "gist.el")
-  (bk-auto-loads "gist" #'gist-buffer-private #'gist-list))
-
+  (bk-auto-loads "gist" #'gist-buffer-private #'gist-list
+                 #'gist-region #'gist-region-private))
 ;; * git-modes
 ;; - https://github.com/magit/git-modes
 ;; - History

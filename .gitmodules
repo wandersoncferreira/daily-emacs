@@ -337,3 +337,18 @@
 [submodule "dependencies/pkgs/polymode"]
 	path = dependencies/pkgs/polymode
 	url = https://github.com/polymode/polymode
+[submodule "apps/oblique-strategies/pkgs/oblique-strategies"]
+	path = apps/oblique-strategies/pkgs/oblique-strategies
+	url = https://github.com/wandersoncferreira/oblique-strategies
+[submodule "modes/prog/pkgs/package-lint"]
+	path = modes/prog/pkgs/package-lint
+	url = https://github.com/purcell/package-lint
+[submodule "org/pkgs/ox-hugo"]
+	path = org/pkgs/ox-hugo
+	url = https://github.com/kaushalmodi/ox-hugo
+[submodule "org/pkgs/org-ref"]
+	path = org/pkgs/org-ref
+	url = https://github.com/jkitchin/org-ref
+[submodule "dependencies/pkgs/emacs-htmlize"]
+	path = dependencies/pkgs/emacs-htmlize
+	url = https://github.com/hniksic/emacs-htmlize

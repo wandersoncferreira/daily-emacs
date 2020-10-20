@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 22:52:06 (wand)>
+;; Time-stamp: <2020-10-18 09:10:23 (wand)>
 
 ;;; Code:
 
@@ -96,7 +96,14 @@
 ;;   - 2020-10-14 Created
 (when (bk/add-load-path "modes/prog" "column-enforce-mode")
   (bk-auto-loads "column-enforce-mode" #'column-enforce-mode)
+  (setq column-enforce-column 100)
   (add-hook 'prog-mode-hook 'column-enforce-mode))
+
+;; * package-lint
+;; - History
+;;   - 2020-10-18 Created
+(when (bk/add-load-path "modes/prog" "package-lint")
+  (bk-auto-loads "package-lint" #'package-lint-current-buffer))
 
 (provide 'init.el)
 ;;; init.el ends here

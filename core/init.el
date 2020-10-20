@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 09:04:07 (wand)>
+;; Time-stamp: <2020-10-15 07:03:58 (wand)>
 
 ;;; Code:
 
@@ -144,11 +144,16 @@
 ;; - https://github.com/purcell/exec-path-from-shell
 ;; - History
 ;;   -  2020-08-16 Created
+;;   -  2020-10-15 Setup function
+(defun bk-setup-feature-path ()
+  "Customizations for path variable."
+  (interactive)
+  (setq exec-path-from-shell-arguments nil)
+  (exec-path-from-shell-initialize))
+
 (when (bk/add-load-path "core" "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
-  (add-hook 'after-init-hook (lambda ()
-                               (message "Loading PATH!")
-                               (exec-path-from-shell-initialize))))
+  (add-hook 'after-init-hook #'bk-setup-feature-path))
 
 
 (define-advice goto-line (:before (&rest _) preview-line-number)

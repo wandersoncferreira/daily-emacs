@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 22:59:46 (wand)>
+;; Time-stamp: <2020-10-19 21:53:36 (wand)>
 
 ;;; Code:
 
@@ -258,6 +258,12 @@
 ;; - History
 ;;   - 2020-10-14 Created
 (bk/add-load-path "dependencies" "polymode")
+
+;; * htmlize
+;; - History
+;;   - 2020-10-19 Created
+(bk/add-load-path "dependencies" "emacs-htmlize")
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
