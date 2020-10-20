@@ -355,3 +355,9 @@
 [submodule "parsebib"]
 	path = dependencies/pkgs/parsebib
 	url = https://github.com/joostkremers/parsebib
+[submodule "apps/elfeed/pkgs/elfeed"]
+	path = apps/elfeed/pkgs/elfeed
+	url = https://github.com/skeeto/elfeed
+[submodule "apps/elfeed/pkgs/elfeed-org"]
+	path = apps/elfeed/pkgs/elfeed-org
+	url = https://github.com/remyhonig/elfeed-org
