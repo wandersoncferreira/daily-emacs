@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-19 12:56:08 (wand)>
+;; Time-stamp: <2020-10-19 22:09:55 (wand)>
 
 ;;; Code:
 
@@ -280,6 +280,27 @@
 
 (add-hook 'org-export-before-processing-hook 'bk/org-export-preprocessor)
 (add-hook 'org-export-before-processing-hook 'bk/replace-file-handle)
+
+(defvar bk/braindump-org-roam-dir "~/all/zettelkasten")
+(defvar bk/braindump-org-ext ".orgr")
+(defvar bk/braindump-base-dir "~/open-source/braindump")
+
+(defun bk/process-file (f)
+  (save-excursion
+    (find-file f)
+    (goto-char (point-min))
+    (when (not (re-search-forward "HUGO_BASE_DIR:" nil t))
+      (forward-line)
+      (insert (format "#+HUGO_BASE_DIR: %s\n" bk/braindump-base-dir)))
+    (save-buffer)
+    (kill-buffer (current-buffer))))
+
+(defun bk/add-hugo-base-dir ()
+  "Parse all files for personal blog."
+  (interactive)
+  (mapc 'bk/process-file
+        (directory-files bk/braindump-org-roam-dir t
+                         (format "%s$" bk/braindump-org-ext))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
