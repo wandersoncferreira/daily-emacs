@@ -361,3 +361,6 @@
 [submodule "apps/elfeed/pkgs/elfeed-org"]
 	path = apps/elfeed/pkgs/elfeed-org
 	url = https://github.com/remyhonig/elfeed-org
+[submodule "apps/emms/pkgs/bongo"]
+	path = apps/bongo/pkgs/bongo
+	url = https://github.com/dbrock/bongo

@@ -107,7 +107,8 @@ For example: \"<e\" -> (\"e\" . t)"
                       (line-beginning-position))
     (cons (match-string-no-properties 1) t)))
 
-(add-to-list 'company-backends 'company-org-block)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-org-block))
 
 (defcustom company-org-block-edit-mode 'auto
   "Customize whether edit mode, post completion was inserted."
