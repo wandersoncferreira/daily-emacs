@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-19 21:53:36 (wand)>
+;; Time-stamp: <2020-10-19 22:11:29 (wand)>
 
 ;;; Code:
 
@@ -263,6 +263,12 @@
 ;; - History
 ;;   - 2020-10-19 Created
 (bk/add-load-path "dependencies" "emacs-htmlize")
+
+;; * parsebib
+;; - https://github.com/joostkremers/parsebib
+;; - History
+;;   - 2020-10-19 Created
+(bk/add-load-path "dependencies" "parsebib")
 
 
 ;; Local Variables:

@@ -352,3 +352,6 @@
 [submodule "dependencies/pkgs/emacs-htmlize"]
 	path = dependencies/pkgs/emacs-htmlize
 	url = https://github.com/hniksic/emacs-htmlize
+[submodule "parsebib"]
+	path = dependencies/pkgs/parsebib
+	url = https://github.com/joostkremers/parsebib

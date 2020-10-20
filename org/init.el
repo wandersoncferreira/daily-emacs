@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-19 22:09:55 (wand)>
+;; Time-stamp: <2020-10-19 22:48:48 (wand)>
 
 ;;; Code:
 
@@ -47,6 +47,14 @@
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "WAIT(w!)" "STARTED(s!)" "|"
                     "DONE(d)" "CANCELED(c@)" "INACTIVE(i@)" "FAIL(f@)")))
+
+  (require 'ob-clojure)
+  (setq org-babel-clojure-backend 'cider)
+  (setq org-confirm-babel-evaluate nil)
+  (setq org-babel-load-languages
+        '((emacs-lisp . t)
+          (clojure . t)
+          (python . t)))
 
   (setq org-agenda-block-separator " "
         org-agenda-span 'day
@@ -244,9 +252,6 @@
 (when (bk/add-load-path "org" "company-org-roam")
   (bk-auto-loads "company-org-roam" #'company-org-roam))
 
-(when (bk/add-load-path "org" "org-ref")
-  (bk-auto-loads "org-ref" #'org-ref))
-
 (require 'org-roam)
 (org-add-link-type "braindump" nil
                    '(lambda (path desc frmt)
@@ -289,17 +294,29 @@
   (save-excursion
     (find-file f)
     (goto-char (point-min))
+    (forward-line)
+    (insert "tmp\n")
+    (forward-line -1)
+    (kill-whole-line)
     (when (not (re-search-forward "HUGO_BASE_DIR:" nil t))
       (forward-line)
       (insert (format "#+HUGO_BASE_DIR: %s\n" bk/braindump-base-dir)))
+    
     (save-buffer)
     (kill-buffer (current-buffer))))
 
-(defun bk/add-hugo-base-dir ()
+(defun bk/hugo-base-dir-zettelkasten ()
   "Parse all files for personal blog."
   (interactive)
   (mapc 'bk/process-file
         (directory-files bk/braindump-org-roam-dir t
+                         (format "%s$" bk/braindump-org-ext))))
+
+(defun bk/hugo-base-dir-daily-files ()
+  "Add the header HUGO_BASE_DIR to the daily files."
+  (interactive)
+  (mapc 'bk/process-file
+        (directory-files (format "%s/daily" bk/braindump-org-roam-dir) t
                          (format "%s$" bk/braindump-org-ext))))
 
 ;; Local Variables:
