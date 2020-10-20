@@ -4,42 +4,15 @@
 [submodule "external/paredit"]
 	path = modes/prog/pkgs/paredit
 	url = https://github.com/emacsmirror/paredit
-[submodule "external/a.el"]
-	path = dependencies/pkgs/a.el
-	url = https://github.com/plexus/a.el
-[submodule "external/parseedn"]
-	path = dependencies/pkgs/parseedn
-	url = https://github.com/clojure-emacs/parseedn
-[submodule "external/sesman"]
-	path = dependencies/pkgs/sesman
-	url = https://github.com/vspinu/sesman
-[submodule "external/queue"]
-	path = dependencies/pkgs/queue
-	url = https://github.com/emacsmirror/queue
-[submodule "external/parseclj"]
-	path = dependencies/pkgs/parseclj
-	url = https://github.com/clojure-emacs/parseclj
 [submodule "external/cider"]
 	path = langs/clojure/pkgs/cider
 	url = https://github.com/clojure-emacs/cider
-[submodule "external/spinner.el"]
-	path = dependencies/pkgs/spinner.el
-	url = http://github.com/Malabarba/spinner.el
 [submodule "external/change-inner.el"]
 	path = editor/pkgs/change-inner.el
 	url = https://github.com/magnars/change-inner.el
 [submodule "external/magit"]
 	path = version-control/pkgs/magit
 	url = https://github.com/magit/magit
-[submodule "external/dash.el"]
-	path = dependencies/pkgs/dash.el
-	url = https://github.com/magnars/dash.el
-[submodule "external/with-editor"]
-	path = dependencies/pkgs/with-editor
-	url = https://github.com/magit/with-editor
-[submodule "external/transient"]
-	path = dependencies/pkgs/transient
-	url = https://github.com/magit/transient
 [submodule "external/ledger-mode"]
 	path = apps/ledger/pkgs/ledger-mode
 	url = https://github.com/ledger/ledger-mode
@@ -55,24 +28,9 @@
 [submodule "external/plantuml-mode"]
 	path = org/pkgs/plantuml-mode
 	url = https://github.com/skuro/plantuml-mode
-[submodule "external/f.el"]
-	path = dependencies/pkgs/f.el
-	url = https://github.com/rejeep/f.el
-[submodule "external/s.el"]
-	path = dependencies/pkgs/s.el
-	url = https://github.com/magnars/s.el
-[submodule "external/emacsql"]
-	path = dependencies/pkgs/emacsql
-	url = https://github.com/skeeto/emacsql
-[submodule "external/emacsql-sqlite3"]
-	path = dependencies/pkgs/emacsql-sqlite3
-	url = https://github.com/cireu/emacsql-sqlite3
 [submodule "external/org-roam-server"]
 	path = org/pkgs/org-roam-server
 	url = https://github.com/org-roam/org-roam-server
-[submodule "external/emacs-web-server"]
-	path = dependencies/pkgs/emacs-web-server
-	url = https://github.com/skeeto/emacs-web-server
 [submodule "external/company-mode"]
 	path = completion/pkgs/company-mode
 	url = https://github.com/company-mode/company-mode
@@ -121,24 +79,6 @@
 [submodule "external/yasnippet"]
 	path = modes/prog/pkgs/yasnippet
 	url = https://github.com/joaotavora/yasnippet
-[submodule "external/posframe"]
-	path = dependencies/pkgs/posframe
-	url = https://github.com/tumashu/posframe
-[submodule "external/jump.el"]
-	path = dependencies/pkgs/jump.el
-	url = https://github.com/eschulte/jump.el
-[submodule "external/hydra"]
-	path = dependencies/pkgs/hydra
-	url = https://github.com/abo-abo/hydra
-[submodule "external/pkg-info"]
-	path = dependencies/pkgs/pkg-info
-	url = https://github.com/emacsorphanage/pkg-info
-[submodule "external/epl"]
-	path = dependencies/pkgs/epl
-	url = https://github.com/cask/epl
-[submodule "external/edit-indirect"]
-	path = dependencies/pkgs/edit-indirect
-	url = https://github.com/Fanael/edit-indirect
 [submodule "external/emacs-scala-mode"]
 	path = langs/scala/pkgs/emacs-scala-mode
 	url = https://github.com/hvesalai/emacs-scala-mode
@@ -151,9 +91,6 @@
 [submodule "external/lsp-metals"]
 	path = langs/scala/pkgs/lsp-metals
 	url = https://github.com/emacs-lsp/lsp-metals
-[submodule "external/ht.el"]
-	path = dependencies/pkgs/ht.el
-	url = https://github.com/Wilfred/ht.el
 [submodule "external/dap-mode"]
 	path = langs/scala/pkgs/dap-mode
 	url = https://github.com/emacs-lsp/dap-mode
@@ -166,18 +103,9 @@
 [submodule "external/avy"]
 	path = search/pkgs/avy
 	url = https://github.com/abo-abo/avy
-[submodule "external/pfuture"]
-	path = dependencies/pkgs/pfuture
-	url = https://github.com/Alexander-Miller/pfuture
 [submodule "external/lsp-treemacs"]
 	path = langs/scala/pkgs/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs
-[submodule "external/bui.el"]
-	path = dependencies/pkgs/bui.el
-	url = https://github.com/alezost/bui.el
-[submodule "external/lsp-ui"]
-	path = dependencies/pkgs/lsp-ui
-	url = https://github.com/emacs-lsp/lsp-ui
 [submodule "external/swiper"]
 	path = completion/pkgs/swiper
 	url = https://github.com/abo-abo/swiper
@@ -193,27 +121,12 @@
 [submodule "external/docker.el"]
 	path = apps/docker/pkgs/docker.el
 	url = https://github.com/Silex/docker.el
-[submodule "external/tablist"]
-	path = dependencies/pkgs/tablist
-	url = https://github.com/politza/tablist
 [submodule "external/json-mode"]
 	path = modes/json/pkgs/json-mode
 	url = https://github.com/joshwnj/json-mode
-[submodule "external/json-snatcher"]
-	path = dependencies/pkgs/json-snatcher
-	url = https://github.com/Sterlingg/json-snatcher
-[submodule "external/json-reformat"]
-	path = dependencies/pkgs/json-reformat
-	url = https://github.com/gongo/json-reformat
-[submodule "external/emacs-memoize"]
-	path = dependencies/pkgs/emacs-memoize
-	url = https://github.com/skeeto/emacs-memoize
 [submodule "external/zoom-frm"]
 	path = window/pkgs/zoom-frm
 	url = https://github.com/emacsmirror/zoom-frm
-[submodule "external/frame-fns"]
-	path = dependencies/pkgs/frame-fns
-	url = https://github.com/emacsmirror/frame-fns
 [submodule "external/easy-kill"]
 	path = editor/pkgs/easy-kill
 	url = https://github.com/leoliu/easy-kill
@@ -235,15 +148,6 @@
 [submodule "apps/telega/pkgs/telega.el"]
 	path = apps/telega/pkgs/telega.el
 	url = https://github.com/zevlg/telega.el
-[submodule "dependencies/pkgs/rainbow-identifiers"]
-	path = dependencies/pkgs/rainbow-identifiers
-	url = https://github.com/Fanael/rainbow-identifiers
-[submodule "dependencies/pkgs/visual-fill-column"]
-	path = dependencies/pkgs/visual-fill-column
-	url = https://github.com/joostkremers/visual-fill-column
-[submodule "dependencies/pkgs/emacs-emojify"]
-	path = dependencies/pkgs/emacs-emojify
-	url = https://github.com/iqbalansari/emacs-emojify
 [submodule "apps/telega/pkgs/telega"]
 	path = apps/telega/pkgs/telega.el
 	url = https://github.com/zevlg/telega.el
@@ -256,24 +160,9 @@
 [submodule "version-control/pkgs/gist.el"]
 	path = version-control/pkgs/gist.el
 	url = https://github.com/defunkt/gist.el
-[submodule "dependencies/pkgs/gh.el"]
-	path = dependencies/pkgs/gh.el
-	url = https://github.com/sigma/gh.el
-[submodule "dependencies/pkgs/marshal.el"]
-	path = dependencies/pkgs/marshal.el
-	url = https://github.com/sigma/marshal.el
-[submodule "dependencies/pkgs/pcache"]
-	path = dependencies/pkgs/pcache
-	url = https://github.com/sigma/pcache
-[submodule "dependencies/pkgs/logito"]
-	path = dependencies/pkgs/logito
-	url = https://github.com/sigma/logito
 [submodule "apps/webpaste/pkgs/webpaste.el"]
 	path = apps/webpaste/pkgs/webpaste.el
 	url = https://github.com/etu/webpaste.el
-[submodule "dependencies/pkgs/emacs-request"]
-	path = dependencies/pkgs/emacs-request
-	url = https://github.com/tkf/emacs-request
 [submodule "editor/pkgs/highlight-symbol.el"]
 	path = editor/pkgs/highlight-symbol.el
 	url = https://github.com/nschum/highlight-symbol.el
@@ -325,18 +214,6 @@
 [submodule "langs/python/pkgs/emacs-ipython-notebook"]
 	path = langs/python/pkgs/emacs-ipython-notebook
 	url = https://github.com/millejoh/emacs-ipython-notebook
-[submodule "dependencies/pkgs/emacs-deferred"]
-	path = dependencies/pkgs/emacs-deferred
-	url = https://github.com/kiwanami/emacs-deferred
-[submodule "dependencies/pkgs/anaphora"]
-	path = dependencies/pkgs/anaphora
-	url = https://github.com/rolandwalker/anaphora
-[submodule "dependencies/pkgs/emacs-websocket"]
-	path = dependencies/pkgs/emacs-websocket
-	url = https://github.com/ahyatt/emacs-websocket
-[submodule "dependencies/pkgs/polymode"]
-	path = dependencies/pkgs/polymode
-	url = https://github.com/polymode/polymode
 [submodule "apps/oblique-strategies/pkgs/oblique-strategies"]
 	path = apps/oblique-strategies/pkgs/oblique-strategies
 	url = https://github.com/wandersoncferreira/oblique-strategies
@@ -349,12 +226,6 @@
 [submodule "org/pkgs/org-ref"]
 	path = org/pkgs/org-ref
 	url = https://github.com/jkitchin/org-ref
-[submodule "dependencies/pkgs/emacs-htmlize"]
-	path = dependencies/pkgs/emacs-htmlize
-	url = https://github.com/hniksic/emacs-htmlize
-[submodule "parsebib"]
-	path = dependencies/pkgs/parsebib
-	url = https://github.com/joostkremers/parsebib
 [submodule "apps/elfeed/pkgs/elfeed"]
 	path = apps/elfeed/pkgs/elfeed
 	url = https://github.com/skeeto/elfeed
@@ -364,3 +235,6 @@
 [submodule "apps/emms/pkgs/bongo"]
 	path = apps/bongo/pkgs/bongo
 	url = https://github.com/dbrock/bongo
+[submodule "org/pkgs/org-download"]
+	path = org/pkgs/org-download
+	url = https://github.com/abo-abo/org-download

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-18 09:10:23 (wand)>
+;; Time-stamp: <2020-10-20 00:39:49 (wand)>
 
 ;;; Code:
 
@@ -96,8 +96,11 @@
 ;;   - 2020-10-14 Created
 (when (bk/add-load-path "modes/prog" "column-enforce-mode")
   (bk-auto-loads "column-enforce-mode" #'column-enforce-mode)
-  (setq column-enforce-column 100)
-  (add-hook 'prog-mode-hook 'column-enforce-mode))
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (setq column-enforce-column 100)
+              (column-enforce-mode +1)
+              (diminish 'column-enforce-mode))))
 
 ;; * package-lint
 ;; - History

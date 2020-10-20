@@ -3,6 +3,9 @@
   :ID:       elfeed
   :END:
 ** Software Development                                                 :dev:
+*** General
+**** [[https://corecursive.libsyn.com/feed][corecursive]]                                                    :podcast:
+
 *** Emacs                                                    :emacs:mustread:
 **** [[http://planet.emacsen.org/atom.xml][Planet Emacsen]]
 **** [[https://nullprogram.com/feed/][Null Program]]
@@ -13,8 +16,8 @@
 **** [[http://justinhj.github.io/feed.xml%0A][Justin]]                                                           
 
 *** Clojure                                                         :clojure:
-**** [[https://corecursive.libsyn.com/feed][corecursive]]                                                    :clojure:
 **** [[http://feeds.soundcloud.com/users/soundcloud:users:220484243/sounds.rss][defn podcast]]                                                   :podcast:
+**** [[https://clojuredesign.club/index.xml][clojure design]]                                         :podcast:clojure:
 **** [[http://tonsky.me/blog/atom.xml][Nikita]]
 **** [[https://betweentwoparens.com/rss.xml][Between Two Parens]]
 

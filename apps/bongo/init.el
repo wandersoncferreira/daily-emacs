@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 00:24:49 (wand)>
+;; Time-stamp: <2020-10-20 00:38:38 (wand)>
 
 ;;; Code:
 
@@ -48,12 +48,23 @@ interfere with the default `bongo-playlist-buffer'."
                (propertize title 'face 'italic)
                (propertize bongo-pl 'face 'bold)))))
 
+(defun bk/elfeed-bongo-switch-to-playlist ()
+  (interactive)
+  (let* ((bongo-pl prot/elfeed-bongo-playlist)
+         (buffer (get-buffer bongo-pl)))
+    (if buffer
+        (switch-to-buffer buffer)
+      (message "No `bongo' playlist is associated with `elfeed'."))))
+
 (when (bk/add-load-path "apps/bongo" "bongo")
   (bk-auto-loads "bongo" #'bongo)
   (with-eval-after-load 'bongo
     (setq bongo-prefer-library-buffers nil
           bongo-join-inserted-tracks nil
           bongo-mark-played-tracks t
+          bongo-display-playback-mode-indicator t
+          bongo-display-inline-playback-progress t
+          bongo-field-separator (propertize " . " 'face 'shadow)
           bongo-enabled-backends '(vlc mpv))
     
     (define-bongo-backend mpv

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-19 22:48:48 (wand)>
+;; Time-stamp: <2020-10-20 10:55:58 (wand)>
 
 ;;; Code:
 
@@ -318,6 +318,9 @@
   (mapc 'bk/process-file
         (directory-files (format "%s/daily" bk/braindump-org-roam-dir) t
                          (format "%s$" bk/braindump-org-ext))))
+
+(when (bk/add-load-path "org" "org-download")
+  (bk-auto-loads "org-download" #'org-download-clipboard))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
