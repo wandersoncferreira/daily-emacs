@@ -1,8 +1,19 @@
+;;; init.el --- Entry point for configurations ;; -*- lexical-binding: t -*-
+
+;;; Commentary:
+
+;; Here be dragons
+
+;; Time-stamp: <2020-10-20 00:24:49 (wand)>
+
+;;; Code:
 
 (defvar prot/elfeed-bongo-playlist "*Bongo-Elfeed Queue*"
   "Name of the Elfeed+Bongo multimedia playlist.")
 
-(defun prot/elfeed-bongo-insert-item ()
+;;; credits to prot! Only renamed the function to be in my internal
+;;; standards.
+(defun bk/elfeed-bongo-insert-item ()
   "Insert `elfeed' multimedia links in `bongo' playlist buffer.
 The playlist buffer has a unique name so that it will never
 interfere with the default `bongo-playlist-buffer'."
@@ -37,23 +48,28 @@ interfere with the default `bongo-playlist-buffer'."
                (propertize title 'face 'italic)
                (propertize bongo-pl 'face 'bold)))))
 
-(define-bongo-backend mpv
-  ;; :constructor 'bongo-start-mpv-player
-  :program-name 'mpv
-  :extra-program-arguments nil
-  :matcher '((local-file "file:" "http:" "ftp:")
-             "ogg" "flac" "mp3" "mka" "wav" "wma"
-             "mpg" "mpeg" "vob" "avi" "ogm" "mp4" "mkv"
-             "mov" "asf" "wmv" "rm" "rmvb" "ts")
-  :matcher '(("mms:" "mmst:" "rtp:" "rtsp:" "udp:" "unsv:"
-              "dvd:" "vcd:" "tv:" "dvb:" "mf:" "cdda:" "cddb:"
-              "cue:" "sdp:" "mpst:" "tivo:") . t)
-  :matcher '(("http:" "https:") . t))
-
-(when (bk/add-load-path "apps/emms" "bongo")
+(when (bk/add-load-path "apps/bongo" "bongo")
   (bk-auto-loads "bongo" #'bongo)
-  (eval-after-load 'bongo
-    '(setq bongo-prefer-library-buffers nil
-           bongo-join-inserted-tracks nil
-           bongo-mark-played-tracks t
-           bongo-enabled-backends '(vlc mpv))))
+  (with-eval-after-load 'bongo
+    (setq bongo-prefer-library-buffers nil
+          bongo-join-inserted-tracks nil
+          bongo-mark-played-tracks t
+          bongo-enabled-backends '(vlc mpv))
+    
+    (define-bongo-backend mpv
+      ;; :constructor 'bongo-start-mpv-player
+      :program-name 'mpv
+      :extra-program-arguments nil
+      :matcher '((local-file "file:" "http:" "ftp:")
+                 "ogg" "flac" "mp3" "mka" "wav" "wma"
+                 "mpg" "mpeg" "vob" "avi" "ogm" "mp4" "mkv"
+                 "mov" "asf" "wmv" "rm" "rmvb" "ts")
+      :matcher '(("mms:" "mmst:" "rtp:" "rtsp:" "udp:" "unsv:"
+                  "dvd:" "vcd:" "tv:" "dvb:" "mf:" "cdda:" "cddb:"
+                  "cue:" "sdp:" "mpst:" "tivo:") . t)
+      :matcher '(("http:" "https:") . t))))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+;;; init.el ends here

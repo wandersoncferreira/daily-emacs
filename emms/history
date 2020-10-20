@@ -1,9 +1,0 @@
-;;; emms history -*- mode: emacs-lisp; coding: utf-8; -*-
-(
-;; active playlist
-" *EMMS Playlist*"
-;; playlists: ((BUFFER_NAME SELECT_POSITION TRACKS) ...)
-((" *EMMS Playlist*" 101 ((*track* (type . url) (name . "https://chtbl.com/track/7D91G/traffic.libsyn.com/secure/corecursive/057-Assembly.mp3?dest-id=628353") (last-played 24462 20504 496146 629000) (play-count . 5)) (*track* (type . url) (name . "https://chtbl.com/track/7D91G/traffic.libsyn.com/secure/corecursive/057-Assembly.mp3?dest-id=628353") (last-played 24462 20504 496146 629000) (play-count . 5)))))
-;; play method
-((emms-repeat-track) (emms-repeat-playlist))
-)

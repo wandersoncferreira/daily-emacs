@@ -1,3 +1,0 @@
-;;; .emms-cache -*- mode: emacs-lisp; coding: utf-8; -*-
-(puthash "http://www.podtrac.com/pts/redirect.mp3/feeds.soundcloud.com/stream/902341789-defn-771544745-64-james-henderson-crux.mp3" '(*track* (type . url) (name . "http://www.podtrac.com/pts/redirect.mp3/feeds.soundcloud.com/stream/902341789-defn-771544745-64-james-henderson-crux.mp3") (last-played 24462 20132 774601 56000) (play-count . 37)) emms-cache-db)
-(puthash "https://chtbl.com/track/7D91G/traffic.libsyn.com/secure/corecursive/057-Assembly.mp3?dest-id=628353" '(*track* (type . url) (name . "https://chtbl.com/track/7D91G/traffic.libsyn.com/secure/corecursive/057-Assembly.mp3?dest-id=628353") (last-played 24462 20504 496146 629000) (play-count . 5)) emms-cache-db)
