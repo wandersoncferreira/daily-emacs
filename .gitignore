@@ -26,3 +26,4 @@ tramp
 var/
 savehist
 org-roam.db
+apps/circe/etc/password.el
