@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 00:50:18 (wand)>
+;; Time-stamp: <2020-10-22 00:17:34 (wand)>
 
 ;;; Code:
 
@@ -25,7 +25,7 @@
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
 
-(defun bk/slate-grey ()
+(defun bk/slate-grey-theme ()
   "Nice composition."
   (interactive)
   (set-background-color "DarkSlateGray")

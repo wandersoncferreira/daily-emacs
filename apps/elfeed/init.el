@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 00:27:42 (wand)>
+;; Time-stamp: <2020-10-22 22:06:07 (wand)>
 
 ;;; Code:
 
@@ -15,7 +15,9 @@
 (defun bk-setup-feature-elfeed ()
   "Customizations for elfeed."
   (define-key elfeed-search-mode-map "v" #'ambrevar/elfeed-play-with-mpv)
-  (define-key elfeed-show-mode-map "A" #'bk/elfeed-bongo-insert-item))
+  (define-key elfeed-show-mode-map "b" #'bk/elfeed-bongo-insert-item)
+  (define-key elfeed-search-mode-map "b" #'bk/elfeed-bongo-insert-item)
+  (define-key elfeed-search-mode-map "h" #'bk/elfeed-bongo-switch-to-playlist))
 
 (when (bk/add-load-path "apps/elfeed" "elfeed")
   (bk-auto-loads "elfeed" #'elfeed)

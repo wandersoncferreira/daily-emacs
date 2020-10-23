@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 00:55:32 (wand)>
+;; Time-stamp: <2020-10-22 22:53:59 (wand)>
 
 ;;; Code:
 
@@ -121,6 +121,54 @@
     (if ediff?
         (ediff old new)
       (diff old new "-u" t))))
+
+(defun prot/scratch-buffer-setup ()
+  "Add contents to `scratch' buffer and name it accordingly."
+  (let* ((mode (format "%s" major-mode))
+         (string (concat "Scratch buffer for: " mode "\n\n")))
+    (when scratch-buffer
+      (save-excursion
+        (insert string)
+        (goto-char (point-min))
+        (comment-region (point-at-bol) (point-at-eol)))
+      (forward-line 2))
+    (rename-buffer (concat "*Scratch for " mode "*") t)))
+
+(defun bk/select-buffers-same-major-mode (&optional arg)
+  "Select buffers that match the current buffer's major mode.
+With \\[universal-argument] produce an `ibuffer' filtered
+accordingly."
+  (interactive "P")
+  (let* ((major major-mode)
+         (prompt "Buffers for ")
+         (mode-string (format "%s" major))
+         (mode-string-pretty (propertize mode-string 'face 'success)))
+    (if arg
+        (ibuffer t (concat "*" prompt mode-string "*")
+                 (list (cons 'used-mode major)))
+      (switch-to-buffer
+       (read-buffer
+        (concat prompt mode-string-pretty ": ") nil t
+        (lambda (pair)
+          (with-current-buffer (cdr pair) (derived-mode-p major))))))))
+
+(global-set-key (kbd "M-s b") 'bk/select-buffers-same-major-mode)
+
+(defun bk/search-subdirs ()
+  "Search for directories in VC root or PWD."
+  (interactive)
+  (let* ((vc (vc-root-dir))
+         (dir (expand-file-name (or vc default-directory)))
+         (regexp (read-regexp
+                  (format "Subdirectories matching REGEXP in %s: "
+                          (propertize dir 'face 'bold))))
+         (names (process-lines "fd" "-i" "-H"
+                               "-a" "-t" "d" "-c" "never"
+                               regexp dir))
+         (buf "*FD Dired*"))
+    (dired (cons (generate-new-buffer-name buf) names))))
+
+(global-set-key (kbd "M-s d") 'bk/search-subdirs)
 
 ;;; functions.el ends here
 ;; Local Variables:

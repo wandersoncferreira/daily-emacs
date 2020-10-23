@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 10:55:58 (wand)>
+;; Time-stamp: <2020-10-22 09:34:49 (wand)>
 
 ;;; Code:
 
@@ -178,13 +178,15 @@
           '(("d" "daily" plain (function org-roam-capture--get-point) ""
              :file-name "daily/%<%Y-%m-%d>"
              :unnarrowed t
-             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+setupfile:./hugo_setup.org\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+HUGO_BASE_DIR: ~/open-source/braindump\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
 
     (setq org-roam-capture-templates
           '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+setupfile:./hugo_setup.org\n#+Time-stamp: <>"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+HUGO_BASE_DIR: ~/open-source/braindump\n#+Time-stamp: <>"
              :unnarrowed t)))
+
+    (add-hook 'org-roam-mode-hook 'toggle-truncate-lines)
     (org-roam-mode +1)
     (diminish 'org-roam-mode)))
 
@@ -252,11 +254,6 @@
 (when (bk/add-load-path "org" "company-org-roam")
   (bk-auto-loads "company-org-roam" #'company-org-roam))
 
-(require 'org-roam)
-(org-add-link-type "braindump" nil
-                   '(lambda (path desc frmt)
-                      (format "[%s]({{< relref \"/posts/%s\" >}} \"%s\")" desc path desc)))
-
 (defun bk/org-roam--backlinks-list (file)
   "Find links referring to FILE."
   (if (org-roam--org-roam-file-p file)
@@ -282,9 +279,6 @@
     (goto-char (point-min))
     (while (re-search-forward "\\(file:\\).+\.org" nil t)
       (replace-match "braindump:" nil nil nil 1))))
-
-(add-hook 'org-export-before-processing-hook 'bk/org-export-preprocessor)
-(add-hook 'org-export-before-processing-hook 'bk/replace-file-handle)
 
 (defvar bk/braindump-org-roam-dir "~/all/zettelkasten")
 (defvar bk/braindump-org-ext ".orgr")
@@ -318,6 +312,18 @@
   (mapc 'bk/process-file
         (directory-files (format "%s/daily" bk/braindump-org-roam-dir) t
                          (format "%s$" bk/braindump-org-ext))))
+
+(defun bk-setup-feature-org-braindump ()
+  "Customizations for braindump."
+  (org-add-link-type "braindump" nil
+                     '(lambda (path desc frmt)
+                        (format "[%s]({{< relref \"/posts/%s\" >}} \"%s\")"
+                                desc path desc)))
+
+  (add-hook 'org-export-before-processing-hook 'bk/org-export-preprocessor)
+  (add-hook 'org-export-before-processing-hook 'bk/replace-file-handle))
+
+(eval-after-load 'org #'bk-setup-feature-org-braindump)
 
 (when (bk/add-load-path "org" "org-download")
   (bk-auto-loads "org-download" #'org-download-clipboard))

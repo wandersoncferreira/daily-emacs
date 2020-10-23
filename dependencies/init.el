@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-19 22:11:29 (wand)>
+;; Time-stamp: <2020-10-20 11:11:25 (wand)>
 
 ;;; Code:
 
@@ -270,6 +270,7 @@
 ;;   - 2020-10-19 Created
 (bk/add-load-path "dependencies" "parsebib")
 
+(bk/add-load-path "dependencies" "emacs-async")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

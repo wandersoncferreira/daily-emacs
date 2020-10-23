@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 00:49:34 (wand)>
+;; Time-stamp: <2020-10-22 00:17:40 (wand)>
 
 ;;; Code:
 
@@ -25,7 +25,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (bk/slate-grey)))
+            (bk/slate-grey-theme)))
 
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)

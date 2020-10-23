@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-15 07:03:58 (wand)>
+;; Time-stamp: <2020-10-22 22:36:49 (wand)>
 
 ;;; Code:
 
@@ -245,6 +245,27 @@
       ad-do-it)
     (dotimes (i 10)
       (when (= p (point)) ad-do-it))))
+
+(when (bk/add-load-path "core" "scratch-el")
+  (bk-auto-loads "scratch" #'scratch #'scratch-create-buffer-hook)
+  (add-hook 'scratch-create-buffer-hook 'prot/scratch-buffer-setup)
+  (global-set-key (kbd "C-c s") 'scratch))
+
+(defvar prot/window-configuration nil
+  "Current window configuration.")
+
+(define-minor-mode bk/window-single-toggle
+  "Toggle between multiple windows and single window.
+This is the equivalent of maximising a window. Got from Protesilaos."
+  :lighter " [M]"
+  :global nil
+  (if (one-window-p)
+      (when prot/window-configuration
+        (set-window-configuration prot/window-configuration))
+    (setq prot/window-configuration (current-window-configuration))
+    (delete-other-windows)))
+
+(global-set-key (kbd "s-k") 'bk/window-single-toggle)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

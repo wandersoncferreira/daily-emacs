@@ -5,27 +5,24 @@
 ** Software Development                                                 :dev:
 *** General
 **** [[https://corecursive.libsyn.com/feed][corecursive]]                                                    :podcast:
+**** [[http://blog.cryptographyengineering.com/feeds/posts/default][cryptography]]                                              :cryptography:
 
 *** Emacs                                                    :emacs:mustread:
-**** [[http://planet.emacsen.org/atom.xml][Planet Emacsen]]
 **** [[https://nullprogram.com/feed/][Null Program]]
 **** [[http://xenodium.com/][Alvaro Ramirez]]                                                   
-**** [[https://lchsk.com/posts.xml%0A][Maciej Lechowski]]                                                 
 **** [[https://bendersteed.tech/feed.xml][Bendersteed]]                                                      
 **** [[https://arenzana.org/feed/][Arenzana]]                                                         
-**** [[http://justinhj.github.io/feed.xml%0A][Justin]]                                                           
 
 *** Clojure                                                         :clojure:
 **** [[http://feeds.soundcloud.com/users/soundcloud:users:220484243/sounds.rss][defn podcast]]                                                   :podcast:
-**** [[https://clojuredesign.club/index.xml][clojure design]]                                         :podcast:clojure:
 **** [[http://tonsky.me/blog/atom.xml][Nikita]]
 **** [[https://betweentwoparens.com/rss.xml][Between Two Parens]]
 
 ** Comics                                                            :comics:
 *** [[https://xkcd.com/atom.xml][XKCD]]
 
+** Art
+*** [[http://accidental-art.tumblr.com/rss][accidental-art]]                                                      :art:
+
 ** Finance                                                          :finance:
 *** [[https://www.npr.org/rss/podcast.php?id=510289][Planet Money]]                                                    :podcast:
-
-** Cinema                                                           :cultura:
-*** [[https://www.youtube.com/feeds/videos.xml?channel_id=UCErSSa3CaP_GJxmFpdjG9Jw][Lessons from the Screen Play]]                                    :youtube:

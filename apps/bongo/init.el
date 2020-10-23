@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 00:38:38 (wand)>
+;; Time-stamp: <2020-10-22 22:09:07 (wand)>
 
 ;;; Code:
 
@@ -62,7 +62,10 @@ interfere with the default `bongo-playlist-buffer'."
     (setq bongo-prefer-library-buffers nil
           bongo-join-inserted-tracks nil
           bongo-mark-played-tracks t
+          bongo-logo nil
           bongo-display-playback-mode-indicator t
+          bongo-mode-line-indicator-mode nil
+          bongo-header-line-mode nil
           bongo-display-inline-playback-progress t
           bongo-field-separator (propertize " . " 'face 'shadow)
           bongo-enabled-backends '(vlc mpv))
