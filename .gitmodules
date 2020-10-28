@@ -385,3 +385,6 @@
 [submodule "langs/clojure/pkgs/elein"]
 	path = langs/clojure/pkgs/elein
 	url = git@github.com:remvee/elein.git
+[submodule "apps/eping/pkgs/eping"]
+	path = apps/eping/pkgs/eping
+	url = https://github.com/sean-hut/eping
