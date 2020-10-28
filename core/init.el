@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 22:36:49 (wand)>
+;; Time-stamp: <2020-10-23 19:56:21 (wand)>
 
 ;;; Code:
 
@@ -76,17 +76,6 @@
 ;; - 2020-09-13 - Disabling it
 (when not-disabled?
   (add-hook 'prog-mode-hook #'display-line-numbers-mode))
-
-;; * time
-;; - History
-;;   - 2020-10-11 Created
-(add-hook 'after-init-hook
-          (lambda ()
-            (setq display-time-default-load-average nil
-                  display-time-format "%Hh%M"
-                  display-time-day-and-date t)
-            (display-time-mode +1)))
-
 
 ;; * abbreviations
 (define-abbrev-table 'global-abbrev-table
@@ -251,6 +240,12 @@
   (add-hook 'scratch-create-buffer-hook 'prot/scratch-buffer-setup)
   (global-set-key (kbd "C-c s") 'scratch))
 
+(when (bk/add-load-path "core" "system-packages")
+  (bk-auto-loads "system-packages"
+                 #'system-packages-search
+                 #'system-packages-update)
+  (setq system-packages-use-sudo t))
+
 (defvar prot/window-configuration nil
   "Current window configuration.")
 
@@ -265,7 +260,7 @@ This is the equivalent of maximising a window. Got from Protesilaos."
     (setq prot/window-configuration (current-window-configuration))
     (delete-other-windows)))
 
-(global-set-key (kbd "s-k") 'bk/window-single-toggle)
+(global-set-key (kbd "s-m") 'bk/window-single-toggle)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

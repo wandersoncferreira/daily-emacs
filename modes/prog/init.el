@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 00:39:49 (wand)>
+;; Time-stamp: <2020-10-26 22:21:12 (wand)>
 
 ;;; Code:
 
@@ -26,6 +26,7 @@
   (bk-auto-loads "paredit" #'paredit-mode)
   (add-hook 'lisp-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'emacs-lisp-mode-hook #'bk-setup-feature-paredit)
+  (add-hook 'scheme-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'clojure-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'clojurescript-mode-hook #'bk-setup-feature-paredit)
   (add-hook 'cider-repl-mode-hook #'bk-setup-feature-paredit))
@@ -107,6 +108,9 @@
 ;;   - 2020-10-18 Created
 (when (bk/add-load-path "modes/prog" "package-lint")
   (bk-auto-loads "package-lint" #'package-lint-current-buffer))
+
+;;; scheme
+(setq scheme-program-name "stklos")
 
 (provide 'init.el)
 ;;; init.el ends here

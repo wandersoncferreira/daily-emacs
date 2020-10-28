@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:46:26 (wand)>
+;; Time-stamp: <2020-10-27 22:29:41 (wand)>
 
 ;;; Code:
 
@@ -45,6 +45,12 @@
     (define-key clojure-mode-map (kbd "C-c C-z") 'bk/nrepl-warn-when-not-connected)
     (diminish 'cider-mode))
 
+  (eval-after-load "cider-repl"
+    '(progn
+       (define-key cider-repl-mode-map (kbd "RET") #'cider-repl-newline-and-indent)
+       (define-key cider-repl-mode-map (kbd "C-<return>") #'cider-repl-return)
+       (setq cider-repl-tab-command #'company-indent-or-complete-common)))
+
   (with-eval-after-load 'cider
     (define-key cider-mode-map (kbd "C-c C-a") 'cider-eval-n-defuns)))
 
@@ -55,6 +61,10 @@
 ;;   -  2020-09-02 Create function to setup and hook in clojure mode
 (defun bk-setup-feature-clj-refactor ()
   "Customizations for Clj refactor."
+  (setq cljr-cljc-clojure-test-declaration "[clojure.test :refer [deftest testing is are use-fixtures]]"
+        cljr-clojure-test-declaration "[clojure.test :refer [deftest testing is are use-fixtures]]"
+        cljr-eagerly-build-asts-on-startup nil
+        cljr-warn-on-eval nil)
   (clj-refactor-mode +1)
   (cljr-add-keybindings-with-prefix "C-c C-m")
   (diminish 'clj-refactor-mode))
@@ -88,6 +98,13 @@
 (when (bk/add-load-path "langs/clojure" "clj-decompiler.el")
   (bk-auto-loads "clj-decompiler" #'clj-decompiler-setup)
   (eval-after-load 'cider '(clj-decompiler-setup)))
+
+;; * elein
+;; - git@github.com:remvee/elein.git
+;; - history
+;;   - 2020-10-27 Created
+(when (bk/add-load-path "langs/clojure" "elein")
+  (bk-auto-loads "elein" #'elein-test #'elein-deps #'elein-clean))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

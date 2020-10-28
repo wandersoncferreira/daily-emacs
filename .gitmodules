@@ -376,3 +376,12 @@
 [submodule "core/pkgs/scratch-el"]
 	path = core/pkgs/scratch-el
 	url = https://github.com/ieure/scratch-el
+[submodule "core/pkgs/system-packages"]
+	path = core/pkgs/system-packages
+	url = https://gitlab.com/jabranham/system-packages.git
+[submodule "apps/zeal/pkgs/zeal-at-point"]
+	path = apps/zeal/pkgs/zeal-at-point
+	url = https://github.com/jinzhu/zeal-at-point
+[submodule "langs/clojure/pkgs/elein"]
+	path = langs/clojure/pkgs/elein
+	url = git@github.com:remvee/elein.git

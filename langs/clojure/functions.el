@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:46:05 (wand)>
+;; Time-stamp: <2020-10-25 06:09:45 (wand)>
 
 ;;; Code:
 
@@ -22,6 +22,18 @@ Please run M-x cider or M-x cider-jack-in to connect"))
                        (dotimes (i (or n 2))
                          (end-of-defun))
                        (point))))
+
+(defun bk/repl ()
+  "Start an interactive repl in a temp project."
+  (interactive)
+  (cider-jack-in '(:project-dir "/home/wand/temp"))
+  (add-hook 'cider-connected-hook
+            (lambda ()
+              (cider-repl-set-ns "user")
+              (cider-nrepl-sync-request:eval "(require '[clj-time.core :as t])")
+              (cider-nrepl-sync-request:eval "(require '[cheshire.core :as json])")
+              (cider-nrepl-sync-request:eval "(require '[clojure.core.async :as a])")
+              (cider-switch-to-repl-buffer))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 22:53:59 (wand)>
+;; Time-stamp: <2020-10-23 19:02:18 (wand)>
 
 ;;; Code:
 
@@ -169,6 +169,11 @@ accordingly."
     (dired (cons (generate-new-buffer-name buf) names))))
 
 (global-set-key (kbd "M-s d") 'bk/search-subdirs)
+
+(defun bk/os-uptime ()
+  "Uptime of the box."
+  (interactive)
+  (message (shell-command-to-string "uptime -p")))
 
 ;;; functions.el ends here
 ;; Local Variables:
