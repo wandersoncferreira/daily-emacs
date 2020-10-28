@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-23 19:56:21 (wand)>
+;; Time-stamp: <2020-10-28 15:26:51 (wand)>
 
 ;;; Code:
 
@@ -261,6 +261,17 @@ This is the equivalent of maximising a window. Got from Protesilaos."
     (delete-other-windows)))
 
 (global-set-key (kbd "s-m") 'bk/window-single-toggle)
+
+;;; utf-8 support
+(set-charset-priority 'unicode)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix)
+      locale-coding-system 'utf-8)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
