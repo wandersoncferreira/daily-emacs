@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 00:08:51 (wand)>
+;; Time-stamp: <2020-10-28 15:24:53 (wand)>
 
 ;;; Code:
 
@@ -23,6 +23,8 @@
           (lambda ()
             (setq gc-cons-threshold 800000
                   gc-cons-percentage 0.1)))
+
+(setq inhibit-compacting-font-caches t)
 
 (defvar bk--file-name-handler-alist file-name-handler-alist)
 (setq file-name-handler-alist nil)
@@ -80,6 +82,8 @@ After any of the functions is called, the whole package is loaded in memory."
 		  "apps/ledger"
                   "apps/circe"
                   "apps/webpaste"
+                  "apps/eping"
+                  "apps/zeal"
                   "apps/oblique-strategies"
 		  "langs/clojure"
 		  "langs/haskell"
