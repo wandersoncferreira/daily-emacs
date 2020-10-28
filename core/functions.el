@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-23 19:02:18 (wand)>
+;; Time-stamp: <2020-10-28 14:56:14 (wand)>
 
 ;;; Code:
 
@@ -174,6 +174,15 @@ accordingly."
   "Uptime of the box."
   (interactive)
   (message (shell-command-to-string "uptime -p")))
+
+(defun bk/days-since ()
+  "Number of days since DATE to today."
+  (interactive)
+  (let* ((date (read-from-minibuffer "Inicial date: "))
+         (date-zoned (format "%s +0300" date)))
+    (message (format "%s days ago" (days-between
+                                    (current-time-string)
+                                    date-zoned)))))
 
 ;;; functions.el ends here
 ;; Local Variables:

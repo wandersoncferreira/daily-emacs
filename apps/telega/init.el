@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-01 10:19:34 (wand)>
+;; Time-stamp: <2020-10-28 14:29:05 (wand)>
 
 ;;; Code:
 
@@ -15,6 +15,9 @@
   (bk-auto-loads "telega" #'telega #'telega-chat-mode-hook)
   (eval-after-load 'telega
     '(telega-notifications-mode +1))
+  (add-hook 'telega-chat-mode-hook
+            (lambda ()
+              (company-mode -1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
               (emojify-mode +1)
