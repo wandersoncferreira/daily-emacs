@@ -36,6 +36,8 @@
   (interactive (list my-term-shell)))
 (ad-activate 'ansi-term)
 
+(add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode 0)))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
