@@ -400,3 +400,12 @@
 [submodule "org/pkgs/org-present"]
 	path = org/pkgs/org-present
 	url = https://github.com/rlister/org-present
+[submodule "shell/pkgs/eshell-z"]
+	path = shell/pkgs/eshell-z
+	url = https://github.com/xuchunyang/eshell-z
+[submodule "shell/pkgs/eshell-syntax-highlighting"]
+	path = shell/pkgs/eshell-syntax-highlighting
+	url = https://github.com/akreisher/eshell-syntax-highlighting
+[submodule "shell/pkgs/esh-autosuggest"]
+	path = shell/pkgs/esh-autosuggest
+	url = https://github.com/dieggsy/esh-autosuggest

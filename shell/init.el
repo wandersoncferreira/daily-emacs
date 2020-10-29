@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-24 00:21:58 (wand)>
+;; Time-stamp: <2020-10-29 00:48:00 (wand)>
 
 ;;; Code:
 
@@ -37,6 +37,45 @@
 (ad-activate 'ansi-term)
 
 (add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode 0)))
+
+(setq eshell-history-size 10000
+      eshell-buffer-maximum-lines 10000
+      eshell-hist-ignoredups t
+      eshell-highlight-promp t
+      eshell-scroll-to-bottom-on-input t)
+
+;; * eshell-z
+;; - https://github.com/xuchunyang/eshell-z
+;; - History
+;;   - 2020/10/29 Created
+(when (bk/add-load-path "shell" "eshell-z")
+  (bk-auto-loads "eshell-z" #'eshell/pushd #'eshell/pwd)
+  (add-hook 'eshell-mode-hook (lambda () (require 'eshell-z)))
+  (add-hook 'eshell-z-change-dir-hook (lambda () (eshell/pushd (eshell/pwd)))))
+
+;; * eshell-syntax-highlighting
+;; - https://github.com/akreisher/eshell-syntax-highlighting
+;; - History
+;;   - 2020/10/29 Created
+(when (bk/add-load-path "shell" "eshell-syntax-highlighting")
+  (bk-auto-loads "eshell-syntax-highlighting" #'eshell-syntax-highlighting-global-mode)
+  (add-hook 'after-init-hook #'eshell-syntax-highlighting-global-mode))
+
+;; * esh-autosugest
+;; - https://github.com/dieggsy/esh-autosuggest
+;; - History
+;;   - 2020/10/29 Created
+(defun bk-setup-feature-esh-autosuggest ()
+  "Customizations for esh-autosugest."
+  (interactive)
+  (esh-autosuggest-mode +1)
+  (setq esh-autosuggest-delay 0.5)
+  (set-face-attribute 'company-preview-common "#4b5668")
+  (set-face-background 'company-preview nil))
+  
+(when (bk/add-load-path "shell" "esh-autosuggest")
+  (bk-auto-loads "esh-autosuggest" #'esh-autosuggest-mode)
+  (add-hook 'eshell-mode-hook #'bk-setup-feature-esh-autosuggest))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
