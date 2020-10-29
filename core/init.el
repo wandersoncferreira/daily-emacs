@@ -275,6 +275,13 @@ This is the equivalent of maximising a window. Got from Protesilaos."
 
 ;;; display line numbers
 (global-display-line-numbers-mode +1)
+
+
+;; * command-log-mode
+;; - https://github.com/lewang/command-log-mode
+(when (bk/add-load-path "core" "command-log-mode")
+  (bk-auto-loads "command-log-mode" #'command-log-mode))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
