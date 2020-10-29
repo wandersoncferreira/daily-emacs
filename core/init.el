@@ -273,6 +273,8 @@ This is the equivalent of maximising a window. Got from Protesilaos."
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix)
       locale-coding-system 'utf-8)
 
+;;; display line numbers
+(global-display-line-numbers-mode +1)
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
