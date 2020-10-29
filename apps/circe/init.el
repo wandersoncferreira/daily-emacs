@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 23:25:14 (wand)>
+;; Time-stamp: <2020-10-29 00:56:30 (wand)>
 
 ;;; Code:
 
@@ -22,6 +22,15 @@
            :nick "bartuka"
            :sasl-username "bartuka"
            :sasl-password my-nickserv-password))))
+
+;; * tracking
+;; used by telega mode.
+(when (bk/add-load-path "apps/circe" "circe")
+  (bk-auto-loads "tracking" #'tracking-mode)
+  (setq tracking-faces-priorities '(all-the-icons-pink
+                                    all-the-icons-lgreen
+                                    all-the-icons-lblue)
+        tracking-frame-behavior nil))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

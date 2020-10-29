@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 23:10:32 (wand)>
+;; Time-stamp: <2020-10-29 00:52:16 (wand)>
 
 ;;; Code:
 
@@ -14,7 +14,14 @@
 (when (bk/add-load-path "apps/telega" "telega.el")
   (bk-auto-loads "telega" #'telega #'telega-chat-mode-hook)
   (eval-after-load 'telega
-    '(telega-notifications-mode +1))
+    '(progn
+       (setq telega-user-use-avatars nil
+             telega-use-tracking-for '(any pin unread)
+             telega-emoji-use-images t
+             telega-completing-read-function #'ivy-completing-read
+             telega-msg-rainbow-title nil
+             telega-chat-fill-column 75)
+       (telega-notifications-mode +1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
               (company-mode -1)))
