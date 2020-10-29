@@ -409,3 +409,6 @@
 [submodule "shell/pkgs/esh-autosuggest"]
 	path = shell/pkgs/esh-autosuggest
 	url = https://github.com/dieggsy/esh-autosuggest
+[submodule "apps/profiler/pkgs/esup"]
+	path = apps/profiler/pkgs/esup
+	url = https://github.com/jschaf/esup

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 15:24:53 (wand)>
+;; Time-stamp: <2020-10-29 06:39:52 (wand)>
 
 ;;; Code:
 
@@ -79,6 +79,7 @@ After any of the functions is called, the whole package is loaded in memory."
                   "apps/bongo"
                   "apps/elfeed"
                   "apps/telega"
+                  "apps/profiler"
 		  "apps/ledger"
                   "apps/circe"
                   "apps/webpaste"
@@ -110,9 +111,14 @@ After any of the functions is called, the whole package is loaded in memory."
 (load custom-file)
 
 ;; * server
-(require 'server)
-(when (not (server-running-p))
-  (server-start))
+(defun bk-setup-feature-server-mode ()
+  "Customizations for server mode."
+  (interactive)
+  (require 'server)
+  (when (not (server-running-p))
+    (server-start)))
+
+(add-hook 'after-init-hook #'bk-setup-feature-server-mode)
 
 ;; End of file
 (f-msg "Loaded init.el!")
