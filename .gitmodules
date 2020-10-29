@@ -412,3 +412,15 @@
 [submodule "apps/profiler/pkgs/esup"]
 	path = apps/profiler/pkgs/esup
 	url = https://github.com/jschaf/esup
+[submodule "cosmetics/pkgs/highlight-numbers"]
+	path = cosmetics/pkgs/highlight-numbers
+	url = https://github.com/Fanael/highlight-numbers
+[submodule "dependencies/pkgs/parent-mode"]
+	path = dependencies/pkgs/parent-mode
+	url = https://github.com/Fanael/parent-mode
+[submodule "org/pkgs/org-alert"]
+	path = org/pkgs/org-alert
+	url = https://github.com/spegoraro/org-alert
+[submodule "dependencies/pkgs/alert"]
+	path = dependencies/pkgs/alert
+	url = https://github.com/jwiegley/alert

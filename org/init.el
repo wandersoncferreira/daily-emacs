@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 23:17:59 (wand)>
+;; Time-stamp: <2020-10-29 15:01:27 (wand)>
 
 ;;; Code:
 
@@ -350,6 +350,23 @@
                    (org-remove-inline-images)
                    (org-present-show-cursor)
                    (org-present-read-write))))))
+
+
+;; * org-alert
+;; - https://github.com/spegoraro/org-alert
+;; - History
+;;   - 2020/10/29 Created
+(defun bk-setup-feature-org-alert ()
+  "Customizations for org-alert."
+  (interactive)
+  (setq org-alert-interval 300
+        org-alert-notification-title "Org Alert Reminder!"
+        alert-default-style 'notifications)
+  (org-alert-enable))
+
+(when (bk/add-load-path "org" "org-alert")
+  (bk-auto-loads "org-alert" #'org-alert-enable)
+  (add-hook 'after-init-hook #'bk-setup-feature-org-alert))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 23:10:08 (wand)>
+;; Time-stamp: <2020-10-29 15:00:23 (wand)>
 
 ;;; Code:
 
@@ -275,7 +275,8 @@
 (bk/add-load-path "dependencies" "font-utils")
 (bk/add-load-path "dependencies" "ucs-utils")
 (bk/add-load-path "dependencies" "persistent-soft")
-
+(bk/add-load-path "dependencies" "parent-mode")
+(bk/add-load-path "dependencies" "alert")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
