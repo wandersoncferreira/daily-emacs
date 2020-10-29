@@ -388,3 +388,6 @@
 [submodule "apps/eping/pkgs/eping"]
 	path = apps/eping/pkgs/eping
 	url = https://github.com/sean-hut/eping
+[submodule "core/pkgs/command-log-mode"]
+	path = core/pkgs/command-log-mode
+	url = https://github.com/lewang/command-log-mode
