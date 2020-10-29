@@ -328,6 +328,8 @@
 (when (bk/add-load-path "org" "org-download")
   (bk-auto-loads "org-download" #'org-download-clipboard))
 
+(add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
