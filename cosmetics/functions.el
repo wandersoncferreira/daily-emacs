@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 22:39:59 (wand)>
+;; Time-stamp: <2020-10-29 07:57:17 (wand)>
 
 ;;; Code:
 
@@ -16,9 +16,9 @@
 (defun bk/set-fira-font ()
   "Define the Fira Code font."
   (when (member "Fira Code" (font-family-list))
-    (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
-    (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height 100)
-    (set-face-attribute 'variable-pitch nil :font "Cantarell" :height 145 :weight 'regular)))
+    (set-face-attribute 'default nil :font "Fira Code Retina" :height 130)
+    (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height 120)
+    (set-face-attribute 'variable-pitch nil :font "Cantarell" :height 135 :weight 'regular)))
 
 (defun bk/increase-font (size)
   "Increase the SIZE of the current font."

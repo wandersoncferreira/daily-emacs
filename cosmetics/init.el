@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 23:01:26 (wand)>
+;; Time-stamp: <2020-10-29 07:51:32 (wand)>
 
 ;;; Code:
 
@@ -88,6 +88,10 @@
   (global-emojify-mode 1))
 
 (add-hook 'after-init-hook #'bk-setup-feature-emojify)
+
+(when (bk/add-load-path "cosmetics" "highlight-numbers")
+  (bk-auto-loads "highlight-numbers" #'highlight-numbers-mode)
+  (add-hook 'prog-mode-hook #'highlight-numbers-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
