@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 09:34:49 (wand)>
+;; Time-stamp: <2020-10-28 23:17:59 (wand)>
 
 ;;; Code:
 
@@ -329,6 +329,27 @@
   (bk-auto-loads "org-download" #'org-download-clipboard))
 
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))
+
+;; * org-present
+;; - https://github.com/rlister/org-present
+;; - History
+;;   - 2020/10/28 Created
+(when (bk/add-load-path "org" "org-present")
+  (bk-auto-loads "org-present" #'org-present)
+  (eval-after-load "org-present"
+    '(progn
+       (add-hook 'org-present-mode-hook
+                 (lambda ()
+                   (org-present-big)
+                   (org-display-inline-images)
+                   (org-present-hide-cursor)
+                   (org-present-read-only)))
+       (add-hook 'org-present-mode-quit-hook
+                 (lambda ()
+                   (org-present-small)
+                   (org-remove-inline-images)
+                   (org-present-show-cursor)
+                   (org-present-read-write))))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

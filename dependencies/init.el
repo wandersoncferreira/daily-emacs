@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-20 11:11:25 (wand)>
+;; Time-stamp: <2020-10-28 23:10:08 (wand)>
 
 ;;; Code:
 
@@ -227,7 +227,7 @@
 ;; - History
 ;;   -  2020-09-25 Created
 (bk/add-load-path "dependencies" "emacs-emojify")
-(bk-auto-loads "emojify" #'emojify-mode #'emojify-mode-line-mode)
+(bk-auto-loads "emojify" #'emojify-mode #'emojify-mode-line-mode #'global-emojify-mode)
 
 ;; * emacs-request
 ;; - https://github.com/tkf/emacs-request
@@ -271,6 +271,11 @@
 (bk/add-load-path "dependencies" "parsebib")
 
 (bk/add-load-path "dependencies" "emacs-async")
+
+(bk/add-load-path "dependencies" "font-utils")
+(bk/add-load-path "dependencies" "ucs-utils")
+(bk/add-load-path "dependencies" "persistent-soft")
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

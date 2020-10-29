@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-23 17:19:52 (wand)>
+;; Time-stamp: <2020-10-28 23:01:26 (wand)>
 
 ;;; Code:
 
@@ -25,7 +25,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (bk/slate-grey-theme)
+            (bk/monokai-theme)
             (bk/set-fira-font)))
 
 ;;; supress unecessary things
@@ -78,6 +78,16 @@
   (bk-auto-loads "diminish" #'diminish)
   (global-eldoc-mode +1)
   (diminish 'eldoc-mode))
+
+;; * emojify
+(defun bk-setup-feature-emojify ()
+  "Customizations for emojify-mode."
+  (interactive)
+  (setq emojify-display-style 'image
+        emojify-emoji-set "emojione-v2.2.6")
+  (global-emojify-mode 1))
+
+(add-hook 'after-init-hook #'bk-setup-feature-emojify)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

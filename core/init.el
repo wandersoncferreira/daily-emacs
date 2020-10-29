@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 15:26:51 (wand)>
+;; Time-stamp: <2020-10-28 22:10:25 (wand)>
 
 ;;; Code:
 
@@ -275,7 +275,6 @@ This is the equivalent of maximising a window. Got from Protesilaos."
 
 ;;; display line numbers
 (global-display-line-numbers-mode +1)
-
 
 ;; * command-log-mode
 ;; - https://github.com/lewang/command-log-mode

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 14:29:05 (wand)>
+;; Time-stamp: <2020-10-28 23:10:32 (wand)>
 
 ;;; Code:
 
@@ -20,7 +20,6 @@
               (company-mode -1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
-              (emojify-mode +1)
               (emojify-mode-line-mode +1))))
 
 ;; Local Variables:

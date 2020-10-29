@@ -391,3 +391,12 @@
 [submodule "core/pkgs/command-log-mode"]
 	path = core/pkgs/command-log-mode
 	url = https://github.com/lewang/command-log-mode
+[submodule "cosmetics/themes/emacs-monokai-pro-theme"]
+	path = cosmetics/themes/emacs-monokai-pro-theme
+	url = https://github.com/belak/emacs-monokai-pro-theme
+[submodule "completion/pkgs/ivy-posframe"]
+	path = completion/pkgs/ivy-posframe
+	url = https://github.com/tumashu/ivy-posframe
+[submodule "org/pkgs/org-present"]
+	path = org/pkgs/org-present
+	url = https://github.com/rlister/org-present
