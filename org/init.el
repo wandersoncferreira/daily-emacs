@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 15:01:27 (wand)>
+;; Time-stamp: <2020-10-29 22:57:27 (wand)>
 
 ;;; Code:
 
@@ -367,6 +367,16 @@
 (when (bk/add-load-path "org" "org-alert")
   (bk-auto-loads "org-alert" #'org-alert-enable)
   (add-hook 'after-init-hook #'bk-setup-feature-org-alert))
+
+
+;; * org-bullets-mode
+;; - https://github.com/integral-dw/org-bullets
+;; - History
+;;   - 2020/10/29 Created
+(when (bk/add-load-path "org" "org-bullets")
+  (bk-auto-loads "org-bullets" #'org-bullets-mode)
+  (setq org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))
+  (with-eval-after-load 'org (org-bullets-mode +1)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

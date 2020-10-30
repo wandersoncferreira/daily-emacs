@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 06:39:52 (wand)>
+;; Time-stamp: <2020-10-29 23:13:25 (wand)>
 
 ;;; Code:
 
@@ -95,6 +95,7 @@ After any of the functions is called, the whole package is loaded in memory."
                   "langs/common-lisp"
 		  "modes/json"
 		  "modes/prog"
+                  "modes/pdf"
 		  "modes/markdown"))
   (let* ((module-name (concat module "/init.el"))
          (module-name (expand-file-name module-name user-emacs-directory)))

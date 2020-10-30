@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-27 22:29:41 (wand)>
+;; Time-stamp: <2020-10-29 22:50:44 (wand)>
 
 ;;; Code:
 
@@ -13,13 +13,19 @@
 ;; * clojure mode
 ;; - History
 ;;   -  2020-08-14 Created
+(defun bk-setup-feature-clojure ()
+  "Set up clojure-y things."
+  (eldoc-mode t)
+  (subword-mode 1))
+
 (when (bk/add-load-path "langs/clojure" "clojure-mode")
   (bk-auto-loads "clojure-mode"
                  '("\\.\\(clj\\|dtm\\|edn\\)\\'" . clojure-mode)
                  '("\\.cljc\\'" . clojurec-mode)
                  '("\\.cljx\\'" . clojurex-mode)
                  '("\\.cljs\\'" . clojurescript-mode)
-                 '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode)))
+                 '("\\(?:build\\|profile\\)\\.boot\\'" . clojure-mode))
+  (add-hook 'clojure-mode-hook #'bk-setup-feature-clojure))
 
 ;; * cider mode
 ;; - History

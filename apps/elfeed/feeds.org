@@ -8,10 +8,14 @@
 **** [[http://blog.cryptographyengineering.com/feeds/posts/default][cryptography]]                                              :cryptography:
 **** [[http://lambda-the-ultimate.org/rss.xml][lamdba the ultimate]]                             :functional:programming:
 **** [[https://byorgey.wordpress.com/feed/][brent->String]]
+**** [[https://staffeng.com/rss][StaffEng]]
 **** [[http://syndication.thedailywtf.com/TheDailyWtf][the daily wtf]]
 **** [[https://michaelfeathers.silvrback.com/feed][michael feathers]]
 **** [[https://verraes.net/feed.atom][mathias verraes]]
 **** [[https://martinfowler.com/feed.atom][martin fowler]]
+**** [[*** http://norvig.com/rss-feed.xml][norvig]]
+**** [[*** http://ithare.com/rssfeed/][ithare]] 
+**** [[*** https://lobste.rs/rss][lobste]]
 
 *** Emacs                                                    :emacs:mustread:
 **** [[https://nullprogram.com/feed/][Null Program]]
