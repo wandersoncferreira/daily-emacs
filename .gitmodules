@@ -424,3 +424,6 @@
 [submodule "modes/pdf/pkgs/pdf-tools"]
 	path = modes/pdf/pkgs/pdf-tools
 	url = https://github.com/politza/pdf-tools
+[submodule "editor/pkgs/change-inner.el"]
+	path = editor/pkgs/change-inner.el
+	url = https://github.com/magnars/change-inner.el
