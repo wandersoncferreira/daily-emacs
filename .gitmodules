@@ -25,9 +25,6 @@
 [submodule "external/spinner.el"]
 	path = dependencies/pkgs/spinner.el
 	url = http://github.com/Malabarba/spinner.el
-[submodule "external/change-inner.el"]
-	path = editor/pkgs/change-inner.el
-	url = https://github.com/magnars/change-inner.el
 [submodule "external/magit"]
 	path = version-control/pkgs/magit
 	url = https://github.com/magit/magit

@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-30 14:30:14 (wand)>
+;; Time-stamp: <2020-10-30 14:38:40 (wand)>
 
 ;;; Code:
 
@@ -194,9 +194,12 @@ accordingly."
 
 (defun bk/get-pkg-list (dir)
   "Get list of packages installed in a specific DIR (pkgs) subfolder."
-  (remove-if (lambda (d) (or (equal "." d)
-                        (equal ".." d)))
-             (directory-files dir)))
+  (remove-if (lambda (d)
+               (let* ((path-length (length d))
+                      (ending (substring d (- path-length 1))))
+                 (or (equal "." ending)
+                     (equal ".." ending))))
+             (directory-files dir t)))
 
 (defun bk/pkg-candidates (&rest _u)
   "Get list of candidates to ivy."
@@ -207,8 +210,8 @@ accordingly."
 
 (defun bk/pkg-execute-removal (pkg-path)
   "Execute the remove command from git-submodule for PKG-PATH."
-  (async-shell-command
-   (format "~/.emacs.d/bin/remove %s" pkg-path)))
+  (message (shell-command-to-string
+            (format "~/.emacs.d/bin/remove %s" pkg-path))))
 
 (defun bk/pkgs-invoke ()
   "Invoke the ivy completion function."
