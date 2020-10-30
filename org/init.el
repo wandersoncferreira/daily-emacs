@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 22:57:27 (wand)>
+;; Time-stamp: <2020-10-30 14:06:56 (wand)>
 
 ;;; Code:
 
@@ -351,24 +351,6 @@
                    (org-present-show-cursor)
                    (org-present-read-write))))))
 
-
-;; * org-alert
-;; - https://github.com/spegoraro/org-alert
-;; - History
-;;   - 2020/10/29 Created
-(defun bk-setup-feature-org-alert ()
-  "Customizations for org-alert."
-  (interactive)
-  (setq org-alert-interval 300
-        org-alert-notification-title "Org Alert Reminder!"
-        alert-default-style 'notifications)
-  (org-alert-enable))
-
-(when (bk/add-load-path "org" "org-alert")
-  (bk-auto-loads "org-alert" #'org-alert-enable)
-  (add-hook 'after-init-hook #'bk-setup-feature-org-alert))
-
-
 ;; * org-bullets-mode
 ;; - https://github.com/integral-dw/org-bullets
 ;; - History
@@ -376,7 +358,7 @@
 (when (bk/add-load-path "org" "org-bullets")
   (bk-auto-loads "org-bullets" #'org-bullets-mode)
   (setq org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))
-  (with-eval-after-load 'org (org-bullets-mode +1)))
+  (add-hook 'org-mode-hook #'org-bullets-mode))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

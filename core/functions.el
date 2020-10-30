@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 14:56:14 (wand)>
+;; Time-stamp: <2020-10-30 14:30:14 (wand)>
 
 ;;; Code:
 
@@ -104,10 +104,13 @@
 (defun bk/generate-password ()
   "Generate a 16-digit password."
   (interactive)
-  (kill-new
-   (string-trim (shell-command-to-string
-                 " openssl rand -base64 32 | tr -d /=+ | cut -c -16")))
-  (message "Password in kill ring!"))
+  (let* ((sym "!@#$%^&*()_+-=[]{}|")
+         (i (% (abs (random)) (length sym)))
+         (beg (substring sym i (1+ i))))
+    (kill-new
+     (format "%s%s" beg (string-trim (shell-command-to-string
+                                      " openssl rand -base64 32 | tr -d /=+ | cut -c -16"))))
+    (message "Password in kill ring!")))
 
 (defun bk/diff-last-two-kills (&optional ediff?)
   "Diff last things in the `kill-ring' with prefix EDIFF? open ediff."
@@ -183,6 +186,41 @@ accordingly."
     (message (format "%s days ago" (days-between
                                     (current-time-string)
                                     date-zoned)))))
+
+(defun bk/update-emacs ()
+  "Update this Emacs configuration using git."
+  (interactive)
+  (async-shell-command "~/.emacs.d/bin/update"))
+
+(defun bk/get-pkg-list (dir)
+  "Get list of packages installed in a specific DIR (pkgs) subfolder."
+  (remove-if (lambda (d) (or (equal "." d)
+                        (equal ".." d)))
+             (directory-files dir)))
+
+(defun bk/pkg-candidates (&rest _u)
+  "Get list of candidates to ivy."
+  (let* ((pkg-dirs (split-string
+                    (shell-command-to-string
+                     "find ~/.emacs.d/ -type d -iname pkgs") "\n" t)))
+    (-mapcat #'bk/get-pkg-list pkg-dirs)))
+
+(defun bk/pkg-execute-removal (pkg-path)
+  "Execute the remove command from git-submodule for PKG-PATH."
+  (async-shell-command
+   (format "~/.emacs.d/bin/remove %s" pkg-path)))
+
+(defun bk/pkgs-invoke ()
+  "Invoke the ivy completion function."
+  (ivy-read "Remove package: " #'bk/pkg-candidates
+            :action (lambda (entry)
+                      (bk/pkg-execute-removal entry))
+            :caller #'bk/remove-package))
+
+(defun bk/remove-package ()
+  "Remove a package installed in the current box."
+  (interactive)
+  (bk/pkgs-invoke))
 
 ;;; functions.el ends here
 ;; Local Variables:
