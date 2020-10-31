@@ -8,7 +8,7 @@
 
 (load-file "~/.emacs.d/langs/clojure/functions.el")
 
-;; * clojure mode
+;; * clojure-mode
 ;; - History
 ;;   -  2020-08-14 Created
 (defun bk-setup-feature-clojure ()

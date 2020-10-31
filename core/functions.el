@@ -224,8 +224,10 @@ accordingly."
   (bk/pkgs-invoke))
 
 (defvar bk--content-candidates-cache nil)
+(defvar bk--register-cache register-alist)
 
 (defun bk/get-content-candidates-dir (dir)
+  "Get content from a DIR."
   (let (yanked)
     (setq yanked (list))
     (with-current-buffer (find-file-noselect dir)
@@ -236,7 +238,8 @@ accordingly."
         (setq subject (string-trim (substring-no-properties (car kill-ring))))
         (setq yanked (cons subject yanked))
         (point-to-register (intern subject))
-        (save-buffer)))
+        (let ((inhibit-message t))
+          (save-buffer))))
     yanked))
 
 (defun bk/get-content-candidates (&rest _u)
@@ -260,12 +263,12 @@ accordingly."
 If U is provided, clear the caching."
   (interactive "p")
   (when (equal u 4)
-    (setq bk--content-candidates-cache nil))
-  (let ((reg-alist register-alist))
-    (ivy-read "Get content: " #'bk/get-content-candidates
-              :action (lambda (entry)
-                        (bk/goto-content entry)))
-    (setq register-alist reg-alist)))
+    (setq bk--content-candidates-cache nil)
+    (setq register-alist bk--content-candidates-cache))
+  
+  (ivy-read "Get content: " #'bk/get-content-candidates
+            :action (lambda (entry)
+                      (bk/goto-content entry))))
 
 ;;; functions.el ends here
 ;; Local Variables:
