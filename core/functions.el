@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-30 21:26:24 (wand)>
-
 ;;; Code:
 
 (defun bk/beginning-of-line ()
@@ -237,7 +235,8 @@ accordingly."
         (yank)
         (setq subject (string-trim (substring-no-properties (car kill-ring))))
         (setq yanked (cons subject yanked))
-        (point-to-register (intern subject))))
+        (point-to-register (intern subject))
+        (save-buffer)))
     yanked))
 
 (defun bk/get-content-candidates (&rest _u)
