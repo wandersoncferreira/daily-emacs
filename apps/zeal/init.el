@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-24 21:38:10 (wand)>
-
 ;;; Code:
 
 ;;; you need to install zeal

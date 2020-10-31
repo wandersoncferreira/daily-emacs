@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 00:48:00 (wand)>
-
 ;;; Code:
 
 ;;; open eshell more easily

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 23:15:50 (wand)>
-
 ;;; Code:
 
 (when (bk/add-load-path "modes/pdf" "pdf-tools/lisp")

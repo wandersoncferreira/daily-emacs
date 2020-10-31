@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 15:00:23 (wand)>
-
 ;;; Code:
 
 ;; * spinner.el (library)

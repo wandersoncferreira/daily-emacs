@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-28 08:26:00 (wand)>
-
 ;;; Code:
 (defun bk-setup-feature-eping ()
   "Customizations for eping."

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 00:06:04 (wand)>
-
 ;;; Code:
 
 ;; * json-mode

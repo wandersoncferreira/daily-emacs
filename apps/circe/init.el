@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 00:56:30 (wand)>
-
 ;;; Code:
 
 (load-file "~/.emacs.d/apps/circe/functions.el")

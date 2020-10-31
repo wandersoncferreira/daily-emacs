@@ -4,10 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 06:36:59 (wand)>
-
 ;;; Code:
-
 
 (when (bk/add-load-path "apps/profiler" "esup")
   (bk-auto-loads "esup" #'esup)

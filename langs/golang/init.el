@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 22:47:24 (wand)>
-
 ;;; Code:
 
 (defun bk-setup-feature-go-mode ()

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 11:13:36 (wand)>
-
 ;;; Code:
 
 ;; * projectile mode

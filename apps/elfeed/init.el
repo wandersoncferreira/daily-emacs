@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 22:06:07 (wand)>
-
 ;;; Code:
 
 (defvar bk-elfeed-path "~/.emacs.d/apps/elfeed")

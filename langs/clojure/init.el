@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 22:50:44 (wand)>
-
 ;;; Code:
 
 (load-file "~/.emacs.d/langs/clojure/functions.el")

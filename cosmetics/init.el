@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 07:51:32 (wand)>
-
 ;;; Code:
 
 (load-file "~/.emacs.d/cosmetics/functions.el")

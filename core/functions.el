@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-30 14:38:40 (wand)>
+;; Time-stamp: <2020-10-30 21:26:24 (wand)>
 
 ;;; Code:
 
@@ -194,12 +194,12 @@ accordingly."
 
 (defun bk/get-pkg-list (dir)
   "Get list of packages installed in a specific DIR (pkgs) subfolder."
-  (remove-if (lambda (d)
-               (let* ((path-length (length d))
-                      (ending (substring d (- path-length 1))))
-                 (or (equal "." ending)
-                     (equal ".." ending))))
-             (directory-files dir t)))
+  (cl-remove-if (lambda (d)
+                  (let* ((path-length (length d))
+                         (ending (substring d (- path-length 1))))
+                    (or (equal "." ending)
+                        (equal ".." ending))))
+                (directory-files dir t)))
 
 (defun bk/pkg-candidates (&rest _u)
   "Get list of candidates to ivy."
@@ -224,6 +224,49 @@ accordingly."
   "Remove a package installed in the current box."
   (interactive)
   (bk/pkgs-invoke))
+
+(defvar bk--content-candidates-cache nil)
+
+(defun bk/get-content-candidates-dir (dir)
+  (let (yanked)
+    (setq yanked (list))
+    (with-current-buffer (find-file-noselect dir)
+      (goto-char (point-min))
+      (while (search-forward ";; *" nil t)
+        (kill-line)
+        (yank)
+        (setq subject (string-trim (substring-no-properties (car kill-ring))))
+        (setq yanked (cons subject yanked))
+        (point-to-register (intern subject))))
+    yanked))
+
+(defun bk/get-content-candidates (&rest _u)
+  "Get content candidates."
+  (if bk--content-candidates-cache
+      bk--content-candidates-cache
+    (let* ((inits (split-string
+                   (shell-command-to-string
+                    "find ~/.emacs.d/ -type f -iname init.el") "\n" t))
+           (res (-mapcat #'bk/get-content-candidates-dir inits)))
+      (setq bk--content-candidates-cache res)
+      res)))
+
+(defun bk/goto-content (entry)
+  "Move to the content pointed by ENTRY."
+  (jump-to-register (intern entry)))
+
+(defun bk/get-content (u)
+  "Search for content and move to there.
+
+If U is provided, clear the caching."
+  (interactive "p")
+  (when (equal u 4)
+    (setq bk--content-candidates-cache nil))
+  (let ((reg-alist register-alist))
+    (ivy-read "Get content: " #'bk/get-content-candidates
+              :action (lambda (entry)
+                        (bk/goto-content entry)))
+    (setq register-alist reg-alist)))
 
 ;;; functions.el ends here
 ;; Local Variables:

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:17:37 (wand)>
-
 ;;; Code:
 
 (load-file "~/.emacs.d/apps/ledger/functions.el")

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-05 22:46:10 (wand)>
-
 ;;; Code:
 
 (defun bk-setup-feature-webpaste ()

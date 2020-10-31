@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-22 23:42:34 (wand)>
-
 ;;; Code:
 
 ;; * wgrep

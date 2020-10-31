@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-09-23 23:47:02 (wand)>
-
 ;;; Code:
 
 ;; * sql indent mode

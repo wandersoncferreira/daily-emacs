@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-14 23:37:59 (wand)>
-
 ;;; Code:
 
 ;; * pyvenv

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-22 22:09:07 (wand)>
-
 ;;; Code:
 
 (defvar prot/elfeed-bongo-playlist "*Bongo-Elfeed Queue*"

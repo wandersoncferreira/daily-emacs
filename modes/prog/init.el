@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-26 22:21:12 (wand)>
-
 ;;; Code:
 
 (load-file "~/.emacs.d/modes/prog/functions.el")
