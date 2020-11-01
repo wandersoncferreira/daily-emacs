@@ -183,6 +183,7 @@
 ;; - History
 ;;   -  2020-08-18 Created
 (bk/add-load-path "dependencies" "hydra")
+(bk-auto-loads "hydra" #'defhydra)
 
 ;; * rainbow-identifiers
 ;; - https://github.com/Fanael/rainbow-identifiers

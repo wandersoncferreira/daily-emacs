@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-01 00:57:46 (wand)>
+;; Time-stamp: <2020-11-01 11:40:19 (wand)>
 
 ;;; Code:
 
@@ -65,43 +65,22 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; - 2020-09-22 Added clojure pack
 (load-file (expand-file-name "dependencies/init.el" user-emacs-directory))
 
-(dolist (module '("completion"
-                  "editor"
-                  "projects"
-                  "search"
-                  "cosmetics"
-                  "window"
-                  "org"
-		  "core"
-                  "version-control"
-                  "shell"
-		  "apps/docker"
-                  "apps/bongo"
-                  "apps/elfeed"
-                  "apps/telega"
-                  "apps/profiler"
-		  "apps/ledger"
-                  "apps/circe"
-                  "apps/webpaste"
-                  "apps/eping"
-                  "apps/zeal"
-                  "apps/oblique-strategies"
-		  "langs/clojure"
-		  "langs/haskell"
-		  "langs/python"
-                  "langs/golang"
-		  "langs/scala"
-                  "langs/sql"
-                  "langs/common-lisp"
-		  "modes/json"
-		  "modes/prog"
-                  "modes/pdf"
-		  "modes/markdown"))
-  (let* ((module-name (concat module "/init.el"))
-         (module-name (expand-file-name module-name user-emacs-directory)))
-    (load module-name)))
+(require 'dash)
 
-;;; open this file easily
+(defun bk/all-modules-init ()
+  "Return a list of all init files from the Modules of this framework."
+  (let* ((pkg-dirs (split-string
+                    (shell-command-to-string
+                     "find ~/.emacs.d/ -type d -iname pkgs") "\n" t))
+         (pkg-dirs-filtered (-remove (lambda (v)
+				       (string-match ".git" v))
+                                     pkg-dirs)))
+    (-map (lambda (v)
+            (replace-regexp-in-string "pkgs" "init.el" v))
+          pkg-dirs-filtered)))
+
+(dolist (module (bk/all-modules-init)) (load module))
+
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 (set-register ?c '(file . "~/.emacs.d/core/etc/cheatsheet.org"))
 
