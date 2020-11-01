@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-01 11:46:27 (wand)>
+;; Time-stamp: <2020-11-01 11:54:44 (wand)>
 
 ;;; Code:
 
@@ -38,7 +38,6 @@
 ;; * lazy loading
 ;; - History
 ;; - 2020-09-13 Organized into outlines
-
 (defun bk/add-load-path (pkg subdir)
   "If PKG/SUBDIR exist add it to `load-path'.
 Return non-nil if successful."
@@ -65,6 +64,9 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; - 2020-09-22 Added clojure pack
 (load-file (expand-file-name "dependencies/init.el" user-emacs-directory))
 
+;; * loading all modules dynamically
+;; - History
+;;   - 2020/11/01 Created
 (defun bk/all-modules-init ()
   "Return a list of all init files from the Modules of this framework."
   (let* ((pkg-dirs (split-string
@@ -79,6 +81,7 @@ After any of the functions is called, the whole package is loaded in memory."
 
 (dolist (module (bk/all-modules-init)) (load module))
 
+;; * registers
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 (set-register ?c '(file . "~/.emacs.d/core/etc/cheatsheet.org"))
 
