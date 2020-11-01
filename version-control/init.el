@@ -7,6 +7,7 @@
 ;;; Code:
 
 (load-file "~/.emacs.d/version-control/functions.el")
+(load-file "~/.emacs.d/version-control/hooks.el")
 
 ;; * magit
 ;; - https://github.com/magit/magit
@@ -17,10 +18,11 @@
   (interactive)
   (setq magit-diff-refine-hunk t
         magit-revert-buffers 'silent
+        magit-completing-read-function 'ivy-completing-read
         magit-commit-arguments '("--verbose")
         magit-process-popup-time 10
         magit-refresh-status-buffer nil)
-  
+
   (set-default 'magit-revert-buffers 'silent)
   (set-default 'magit-no-confirm '(stage-all-changes
                                    unstage-all-changes)))
@@ -32,6 +34,9 @@
                  #'magit-get-remote
                  #'magit-get-current-branch)
   (global-set-key (kbd "C-c g s") #'magit-status)
+  (add-hook 'magit-status-mode-hook 'bk/magit-status-hook)
+  (add-hook 'magit-commit-mode-hook 'bk/magit-commit-hook)
+  (add-hook 'magit-log-mode-hook 'bk/magit-log-hook)
   (with-eval-after-load 'magit (bk-setup-feature-magit)))
 
 ;; * gist.el
