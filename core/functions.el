@@ -280,8 +280,8 @@ If U is provided, clear the caching."
                   (string-match "dependencies" v))
                 candidates))
          (total-deps (length deps)))
-    (message (format "Total: %s\nDependencies: %s/%s"
-                     total total-deps total))))
+    (message (format "Total: %s\nDependencies: %s/%s\nFeatures: %s"
+                     total total-deps total (- total total-deps)))))
 
 ;;; functions.el ends here
 ;; Local Variables:
