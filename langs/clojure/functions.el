@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-25 06:09:45 (wand)>
+;; Time-stamp: <2020-11-01 01:28:00 (wand)>
 
 ;;; Code:
 
@@ -34,6 +34,17 @@ Please run M-x cider or M-x cider-jack-in to connect"))
               (cider-nrepl-sync-request:eval "(require '[cheshire.core :as json])")
               (cider-nrepl-sync-request:eval "(require '[clojure.core.async :as a])")
               (cider-switch-to-repl-buffer))))
+
+(defun bk/cider-quit-all ()
+  "Interate over all CIDER connections and close them all."
+  (interactive)
+  (let ((repl-buffers (seq-filter (lambda (b)
+                                    (with-current-buffer b
+                                      (eq major-mode 'cider-repl-mode)))
+                                  (buffer-list))))
+    (dolist (buf repl-buffers)
+      (cider--close-connection buf))
+    (message "All CIDER connections closed")))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

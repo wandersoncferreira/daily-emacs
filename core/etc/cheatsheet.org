@@ -1,6 +1,5 @@
 #+title: Cheatsheet
 #+startup: showall
-#+Time-stamp: <2020-10-07 06:33:16 (wand)>
 
 * Neotree
   

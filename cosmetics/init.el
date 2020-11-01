@@ -87,9 +87,22 @@
 
 (add-hook 'after-init-hook #'bk-setup-feature-emojify)
 
+;; * highlight-numbers
+;; - History
+;;   - 2020/10/29 Created
 (when (bk/add-load-path "cosmetics" "highlight-numbers")
   (bk-auto-loads "highlight-numbers" #'highlight-numbers-mode)
   (add-hook 'prog-mode-hook #'highlight-numbers-mode))
+
+;; * volatile-highlights
+;; - https://github.com/k-talo/volatile-highlights.el
+;; - History
+;;   - 2020/11/01 Created
+(when (bk/add-load-path "cosmetics" "volatile-highlights.el")
+  (bk-auto-loads "volatile-highlights" #'volatile-highlights-mode)
+  (add-hook 'prog-mode-hook (lambda ()
+                              (volatile-highlights-mode +1)
+                              (diminish 'volatile-highlights-mode))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

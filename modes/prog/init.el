@@ -56,7 +56,13 @@
   (add-hook 'after-init-hook (lambda ()
                                (yas-global-mode +1)
                                (diminish 'yas-minor-mode)
-                               (define-key yas-minor-mode-map (kbd "C-c y") #'yas-expand))))
+                               (define-key yas-minor-mode-map [(tab)] nil)
+                               (define-key yas-minor-mode-map (kbd "TAB") nil)
+                               (define-key yas-minor-mode-map (kbd "C-c y") #'yas-expand)))
+  (setq yas-after-exit-snippet-hook '(lambda () (yas-global-mode -1))
+        yas-fallback-behavior 'return-nil
+        yas-triggers-in-field t
+        yas-verbosity 0))
 
 ;; * flycheck
 ;; - https://github.com/flycheck/flycheck
@@ -107,8 +113,26 @@
 (when (bk/add-load-path "modes/prog" "package-lint")
   (bk-auto-loads "package-lint" #'package-lint-current-buffer))
 
-;;; scheme
+;; * scheme
 (setq scheme-program-name "stklos")
+
+;; * fill-column-indicator
+;; - https://github.com/alpaker/fill-column-indicator
+;; - History
+;;   - 2020/11/01 Created
+(defun on-off-fci-before-company (command)
+  "Toggle FCI when using company COMMAND."
+  (when (string= "show" command)
+    (turn-off-fci-mode))
+  (when (string= "hide" command)
+    (turn-on-fci-mode)))
+
+(when (bk/add-load-path "modes/prog" "fill-column-indicator")
+  (bk-auto-loads "fill-column-indicator" #'turn-on-fci-mode #'turn-off-fci-mode)
+  (advice-add 'company-call-frontends :before #'on-off-fci-before-company)
+  (setq fci-rule-width 4
+        fci-rule-use-dashes t)
+  (add-hook 'prog-mode-hook #'turn-on-fci-mode))
 
 (provide 'init.el)
 ;;; init.el ends here

@@ -45,6 +45,9 @@
 ;;; change column automatic wrap
 (setq-local fill-column 70)
 
+;; give some context to your cursor
+(setq scroll-margin 3)
+
 ;;; improve scroll functions
 (global-set-key (kbd "C-v") #'bk/scroll-up)
 (global-set-key (kbd "M-v") #'bk/scroll-down)
@@ -278,6 +281,56 @@ This is the equivalent of maximising a window. Got from Protesilaos."
 ;; - https://github.com/lewang/command-log-mode
 (when (bk/add-load-path "core" "command-log-mode")
   (bk-auto-loads "command-log-mode" #'command-log-mode))
+
+;; * info
+;; - History
+;;   - 2020/11/01 Created
+(defun bk/open-info (topic bname)
+  "Open info on TOPIC in BNAME."
+  (if (get-buffer bname)
+      (progn
+        (switch-to-buffer bname)
+        (unless (string-match topic Info-current-file)
+          (Info-goto-node (format "(%s)" topic))))
+    (info topic bname)))
+
+(defhydra hydra-info-to (:hint nil :color teal)
+  "
+_o_rg e_l_isp _e_macs"
+  ("o" (bk/open-info "org" "*org info*"))
+  ("l" (bk/open-info "elisp" "*elisp info*"))
+  ("e" (bk/open-info "emacs" "*emacs info*")))
+
+(global-set-key (kbd "C-h h") 'hydra-info-to/body)
+
+;; * bookmarks
+;; - https://github.com/joodland/bm
+;; - History
+;;   - 2020/11/01 Created
+(defun bk-setup-feature-bm ()
+  "Customizations for visual bookmarks."
+  (interactive)
+  (setq bm-restore-repository-on-load t
+        bm-repository-file "~/.emacs.d/core/etc/bm-repository"
+        bm-buffer-persistence t)
+  (add-hook 'after-init-hook 'bm-repository-load)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'kill-emacs-hook #'(lambda nil
+                                 (bm-buffer-save-all)
+                                 (bm-repository-save))))
+
+(when (bk/add-load-path "core" "bm")
+  (bk-auto-loads "bm"
+                 #'bm-toggle
+                 #'bm-next
+                 #'bm-previous
+                 #'bm-repository-load
+                 #'bm-buffer-save)
+  
+  (global-set-key (kbd "<C-f2>") 'bm-toggle)
+  (global-set-key (kbd "<f2>") 'bm-next)
+  (global-set-key (kbd "<S-f2>") 'bm-previous)
+  (bk-setup-feature-bm))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

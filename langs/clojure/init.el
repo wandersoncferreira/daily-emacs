@@ -13,8 +13,10 @@
 ;;   -  2020-08-14 Created
 (defun bk-setup-feature-clojure ()
   "Set up clojure-y things."
-  (eldoc-mode t)
-  (subword-mode 1))
+  (subword-mode 1)
+  (setq company-backends
+        '(company-capf company-dabbrev-code company-keywords company-files))
+  (diminish 'subword-mode))
 
 (when (bk/add-load-path "langs/clojure" "clojure-mode")
   (bk-auto-loads "clojure-mode"
@@ -37,9 +39,14 @@
   (bk-auto-loads "cider-macroexpansion" #'cider-macroexpand-1)
   (bk-auto-loads "cider-find" #'cider-find-var)
   (bk-auto-loads "cider-scratch" #'cider-scratch)
+  
+  (add-hook 'cider-mode-hook 'eldoc-mode)
+  
   (with-eval-after-load 'clojure-mode
     (setq cider-save-file-on-load t
           cider-auto-select-error-buffer t
+          cider-mode-line-show-connection nil
+          cider-font-lock-dynamically nil
           cider-auto-select-test-report-buffer nil
           cider-repl-pop-to-buffer-on-connect nil)
     (defalias 'cquit 'cider-quit)
