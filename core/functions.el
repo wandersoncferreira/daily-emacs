@@ -270,6 +270,19 @@ If U is provided, clear the caching."
             :action (lambda (entry)
                       (bk/goto-content entry))))
 
+(defun bk/qtd-pkgs ()
+  "Return the amount of packages installed."
+  (interactive)
+  (let* ((candidates (bk/pkg-candidates))
+         (total (length candidates))
+         (deps (seq-filter
+                (lambda (v)
+                  (string-match "dependencies" v))
+                candidates))
+         (total-deps (length deps)))
+    (message (format "Total: %s\nDependencies: %s/%s"
+                     total total-deps total))))
+
 ;;; functions.el ends here
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
