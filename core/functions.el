@@ -203,8 +203,10 @@ accordingly."
   "Get list of candidates to ivy."
   (let* ((pkg-dirs (split-string
                     (shell-command-to-string
-                     "find ~/.emacs.d/ -type d -iname pkgs") "\n" t)))
-    (-mapcat #'bk/get-pkg-list pkg-dirs)))
+                     "find ~/.emacs.d/ -type d -iname pkgs") "\n" t))
+         (pkg-dirs-filtered (-remove (lambda (v) (string-match ".git" v))
+                                     pkg-dirs)))
+    (-mapcat #'bk/get-pkg-list pkg-dirs-filtered)))
 
 (defun bk/pkg-execute-removal (pkg-path)
   "Execute the remove command from git-submodule for PKG-PATH."
@@ -249,7 +251,10 @@ accordingly."
     (let* ((inits (split-string
                    (shell-command-to-string
                     "find ~/.emacs.d/ -type f -iname init.el") "\n" t))
-           (res (-mapcat #'bk/get-content-candidates-dir inits)))
+           (inits-filtered (-remove (lambda (v)
+				      (string-match ".git" v))
+                                    inits))
+           (res (-mapcat #'bk/get-content-candidates-dir inits-filtered)))
       (setq bk--content-candidates-cache res)
       res)))
 
