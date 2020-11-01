@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-01 11:42:52 (wand)>
+;; Time-stamp: <2020-11-01 11:46:27 (wand)>
 
 ;;; Code:
 
@@ -65,19 +65,17 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; - 2020-09-22 Added clojure pack
 (load-file (expand-file-name "dependencies/init.el" user-emacs-directory))
 
-(require 'dash)
-
 (defun bk/all-modules-init ()
   "Return a list of all init files from the Modules of this framework."
   (let* ((pkg-dirs (split-string
                     (shell-command-to-string
                      "find ~/.emacs.d/ -type d -iname pkgs") "\n" t))
-         (pkg-dirs-filtered (-remove (lambda (v)
-				       (string-match ".git" v))
-                                     pkg-dirs)))
-    (-map (lambda (v)
-            (replace-regexp-in-string "pkgs" "init.el" v))
-          pkg-dirs-filtered)))
+         (pkg-dirs-filtered (seq-filter (lambda (v)
+				          (not (string-match ".git" v)))
+                                        pkg-dirs)))
+    (mapcar (lambda (v)
+              (replace-regexp-in-string "pkgs" "init.el" v))
+            pkg-dirs-filtered)))
 
 (dolist (module (bk/all-modules-init)) (load module))
 
