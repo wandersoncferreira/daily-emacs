@@ -116,24 +116,6 @@
 ;; * scheme
 (setq scheme-program-name "stklos")
 
-;; * fill-column-indicator
-;; - https://github.com/alpaker/fill-column-indicator
-;; - History
-;;   - 2020/11/01 Created
-(defun on-off-fci-before-company (command)
-  "Toggle FCI when using company COMMAND."
-  (when (string= "show" command)
-    (turn-off-fci-mode))
-  (when (string= "hide" command)
-    (turn-on-fci-mode)))
-
-(when (bk/add-load-path "modes/prog" "fill-column-indicator")
-  (bk-auto-loads "fill-column-indicator" #'turn-on-fci-mode #'turn-off-fci-mode)
-  (advice-add 'company-call-frontends :before #'on-off-fci-before-company)
-  (setq fci-rule-width 4
-        fci-rule-use-dashes t)
-  (add-hook 'prog-mode-hook #'turn-on-fci-mode))
-
 (provide 'init.el)
 ;;; init.el ends here
 

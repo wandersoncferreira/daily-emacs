@@ -23,7 +23,7 @@
 
 (add-hook 'after-init-hook
           (lambda ()
-            (bk/monokai-theme)
+            (bk/light-theme)
             (bk/set-fira-font)))
 
 ;;; supress unecessary things

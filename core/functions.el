@@ -77,9 +77,11 @@
   (message "Point set"))
 
 (defun bk/insert-date-today ()
-  "Insert today date as YYYY/MM/DD."
+  "Insert today date as YYYY-MM-DD."
   (interactive)
-  (insert (format-time-string "%Y/%m/%d")))
+  (let ((today (format-time-string "%Y-%m-%d")))
+    (kill-new today)
+    (insert today)))
 
 (defvar url-http-end-of-headers)
 (defun bk/ip ()

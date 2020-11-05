@@ -427,12 +427,12 @@
 [submodule "editor/pkgs/change-inner.el"]
 	path = editor/pkgs/change-inner.el
 	url = https://github.com/magnars/change-inner.el
-[submodule "modes/prog/pkgs/fill-column-indicator"]
-	path = modes/prog/pkgs/fill-column-indicator
-	url = https://github.com/alpaker/fill-column-indicator
 [submodule "cosmetics/pkgs/volatile-highlights.el"]
 	path = cosmetics/pkgs/volatile-highlights.el
 	url = https://github.com/k-talo/volatile-highlights.el
 [submodule "core/pkgs/bm"]
 	path = core/pkgs/bm
 	url = https://github.com/joodland/bm
+[submodule "modes/lua/pkgs/lua-mode"]
+	path = modes/lua/pkgs/lua-mode
+	url = https://github.com/immerrr/lua-mode

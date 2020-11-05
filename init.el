@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-01 11:54:44 (wand)>
+;; Time-stamp: <2020-11-03 11:20:08 (wand)>
 
 ;;; Code:
 
@@ -90,16 +90,6 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; - 2020-09-13 Organized into outlines
 (setq custom-file "~/.emacs.d/core/etc/custom.el")
 (load custom-file)
-
-;; * server
-(defun bk-setup-feature-server-mode ()
-  "Customizations for server mode."
-  (interactive)
-  (require 'server)
-  (when (not (server-running-p))
-    (server-start)))
-
-(add-hook 'after-init-hook #'bk-setup-feature-server-mode)
 
 ;; End of file
 (f-msg "Loaded init.el!")

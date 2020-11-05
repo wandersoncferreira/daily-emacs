@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-29 07:57:17 (wand)>
+;; Time-stamp: <2020-11-01 18:04:45 (wand)>
 
 ;;; Code:
 
@@ -16,9 +16,7 @@
 (defun bk/set-fira-font ()
   "Define the Fira Code font."
   (when (member "Fira Code" (font-family-list))
-    (set-face-attribute 'default nil :font "Fira Code Retina" :height 130)
-    (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height 120)
-    (set-face-attribute 'variable-pitch nil :font "Cantarell" :height 135 :weight 'regular)))
+    (set-face-attribute 'default nil :font "Fira Code Retina" :height 130)))
 
 (defun bk/increase-font (size)
   "Increase the SIZE of the current font."
@@ -27,7 +25,6 @@
 (defun bk/light-theme ()
   "Define custom light theme."
   (interactive)
-  (bk/increase-font 120)
   (set-face-attribute 'lazy-highlight nil :background "light green")
   (set-face-attribute 'isearch nil :background "khaki1")
   (set-face-attribute 'region nil :background "khaki1"))
@@ -43,7 +40,6 @@
 (defun bk/monokai-theme ()
   "Customizations for Monokai."
   (interactive)
-  (setq monokai-use-variable-pitch t)
   (load-theme 'monokai t))
 
 ;;; functions.el ends here

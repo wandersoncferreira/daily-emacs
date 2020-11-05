@@ -27,3 +27,4 @@ var/
 savehist
 org-roam.db
 apps/circe/etc/password.el
+network-security.data

@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         cljr-slash
+        hydra-cljr-code-menu/cljr-introduce-let
         paredit-doublequote
         ))
 
