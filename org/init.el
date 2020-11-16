@@ -30,6 +30,7 @@
   (setq org-agenda-files '("/home/wand/all/agenda/todo.org"))
 
   (set-register ?t '(file . "~/all/agenda/todo.org"))
+  (set-register ?n '(file . "~/all/all.org"))
 
   ;; add closing time when changing to DONE
   (setq org-log-done 'time)
@@ -63,7 +64,21 @@
         '(("t" "Todo" entry
            (file+headline "/home/wand/all/agenda/todo.org" "Task")
            "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
-           :clock-in t :clock-resume t)))
+           :clock-in t :clock-resume t)
+          ("a" "App Sauce" entry
+           (file+headline "/home/wand/all/work-pj/app-sauce.org" "Tasks")
+           "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
+           :clock-in t :clock-resume t)
+          ("n" "Notes" entry
+           (file+headline "/home/wand/all/all.org" "Notes")
+           "* %?\n")
+          ("m" "Meeting" entry
+           (file+headline "/home/wand/all/all.org" "Meetings")
+           "* %?\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
+           :clock-in t :clock-resume t)
+          ("i" "Idea" entry
+           (file+headline "/home/wand/all/all.org" "Ideas")
+           "* %?")))
 
   (setq org-agenda-custom-commands
         '(("d" "Daily agenda and NEXTs!"
@@ -89,9 +104,9 @@
                   ((org-agenda-overriding-header "High priority tasks:")
                    (org-agenda-skip-function '(air-org-skip-subtree-if-habit))))
 
-            ;; work
-            (tags "+work+TODO=\"NEXT\"|+work+TODO=\"STARTED\"|+work+TODO=\"WAIT\""
-                  ((org-agenda-overriding-header "Next task in WORK:")
+            ;; next on company
+            (tags "+company+TODO=\"NEXT\"|+company+TODO=\"STARTED\"|+company+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Next task in COMPANY:")
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
 
             ;; next study
@@ -108,7 +123,6 @@
             (tags "+project+TODO=\"NEXT\"|+project+TODO=\"STARTED\"|+project+TODO=\"WAIT\""
                   ((org-agenda-overriding-header "Next task in PROJECTS:")
                    (org-agenda-prefix-format "%?-16 (scheduled-or-not (org-entry-get (point) \"SCHEDULED\")) ")))
-            
             ))))
 
   ;; compact only day view
@@ -321,7 +335,7 @@
   (add-hook 'org-export-before-processing-hook 'bk/org-export-preprocessor)
   (add-hook 'org-export-before-processing-hook 'bk/replace-file-handle))
 
-(eval-after-load 'org #'bk-setup-feature-org-braindump)
+;; (eval-after-load 'org #'bk-setup-feature-org-braindump)
 
 (when (bk/add-load-path "org" "org-download")
   (bk-auto-loads "org-download" #'org-download-clipboard))
