@@ -8,6 +8,11 @@
 
 (load-file "~/.emacs.d/editor/functions.el")
 
+;; * toggle map
+;; extracted from Malabarba's http://endlessparentheses.com/the-toggle-map-and-wizardry.html
+(define-prefix-command 'bk/toggle-map)
+(define-key ctl-x-map "t" 'bk/toggle-map)
+
 ;; * expand-region.el
 ;; - https://github.com/magnars/expand-region.el
 ;; - History
@@ -70,11 +75,26 @@
 ;; - https://github.com/emacs-evil/goto-chg
 ;; - History
 ;;   - 2020-10-12 Created
-
 (when (bk/add-load-path "editor" "goto-chg")
   (bk-auto-loads "goto-chg" #'goto-last-change #'goto-last-change-reverse)
   (global-set-key (kbd "C-c ,") 'goto-last-change)
   (global-set-key (kbd "C-c .") 'goto-last-change-reverse))
+
+;; * vimish-fold
+;; - https://github.com/matsievskiysv/vimish-fold
+;; - History
+;;   - 2020-11-16 Created
+(defun bk-setup-feature-fold ()
+  "Customizations for Vimish fold."
+  (interactive)
+  (vimish-fold-mode +1)
+  (bk/vimish-fold-all-defn))
+
+(when (bk/add-load-path "editor" "vimish-fold")
+  (bk-auto-loads "vimish-fold" #'vimish-fold-toggle #'vimish-fold-mode))
+
+(add-hook 'clojure-mode-hook #'bk-setup-feature-fold)
+(define-key bk/toggle-map "f" #'vimish-fold-toggle)
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

@@ -4,8 +4,6 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-10-12 21:25:27 (wand)>
-
 ;;; Code:
 
 (defun bk/kill-inner-word ()
@@ -71,6 +69,22 @@
   (untabify (point-min) (point-max)))
 
 (global-set-key (kbd "<f7>") 'iwb)
+
+(defun bk/vimish-fold-all-defn ()
+  "Open a clojure buffer with your functions folded."
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "(def.*" nil t)
+    (save-excursion
+      (beginning-of-defun)
+      (let ((beg (point-at-bol))
+            (end (progn
+                   (end-of-defun)
+                   (point-at-eol))))
+        (condition-case nil
+            (vimish-fold beg end)
+          (error
+           (vimish-fold-refold)))))))
 
 ;;; functions.el ends here
 ;; Local Variables:
