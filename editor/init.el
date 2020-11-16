@@ -91,7 +91,8 @@
   (bk/vimish-fold-all-defn))
 
 (when (bk/add-load-path "editor" "vimish-fold")
-  (bk-auto-loads "vimish-fold" #'vimish-fold-toggle #'vimish-fold-mode))
+  (bk-auto-loads "vimish-fold" #'vimish-fold-toggle #'vimish-fold-mode)
+  (setq vimish-fold-dir "~/.emacs.d/editor/etc/fold-marks"))
 
 (add-hook 'clojure-mode-hook #'bk-setup-feature-fold)
 (define-key bk/toggle-map "f" #'vimish-fold-toggle)
