@@ -439,3 +439,6 @@
 [submodule "shell/pkgs/emamux"]
 	path = shell/pkgs/emamux
 	url = https://github.com/emacsorphanage/emamux
+[submodule "editor/pkgs/vimish-fold"]
+	path = editor/pkgs/vimish-fold
+	url = https://github.com/matsievskiysv/vimish-fold

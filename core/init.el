@@ -139,7 +139,9 @@
   "Customizations for path variable."
   (interactive)
   (setq exec-path-from-shell-arguments nil)
-  (exec-path-from-shell-initialize))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "SSH_AGENT_PID")
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 (when (bk/add-load-path "core" "exec-path-from-shell")
   (bk-auto-loads "exec-path-from-shell" #'exec-path-from-shell-initialize)
@@ -331,6 +333,11 @@ _o_rg e_l_isp _e_macs"
   (global-set-key (kbd "<f2>") 'bm-next)
   (global-set-key (kbd "<S-f2>") 'bm-previous)
   (bk-setup-feature-bm))
+
+;;; tramp mode
+(setq explicit-shell-file-name "/bin/bash")
+(setq tramp-histfile-override "/dev/null")
+(setenv "PAGER" "cat")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
