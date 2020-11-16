@@ -75,6 +75,19 @@
   (bk-auto-loads "esh-autosuggest" #'esh-autosuggest-mode)
   (add-hook 'eshell-mode-hook #'bk-setup-feature-esh-autosuggest))
 
+;; * emamux
+;; - https://github.com/emacsorphanage/emamux
+;; - History
+;;   - 2020-11-15 Created
+(defun bk-setup-feature-tmux ()
+  "Customizations for emamux."
+  (interactive)
+  (require 'emamux)
+  (global-set-key (kbd "C-z") emamux:keymap))
+
+(when (bk/add-load-path "shell" "emamux")
+  (add-hook 'after-init-hook #'bk-setup-feature-tmux))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
