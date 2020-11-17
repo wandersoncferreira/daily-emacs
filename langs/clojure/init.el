@@ -36,6 +36,7 @@
                  #'cider-jack-in
                  #'cider-connect
                  #'cider-jack-in-clj&cljs)
+  (setq nrepl-use-ssh-fallback-for-remote-hosts t)
   (bk-auto-loads "cider-macroexpansion" #'cider-macroexpand-1)
   (bk-auto-loads "cider-find" #'cider-find-var)
   (bk-auto-loads "cider-scratch" #'cider-scratch)
@@ -110,12 +111,6 @@
   (bk-auto-loads "clj-decompiler" #'clj-decompiler-setup)
   (eval-after-load 'cider '(clj-decompiler-setup)))
 
-;; * elein
-;; - git@github.com:remvee/elein.git
-;; - history
-;;   - 2020-10-27 Created
-(when (bk/add-load-path "langs/clojure" "elein")
-  (bk-auto-loads "elein" #'elein-test #'elein-deps #'elein-clean))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

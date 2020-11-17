@@ -90,20 +90,6 @@
 
 (global-set-key (kbd "M-s o") 'bk/occur-dwim)
 
-;; * ivy-postframe
-;; - History
-;;   - 2020/10/28  Created
-(defun bk-setup-feature-ivy-posframe ()
-  "Customizations for ivy-postframe."
-  (interactive)
-  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-bottom-left)))
-  (ivy-posframe-mode 1)
-  (diminish 'ivy-posframe-mode))
-
-(when (bk/add-load-path "completion" "ivy-posframe")
-  (bk-auto-loads "ivy-posframe" #'ivy-posframe-mode)
-  (add-hook 'after-init-hook #'bk-setup-feature-ivy-posframe))
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

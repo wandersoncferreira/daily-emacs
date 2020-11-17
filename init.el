@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-03 11:20:08 (wand)>
+;; Time-stamp: <2020-11-17 09:59:12 (wand)>
 
 ;;; Code:
 
@@ -73,7 +73,7 @@ After any of the functions is called, the whole package is loaded in memory."
                     (shell-command-to-string
                      "find ~/.emacs.d/ -type d -iname pkgs") "\n" t))
          (pkg-dirs-filtered (seq-filter (lambda (v)
-				          (not (string-match ".git" v)))
+					  (not (string-match ".git" v)))
                                         pkg-dirs)))
     (mapcar (lambda (v)
               (replace-regexp-in-string "pkgs" "init.el" v))
@@ -84,6 +84,7 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; * registers
 (set-register ?e '(file . "~/.emacs.d/init.el"))
 (set-register ?c '(file . "~/.emacs.d/core/etc/cheatsheet.org"))
+(set-register ?a '(file . "~/all/work-pj/app-sauce.org"))
 
 ;; * custom
 ;; - History

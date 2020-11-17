@@ -27,10 +27,10 @@
 
 (defun bk-setup-feature-org-agenda ()
   "Customizations for `org-agenda'."
-  (setq org-agenda-files '("/home/wand/all/agenda/todo.org"))
+  (setq org-agenda-files '("/home/wand/all/agenda/todo.org" "/home/wand/all/work-pj/app-sauce.org"))
 
   (set-register ?t '(file . "~/all/agenda/todo.org"))
-  (set-register ?n '(file . "~/all/all.org"))
+  (set-register ?n '(file . "~/all/agenda/all.org"))
 
   ;; add closing time when changing to DONE
   (setq org-log-done 'time)

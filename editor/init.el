@@ -94,9 +94,6 @@
   (bk-auto-loads "vimish-fold" #'vimish-fold-toggle #'vimish-fold-mode)
   (setq vimish-fold-dir "~/.emacs.d/editor/etc/fold-marks"))
 
-(add-hook 'clojure-mode-hook #'bk-setup-feature-fold)
-(define-key bk/toggle-map "f" #'vimish-fold-toggle)
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

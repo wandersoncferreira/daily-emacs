@@ -379,9 +379,6 @@
 [submodule "apps/zeal/pkgs/zeal-at-point"]
 	path = apps/zeal/pkgs/zeal-at-point
 	url = https://github.com/jinzhu/zeal-at-point
-[submodule "langs/clojure/pkgs/elein"]
-	path = langs/clojure/pkgs/elein
-	url = git@github.com:remvee/elein.git
 [submodule "apps/eping/pkgs/eping"]
 	path = apps/eping/pkgs/eping
 	url = https://github.com/sean-hut/eping
@@ -391,9 +388,6 @@
 [submodule "cosmetics/themes/emacs-monokai-pro-theme"]
 	path = cosmetics/themes/emacs-monokai-pro-theme
 	url = https://github.com/belak/emacs-monokai-pro-theme
-[submodule "completion/pkgs/ivy-posframe"]
-	path = completion/pkgs/ivy-posframe
-	url = https://github.com/tumashu/ivy-posframe
 [submodule "org/pkgs/org-present"]
 	path = org/pkgs/org-present
 	url = https://github.com/rlister/org-present

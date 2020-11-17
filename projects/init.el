@@ -28,7 +28,9 @@
           projectile-indexing-method 'hybrid
           projectile-kill-buffers-filter 'kill-only-files
           projectile-ignored-projects '("~/" "/tmp")
+          projectile-dynamic-mode-line nil
           projectile-mode-line-prefix " Prj")
+    (setq projectile-mode-line-function '(lambda () " Pj"))
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 ;; Local Variables:
