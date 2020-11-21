@@ -21,11 +21,6 @@
   (when (file-directory-p path)
     (add-to-list 'custom-theme-load-path path)))
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (bk/light-theme)
-            (bk/set-fira-font)))
-
 ;;; supress unecessary things
 ;; (put 'inhibit-startup-echo-area-message 'saved-value t)
 (setq inhibit-startup-message t
@@ -37,7 +32,6 @@
  (lambda ()
    (menu-bar-mode -1)
    (tool-bar-mode -1)
-   (scroll-bar-mode -1)
    (column-number-mode)
    (size-indication-mode)
    (global-prettify-symbols-mode +1)))
