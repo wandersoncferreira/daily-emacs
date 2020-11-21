@@ -342,6 +342,8 @@
 
 (add-hook 'org-mode-hook (lambda () (display-line-numbers-mode 0)))
 
+(setq org-duration-format (quote h:mm))
+
 ;; * org-present
 ;; - https://github.com/rlister/org-present
 ;; - History
