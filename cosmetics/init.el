@@ -75,9 +75,10 @@
 (defun bk-setup-feature-emojify ()
   "Customizations for emojify-mode."
   (interactive)
-  (setq emojify-display-style 'image
-        emojify-emoji-set "emojione-v2.2.6")
-  (global-emojify-mode 1))
+  (when (display-graphic-p)
+    (setq emojify-display-style 'image
+          emojify-emoji-set "emojione-v2.2.6")
+    (global-emojify-mode 1)))
 
 (add-hook 'after-init-hook #'bk-setup-feature-emojify)
 

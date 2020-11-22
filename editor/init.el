@@ -8,11 +8,6 @@
 
 (load-file "~/.emacs.d/editor/functions.el")
 
-;; * toggle map
-;; extracted from Malabarba's http://endlessparentheses.com/the-toggle-map-and-wizardry.html
-(define-prefix-command 'bk/toggle-map)
-(define-key ctl-x-map "t" 'bk/toggle-map)
-
 ;; * expand-region.el
 ;; - https://github.com/magnars/expand-region.el
 ;; - History
@@ -37,8 +32,8 @@
 (when (bk/add-load-path "editor" "multiple-cursors.el")
   (bk-auto-loads "multiple-cursors" #'mc/mark-next-like-this #'mc/mark-previous-like-this)
   (setq mc/list-file "~/.emacs.d/editor/etc/.mc-lists.el")
-  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this))
+  (global-set-key (kbd "C-c >") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-c <") 'mc/mark-previous-like-this))
 
 ;; * fix-word
 ;; - https://github.com/mrkkrp/fix-word
@@ -79,20 +74,6 @@
   (bk-auto-loads "goto-chg" #'goto-last-change #'goto-last-change-reverse)
   (global-set-key (kbd "C-c ,") 'goto-last-change)
   (global-set-key (kbd "C-c .") 'goto-last-change-reverse))
-
-;; * vimish-fold
-;; - https://github.com/matsievskiysv/vimish-fold
-;; - History
-;;   - 2020-11-16 Created
-(defun bk-setup-feature-fold ()
-  "Customizations for Vimish fold."
-  (interactive)
-  (vimish-fold-mode +1)
-  (bk/vimish-fold-all-defn))
-
-(when (bk/add-load-path "editor" "vimish-fold")
-  (bk-auto-loads "vimish-fold" #'vimish-fold-toggle #'vimish-fold-mode)
-  (setq vimish-fold-dir "~/.emacs.d/editor/etc/fold-marks"))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

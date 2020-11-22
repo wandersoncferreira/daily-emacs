@@ -392,13 +392,13 @@
 	path = org/pkgs/org-present
 	url = https://github.com/rlister/org-present
 [submodule "shell/pkgs/eshell-z"]
-	path = shell/pkgs/eshell-z
+	path = terminal-emulators/pkgs/eshell-z
 	url = https://github.com/xuchunyang/eshell-z
 [submodule "shell/pkgs/eshell-syntax-highlighting"]
-	path = shell/pkgs/eshell-syntax-highlighting
+	path = terminal-emulators/pkgs/eshell-syntax-highlighting
 	url = https://github.com/akreisher/eshell-syntax-highlighting
 [submodule "shell/pkgs/esh-autosuggest"]
-	path = shell/pkgs/esh-autosuggest
+	path = terminal-emulators/pkgs/esh-autosuggest
 	url = https://github.com/dieggsy/esh-autosuggest
 [submodule "apps/profiler/pkgs/esup"]
 	path = apps/profiler/pkgs/esup
@@ -428,8 +428,11 @@
 	path = modes/lua/pkgs/lua-mode
 	url = https://github.com/immerrr/lua-mode
 [submodule "shell/pkgs/emamux"]
-	path = shell/pkgs/emamux
+	path = terminal-emulators/pkgs/emamux
 	url = https://github.com/emacsorphanage/emamux
-[submodule "editor/pkgs/vimish-fold"]
-	path = editor/pkgs/vimish-fold
-	url = https://github.com/matsievskiysv/vimish-fold
+[submodule "core/pkgs/xclip"]
+	path = terminal-emulators/pkgs/xclip
+	url = https://github.com/emacsmirror/xclip
+[submodule "core/pkgs/term-keys"]
+	path = terminal-emulators/pkgs/term-keys
+	url = https://github.com/CyberShadow/term-keys

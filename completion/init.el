@@ -30,7 +30,6 @@
           company-tooltip-align-annotations t
           company-require-match 'never
           company-global-modes '(not org-mode))
-
     (define-key company-active-map [(control) (meta) ?s] 'company-search-candidates)
     (define-key company-active-map "\C-s" 'company-filter-candidates)
     (define-key company-active-map (kbd "C-/") 'counsel-company)
@@ -59,7 +58,6 @@
     (global-set-key (kbd "C-r") #'swiper)
     (global-set-key (kbd "C-x C-f") #'counsel-find-file)
     (global-set-key (kbd "C-x B") #'ivy-switch-buffer-other-window)
-
     (diminish 'ivy-mode)))
 
 ;; * counsel
@@ -67,7 +65,7 @@
 ;; - History
 ;;   -  2020-08-28 Created
 (when (bk/add-load-path "completion" "swiper")
-  (bk-auto-loads "counsel" #'counsel-M-x)
+  (bk-auto-loads "counsel" #'counsel-M-x #'counsel-git-grep)
   (global-set-key (kbd "M-x") #'counsel-M-x)
   (global-set-key (kbd "C-x C-m") 'counsel-M-x)
   (global-set-key (kbd "C-c g p") 'counsel-git-grep))

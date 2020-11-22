@@ -34,7 +34,7 @@
 ;;  - 2020/08/27 Created
 (when (bk/add-load-path "search" "avy")
   (bk-auto-loads "avy" #'avy-goto-char)
-  (global-set-key (kbd "C-;") #'avy-goto-char))
+  (global-set-key (kbd "M-m") #'avy-goto-char))
 
 ;; * jump-char
 ;; - https://github.com/lewang/jump-char

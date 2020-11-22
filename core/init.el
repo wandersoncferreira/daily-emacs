@@ -331,42 +331,6 @@ _o_rg e_l_isp _e_macs"
   (global-set-key (kbd "<S-f2>") 'bm-previous)
   (bk-setup-feature-bm))
 
-;;; tramp mode
-(require 'tramp)
-(setq explicit-shell-file-name "/bin/bash")
-(setq tramp-histfile-override "/dev/null")
-
-(setq remote-file-name-inhibit-cache nil)
-(setq vc-ignore-dir-regexp
-      (format "%s\\|%s"
-                    vc-ignore-dir-regexp
-                    tramp-file-name-regexp))
-(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-(setq tramp-default-method "ssh")
-(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
-(setq tramp-auto-save-directory temporary-file-directory)
-(setq tramp-verbose 10)
-(setq tramp-ssh-controlmaster-options nil)
-(setq disable-tramp-backups nil)
-
-(add-hook 'minibuffer-inactive-mode-hook (lambda () (auto-revert-mode -1)))
-
-(setq auto-revert-remote-files nil)
-(setenv "PAGER" "cat")
-
-(defadvice projectile-project-root (around ignore-remote first activate)
-  (unless (file-remote-p default-directory) ad-do-it))
-
-;;; don't generate backups for remote files opened as root (security hazard)
-(setq backup-enable-predicate
-      (lambda (name)
-        (and (normal-backup-enable-predicate name)
-             (not (let ((method (file-remote-p name 'method)))
-                    (when (stringp method)
-                      (member method '("su" "sudo"))))))))
-
-(setq projectile-mode-line "Projectile")
-
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

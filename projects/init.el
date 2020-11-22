@@ -12,7 +12,9 @@
 ;;   -  2020-08-28 Changing completion system to `ivy'
 (when (bk/add-load-path "projects" "projectile")
   (bk-auto-loads "projectile" #'projectile-mode)
-  (add-hook 'after-init-hook #'projectile-mode)
+  (add-hook 'after-init-hook (lambda ()
+                               (projectile-mode t)
+                               (diminish 'projectile-mode)))
   (with-eval-after-load 'projectile
     (setq projectile-completion-system 'ivy
           projectile-cache-file "~/.emacs.d/projects/etc/projectile.cache"

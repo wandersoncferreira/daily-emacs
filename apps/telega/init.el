@@ -15,7 +15,7 @@
     '(progn
        (setq telega-user-use-avatars nil
              telega-use-tracking-for '(any pin unread)
-             telega-emoji-use-images t
+             telega-emoji-use-images nil
              telega-completing-read-function #'ivy-completing-read
              telega-msg-rainbow-title nil
              telega-chat-fill-column 75)
@@ -25,7 +25,8 @@
               (company-mode -1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
-              (emojify-mode-line-mode +1))))
+              (when (display-graphic-p)
+                (emojify-mode-line-mode +1)))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
