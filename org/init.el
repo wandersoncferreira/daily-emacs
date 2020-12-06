@@ -25,12 +25,12 @@
 ;; - 2020-09-15 Created
 (require 'org-agenda)
 
+
 (defun bk-setup-feature-org-agenda ()
   "Customizations for `org-agenda'."
-  (setq org-agenda-files '("/home/wand/all/agenda/todo.org" "/home/wand/all/work-pj/app-sauce.org"))
+  (setq org-agenda-files '("/home/wanderson/documents/agenda"))
 
-  (set-register ?t '(file . "~/all/agenda/todo.org"))
-  (set-register ?n '(file . "~/all/agenda/all.org"))
+  (set-register ?t '(file . "/home/wanderson/documents/agenda/todo.org"))
 
   ;; add closing time when changing to DONE
   (setq org-log-done 'time)
@@ -62,23 +62,13 @@
   
   (setq org-capture-templates
         '(("t" "Todo" entry
-           (file+headline "/home/wand/all/agenda/todo.org" "Task")
-           "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
+           (file+headline "/home/wanderson/documents/agenda/todo.org" "Task")
+           "* TODO [#D] %^{Title}\n %i %l"
            :clock-in t :clock-resume t)
           ("a" "App Sauce" entry
-           (file+headline "/home/wand/all/work-pj/app-sauce.org" "Tasks")
-           "* TODO [#D] %^{Title}\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
-           :clock-in t :clock-resume t)
-          ("n" "Notes" entry
-           (file+headline "/home/wand/all/all.org" "Notes")
-           "* %?\n")
-          ("m" "Meeting" entry
-           (file+headline "/home/wand/all/all.org" "Meetings")
-           "* %?\n :PROPERTIES:\n :CAPTURED: %U\n :END:\n\n %i %l"
-           :clock-in t :clock-resume t)
-          ("i" "Idea" entry
-           (file+headline "/home/wand/all/all.org" "Ideas")
-           "* %?")))
+           (file+headline "/home/wanderson/documents/work-pj/app-sauce.org" "Tasks")
+           "* TODO [#D] %^{Title}\n %i %l"
+           :clock-in t :clock-resume t)))
 
   (setq org-agenda-custom-commands
         '(("d" "Daily agenda and NEXTs!"
@@ -158,7 +148,7 @@
 ;; - History
 ;;   -  2020-08-16 Created
 ;;   -  2020-09-12 Improve find notes by adding a prefix `f` in the Org roam chords
-(setq bk-org-roam-directory "~/all/zettelkasten")
+(setq bk-org-roam-directory "/home/wanderson/documents/zettelkasten")
 (when (bk/add-load-path "org" "org-roam")
   (bk-auto-loads "org-roam"
                  #'org-roam-capture
@@ -184,18 +174,17 @@
   
   (with-eval-after-load 'org-roam
     (setq org-roam-directory bk-org-roam-directory)
-    (setq org-roam-db-location "/home/wand/all/zettelkasten/org-roam.db")
     (setq org-roam-completion-system 'ivy)
     (setq org-roam-dailies-capture-templates
           '(("d" "daily" plain (function org-roam-capture--get-point) ""
              :file-name "daily/%<%Y-%m-%d>"
              :unnarrowed t
-             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+HUGO_BASE_DIR: ~/open-source/braindump\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
+             :head "#+TITLE: %<%Y-%m-%d>\n#+STARTUP: showall\n#+roam_tags: fleeting\n#+Time-stamp: <>")))
 
     (setq org-roam-capture-templates
           '(("p" "permanent" plain #'org-roam-capture--get-point "%?"
              :file-name "%<%Y%m%d%H%M%S>-${slug}"
-             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+HUGO_BASE_DIR: ~/open-source/braindump\n#+Time-stamp: <>"
+             :head "#+title: ${title}\n#+created_at: %U\n#+STARTUP: showall\n#+Time-stamp: <>"
              :unnarrowed t)))
 
     (add-hook 'org-roam-mode-hook 'toggle-truncate-lines)
@@ -253,7 +242,7 @@
 ;; - History
 ;;   -  2020-08-16 Created
 ;;   -  2020-08-17 Change after-load to enable usage in org-mode
-(defvar bk-plantuml-path "~/plantuml.jar")
+(defvar bk-plantuml-path "/home/wanderson/documents/dotfiles/plantuml.jar")
 (when (bk/add-load-path "org" "plantuml-mode")
   (bk-auto-loads "plantuml-mode" '("\\.plantuml$" . plantuml-mode))
   (with-eval-after-load 'org
