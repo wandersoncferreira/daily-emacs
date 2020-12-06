@@ -32,7 +32,7 @@
  (lambda ()
    (menu-bar-mode -1)
    (tool-bar-mode -1)
-   (scroll-bar-mode -1)
+   (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
    (column-number-mode)
    (size-indication-mode)
    (global-prettify-symbols-mode +1)))
