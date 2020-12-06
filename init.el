@@ -67,6 +67,7 @@ After any of the functions is called, the whole package is loaded in memory."
 ;; * loading all modules dynamically
 ;; - History
 ;;   - 2020/11/01 Created
+(require 'seq)
 (defun bk/all-modules-init ()
   "Return a list of all init files from the Modules of this framework."
   (let* ((pkg-dirs (split-string

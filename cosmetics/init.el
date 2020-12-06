@@ -32,9 +32,14 @@
  (lambda ()
    (menu-bar-mode -1)
    (tool-bar-mode -1)
+   (scroll-bar-mode -1)
    (column-number-mode)
    (size-indication-mode)
    (global-prettify-symbols-mode +1)))
+
+;;; my WSL2 installation on Windows
+(when (string-equal (system-name) "DESKTOP-77T99NU")
+  (bk/set-consolas-font))
 
 ;; text mode
 (add-hook 'text-mode-hook #'auto-fill-mode)
@@ -77,10 +82,7 @@
   (interactive)
   (when (display-graphic-p)
     (setq emojify-display-style 'image
-          emojify-emoji-set "emojione-v2.2.6")
-    (global-emojify-mode 1)))
-
-(add-hook 'after-init-hook #'bk-setup-feature-emojify)
+          emojify-emoji-set "emojione-v2.2.6")))
 
 ;; * highlight-numbers
 ;; - History

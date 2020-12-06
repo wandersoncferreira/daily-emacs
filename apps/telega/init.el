@@ -22,7 +22,8 @@
        (telega-notifications-mode +1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
-              (company-mode -1)))
+              (company-mode -1)
+              (emojify-mode +1)))
   (add-hook 'telega-chat-mode-hook
             (lambda ()
               (when (display-graphic-p)

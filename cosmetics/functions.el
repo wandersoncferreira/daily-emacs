@@ -4,7 +4,7 @@
 
 ;; Here be dragons
 
-;; Time-stamp: <2020-11-01 18:04:45 (wand)>
+;; Time-stamp: <2020-12-06 10:46:16 (wanderson)>
 
 ;;; Code:
 
@@ -12,6 +12,11 @@
   "Define the Monaco font."
   (when (member "Monaco" (font-family-list))
     (set-face-attribute 'default nil :font "Monaco" :height 100)))
+
+(defun bk/set-consolas-font ()
+  "Define the Consolas font."
+  (when (member "Consolas" (font-family-list))
+    (set-face-attribute 'default nil :font "Consolas" :height 140)))
 
 (defun bk/set-fira-font ()
   "Define the Fira Code font."
